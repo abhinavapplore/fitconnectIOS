@@ -1,0 +1,270 @@
+.header-fixed-top {
+  text-align: center;
+  --box-shadow: none !important;
+  .top-global-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+    --box-shadow: none !important;
+  }
+}
+
+.overall-content {
+  .top-black-block {
+    height: 60px;
+    background: #414141;
+    position: relative;
+  }
+  .top-header-content {
+    position: relative;
+    margin-top: -50px;
+  }
+  .social-counterbox {
+    text-align: center;
+    font-size: 12px;
+    color: #dddddd;
+  }
+  .soc-count {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .profile-center {
+    width: 110px;
+    position: relative;
+    border: solid 5px #ffffff;
+    border-radius: 50%;
+    .edit-pencilicon {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      padding: 5px;
+      text-align: center;
+      background: #ffffff;
+      right: -5px;
+      top: 2px;
+      z-index: 10;
+      border-radius: 50%;
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    }
+    .edit-pencilicon img {
+      width: 100%;
+
+    }
+  }
+  .top-profile-center {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+  }
+  .top-profile-center small {
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+.top-tabs {
+  display: inline-block;
+  width: 100%;
+  background: #ffffff;
+  --background: #ffffff;
+  --ion-color-base: #ffffff !important;
+  color: #cccccc;
+  position: relative;
+  padding: 10px 0px;
+  margin-top: 15px;
+  text-align: center;
+  .tabs-block {
+    position: relative;
+    text-transform: capitalize;
+  }
+  .tabs-block:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    top: -13px;
+    left: 0px;
+    background: #cccccc;
+  }
+  .selected-tabs {
+    color: #D3C117;
+    font-family: "montserrat-medium";
+  }
+  .selected-tabs:before {
+    background: #D3C117;
+  }
+}
+
+.profile-inner-block {
+  padding: 10px 15px 0px 15px;
+  .togle-btn-countrow {
+    width: 100%;
+    position: relative;
+    padding: 0px 50px 10px 30px;
+    .toggle-icon {
+      position: absolute;
+      left: 0px;
+      font-size: 20px;
+      color: #666666;
+    }
+    .toggle-title {
+      margin: 0px;
+      color: #666666;
+      font-size: 16px;
+    }
+    .toggle-count {
+      position: absolute;
+      right: 0px;
+      top: -4px;
+      font-size: 24px;
+      color: #666666;
+    }
+  }
+  .gray-box{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+    background: #F8F8F8;
+    padding: 15px 15px 30px 15px;
+    overflow: initial;
+    .title-with-date {
+      margin-bottom: 10px;
+      position: relative;
+      font-size: 16px;
+      display: inline-block;
+      width: 100%;
+      text-align: left;
+      color: #666666;
+      .date-txt {
+        float: right;
+        font-size: 12px;
+      }
+    }
+    .buttonbox-cardouter {
+      position: absolute;
+      z-index: 10;
+      left: calc(50% - 85px);
+      bottom: -20px;
+    }
+    .iconswith-row {
+      position: relative;
+      padding-left: 20px;
+      text-align: left;
+      width: 100%;
+      font-size: 14px;
+      color: #666666;
+      img {
+        position: absolute;
+        left: 0px;
+      }
+      .location-img {
+        width: 12px !important;
+      }
+    }
+  }
+  .border-row {
+    width: 100%;
+    padding: 8px 0px;
+    border-bottom: solid thin #cccccc;
+    display: inline-block;
+    .left-bold-head {
+      font-weight: bold;
+      display: inline-block;
+    }
+    .right-txt {
+      text-align: right;
+      display: inline-block;
+      float: right;
+    }
+  }
+  .slide-toggle-row
+  {
+    margin-bottom: 20px;
+  }
+}
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  margin-left: 33%;
+  border-bottom: 20px solid #D3C117;
+}
+
+.footer-fixed-tab {
+  background: #414141;
+  width: 100%;
+  padding: 0px 5%;
+  ion-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+    .footer-btn-tabs {
+      width: 25%;
+    float: left;
+    text-align: center;
+    padding: 15px;
+    --background: transparent;
+    position: relative;
+      img {
+        width: 50%;
+      }
+      .round{
+        height: 15px;
+        width: 15px;
+        background-color: #D3C117;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        left: 50px;
+        top: 15px;
+        font-size: 12px;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+      }
+    }
+  }
+}
+
+.footer-fixed-tab {
+  background: #414141;
+  width: 100%;
+  padding: 0px 5%;
+  ion-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+    .footer-btn-tabs {
+      width: 25%;
+    float: left;
+    text-align: center;
+    padding: 15px;
+    --background: transparent;
+    position: relative;
+      img {
+        width: 50%;
+      }
+      .round{
+        height: 15px;
+        width: 15px;
+        background-color: #D3C117;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        left: 50px;
+        top: 15px;
+        font-size: 12px;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+      }
+    }
+  }
+
+  
+}

@@ -1,0 +1,88 @@
+<ion-content>
+  <ion-row
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: baseline;
+      margin-top: 5%;
+    "
+  >
+    <ion-col>
+      <ion-text
+        [translate]="'SEARCHFILTER.Text1'"
+        style="
+          color: #d3c117;
+          font-size: 18px;
+          font-weight: bold;
+          margin-left: 5%;
+        "
+      ></ion-text>
+    </ion-col>
+    <ion-col
+      style="display: flex; flex-direction: row-reverse; margin-right: 5%"
+    >
+      <img src="assets/cross.svg" (click)="dismiss('noresult')" />
+    </ion-col>
+  </ion-row>
+  <!-- <ion-item style="margin-top: 10%;">
+    <img src="assets/man-user.svg">
+    <ion-input [(ngModel)]="searchNameTerm" (ionInput)="searchNameFunc($event)" placeholder="{{namePlaceholder}}" type="text"></ion-input>
+  </ion-item>
+  <div *ngIf="showNameList">
+    <ion-list>
+      <ion-item *ngFor="let item of searchName" (click)="selectNameItem(item)">
+        <ion-text>{{item.user_f_name}}</ion-text>
+        
+      </ion-item>
+    </ion-list>
+  </div> -->
+
+  <ion-item style="margin-top: 5%">
+    <img src="assets/running.svg" />
+    <ion-input
+      [(ngModel)]="searchSportsTerm"
+      (ionInput)="searchSportsFunc($event)"
+      style="margin-left: 4% !important"
+      placeholder="{{sportsActivityPlaceHolder}}"
+      type="text"
+    ></ion-input>
+  </ion-item>
+  <div *ngIf="showSportsList">
+    <ion-list>
+      <ion-item
+        *ngFor="let item of searchSports"
+        (click)="selectSportsItem(item)"
+      >
+        <ion-text>{{item.spcat_name}}</ion-text>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-item style="margin-top: 5%">
+    <img src="assets/icone-location-gris.svg" />
+    <ion-input
+      [(ngModel)]="searchAreaTerm"
+      (ionInput)="searchAreaFunc($event)"
+      placeholder="{{areaPlaceHolder}}"
+      type="text"
+    ></ion-input>
+  </ion-item>
+  <div *ngIf="showAreaList">
+    <ion-list>
+      <ion-item *ngFor="let item of searchArea" (click)="selectAreaItem(item)">
+        <ion-text>{{item.user_city}}, {{item.user_country}}</ion-text>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-row style="margin-top: 10%; justify-content: center">
+    <ion-button
+      shape="round"
+      [translate]="'SEARCHFILTER.Text1'"
+      color="primary"
+      style="color: white; font-weight: bold; font-size: 18px"
+      (click)="dismiss('check')"
+    ></ion-button>
+  </ion-row>
+</ion-content>

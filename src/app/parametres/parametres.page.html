@@ -1,0 +1,160 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading uppercaes"
+      [translate]="'PARAMETRES.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <section class="setting-content">
+    <ion-row class="setting-row">
+      <div class="setting-text" [translate]="'PARAMETRES.Text2'"></div>
+      <div class="radio-sliderbox">
+        <ion-toggle
+          (ionChange)="allNotification($event)"
+          slot="start"
+          name="notification"
+          color="success"
+          [(ngModel)]="allNoti"
+        ></ion-toggle>
+      </div>
+    </ion-row>
+    <h4 class="small-title" [translate]="'PARAMETRES.Text3'"></h4>
+    <ion-row class="setting-row">
+      <div class="setting-text" [translate]="'PARAMETRES.Text4'"></div>
+      <div class="radio-sliderbox">
+        <ion-toggle
+          (ionChange)="eventCreateNotification($event)"
+          slot="start"
+          name="kiwi"
+          color="success"
+          [(ngModel)]="eventCreateNoti"
+        ></ion-toggle>
+      </div>
+    </ion-row>
+    <!-- <ion-row class="setting-row">
+            <div class="setting-text">Alerte pour les nouveaux messages</div>
+            <div class="radio-sliderbox">
+                <ion-toggle slot="start" name="kiwi" color="success" checked></ion-toggle>
+            </div>
+        </ion-row> -->
+    <ion-row class="setting-row">
+      <div class="setting-text" [translate]="'PARAMETRES.Text5'"></div>
+      <div class="radio-sliderbox">
+        <ion-toggle
+          (ionChange)="followNotification($event)"
+          slot="start"
+          name="kiwi"
+          color="success"
+          [(ngModel)]="followNoti"
+        ></ion-toggle>
+      </div>
+    </ion-row>
+  </section>
+
+  <ion-item style="margin-top: 5%">
+    <ion-grid>
+      <ion-row>
+        <h3
+          style="
+            font-size: 14px;
+            color: #666666;
+            width: 100%;
+            font-weight: bold;
+          "
+          [translate]="'PARAMETRES.Text6'"
+        ></h3>
+      </ion-row>
+      <ion-row (click)="openOption()" *ngIf="!Selected">
+        <ion-col [size]="10">
+          <ion-text style="color: #666666; font-size: 14px" text-wrap
+            >{{lang}}</ion-text
+          >
+        </ion-col>
+        <ion-col [size]="2">
+          <ion-icon
+            name="chevron-down-outline"
+            color="success"
+            size="large"
+            *ngIf="Selected"
+            (click)="openOption()"
+            style="width: 40%"
+          ></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row (click)="unOption()" *ngIf="Selected">
+        <ion-col [size]="10">
+          <ion-text style="color: #666666; font-size: 14px" text-wrap
+            >{{lang}}</ion-text
+          >
+        </ion-col>
+        <ion-col [size]="2">
+          <ion-icon
+            name="chevron-up-outline"
+            color="success"
+            size="large"
+            *ngIf="!Selected"
+            (click)="unOption()"
+          ></ion-icon>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="Selected">
+        <ion-row *ngIf="English" style="padding-left: 2%">
+          <ion-text
+            (click)="select('en')"
+            style="color: #666666; font-size: 14px"
+            [translate]="'PARAMETRES.Text7'"
+          ></ion-text>
+        </ion-row>
+        <ion-row *ngIf="!English" style="padding-left: 2%">
+          <ion-text
+            (click)="select('fr')"
+            style="color: #666666; font-size: 14px"
+            [translate]="'PARAMETRES.Text8'"
+          ></ion-text>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </ion-item>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,61 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <div class="header">
+      <ion-title *ngIf="followerList" style="font-size: 16px;font-family: montserrat-medium;">{{followers}} <span [translate]="'FOLLOWLIST.Text1'"></span></ion-title>
+    <ion-title *ngIf= "followingList" style="font-size: 16px;font-family: montserrat-medium;"> <span [translate]="'FOLLOWLIST.Text2'"></span> {{following}} <span [translate]="'FOLLOWLIST.Text3'"></span></ion-title>
+    <ion-icon name="close" size="large" (click)="dismiss()"></ion-icon>
+    </div>
+ 
+    
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+
+  <!-- follower list -->
+  <div *ngIf="followerList">
+    <ion-row style="margin-top: 2%;" *ngFor="let follow of followersArray">
+      <ion-col [size]="2" (click)="dismiss(follow)">
+        <ion-avatar style="display: flex;
+        align-items: center;">
+            <ion-img style="width: 50px;
+            height: 50px;" [src]="follow.user_img"></ion-img>
+        </ion-avatar>
+      </ion-col>
+      <ion-col [size]="5" (click)="dismiss(follow)">
+          {{follow.nameFormatted}}
+      </ion-col>
+      <ion-col [size]="5" *ngIf="follow.user_follow==='0' && userId=='1'">
+          <ion-button style="--border-radius: 52px;--background:#D3C117;" (click)="startFollow(follow)" [translate]="'FOLLOWLIST.Text4'"></ion-button>
+      </ion-col>
+  </ion-row>
+
+  </div>
+        
+            
+       
+
+        <!-- following list -->
+        <div *ngIf="followingList">
+                 
+                  <ion-row style="margin-top: 2%;" *ngFor="let follow of followingArray">
+                      <ion-col [size]="2" (click)="dismiss(follow)">
+                          <ion-avatar style="display: flex;
+                          align-items: center;">
+                              <ion-img style="width: 50px;
+                              height: 50px;" [src]="follow.user_img"></ion-img>
+                          </ion-avatar>
+                      </ion-col>
+                      <ion-col [size]="5" (click)="dismiss(follow)" style="font-weight: bolder;color: #929292; font-family: 'montserrat-medium';margin-left: 10px;">
+                          {{follow.nameFormatted}}
+                      </ion-col>
+                      <ion-col >
+                          <ion-button style="--border-radius: 52px;--background:#D3C117;font-size: 10px; font-weight: bold;" (click)="startUnfollow(follow)" [translate]="'FOLLOWLIST.Text5'"></ion-button>
+                      </ion-col>
+                  </ion-row>
+                
+           
+           </div>
+
+</ion-content>

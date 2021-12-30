@@ -1,0 +1,68 @@
+<ion-header no-border>
+    <ion-toolbar class="terms-headersection">
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="question2"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen >
+    <section >
+   
+        <div class="center-content">
+            <ion-row>
+                <ion-col style="font-family: montserrat-medium; font-weight: bold; color: #D3C117; " class="question-count" >QUESTION 3/3</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12 class="question-box-main" style="font-weight: bold; ">Quand aimes-tu faire du sport ?</ion-col>
+            </ion-row>
+            <!-- <ion-row class="options-box">
+               <div *ngFor="let get of day;let x = index;" style="width: 100%;">
+                <h3 [ngClass]="{selectedans: get.select == true}" (click)="selected(x)" >{{get.name}}</h3>
+                <h3 *ngIf="get.select == true" class="top">
+                    <ion-radio-group class="ans-radiobox" [(ngModel)]="get.timeAdd"></ion-radio-group>
+                        <ion-col>
+                            <ion-radio value="Matin" (ionSelect)="radioSelect($event)"></ion-radio>
+                            <ion-label>Matin</ion-label>
+                        </ion-col>
+                        <ion-col>
+                            <ion-radio value="midi" (ionSelect)="radioSelect($event)"></ion-radio>
+                            <ion-label>Midi</ion-label>
+                        </ion-col>
+                        <ion-col>
+                            <ion-radio value="Soir" (ionSelect)="radioSelect($event)"></ion-radio>
+                            <ion-label>Soir</ion-label>
+                        </ion-col>
+                    </ion-radio-group>
+                </h3>
+               </div>
+            
+            </ion-row> -->
+            <div *ngFor="let d of day">
+
+            <ion-row style="margin-top: 2%;">
+<ion-text style="color: white;font-weight: bold;font-family: montserrat-medium;">{{d.name}}</ion-text>
+            </ion-row>
+            <ion-row class="inside" style="margin-top: 2%;">
+                <ion-checkbox [(ngModel)]="d.Matin" value="Matin" (ionChange)="checkSelect($event,d)" color="primary"></ion-checkbox>
+                <ion-label style="color: white;">Matin</ion-label>
+                
+<ion-checkbox [(ngModel)]="d.Midi" value="Midi" (ionChange)="checkSelect($event,d)" color="primary">MIDI</ion-checkbox>
+<ion-label style="color: white;">Midi</ion-label>
+
+<ion-checkbox [(ngModel)]="d.Soir" value="Soir" (ionChange)="checkSelect($event,d)" color="primary">SOIR</ion-checkbox>
+<ion-label style="color: white;">Soir</ion-label>
+            </ion-row>
+        </div>
+
+            <ion-row>
+                <!-- [routerLink]="['/acceuilcoach']" -->
+               
+                <button ion-button class="global-submit-button global-btn" style="background-color:#D3C117; color: white;" (click)="submit()">SUIVANT
+                </button>
+            </ion-row>
+            
+        
+        </div>
+    </section>
+</ion-content>

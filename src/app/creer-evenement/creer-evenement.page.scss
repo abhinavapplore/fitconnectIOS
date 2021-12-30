@@ -1,0 +1,404 @@
+.map-content
+{
+  .map-block
+  {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .google-map
+  {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .customMarker {
+      position:absolute;
+      cursor:pointer;
+      background:#424242;
+      width:100px;
+      height:100px;
+      /* -width/2 */
+      margin-left:-50px;
+      /* -height + arrow */
+      margin-top:-110px;
+      border-radius:10px;
+      padding:0px;
+  }
+
+  .pastEventButton {
+   
+  color: #000000 !important;
+  --border-radius: 52px !important;
+  --background: lightgray !important;
+  width: 90% !important;
+}
+
+
+
+.presentEvent{
+  --border-radius: 52px;
+  --background: #D3C117;
+  width: 90%;
+}
+
+
+  .customMarker:after {
+      content:"";
+      position: absolute;
+      bottom: -10px;
+      left: 40px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #424242 transparent;
+      display: block;
+      width: 0;
+  }
+  .customMarker img {
+      width:90px;
+      height:90px;
+      margin:5px;
+      border-radius:10px;
+  }
+  }
+
+
+  .plus-icon-box{
+    position: absolute;
+    z-index: 100000;
+    width: 50px;
+    height: 50px;
+    bottom: 60px;
+    right: 10px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 50px;
+    border-radius: 50%;
+    background-color: #708AAA;
+  }
+  .map-search-box {
+    position: absolute;
+    z-index: 100000;
+    width: 96%;
+    top: 30px;
+    left: 2%;
+    .map-search-withrow
+    {
+      position: relative;
+      width: 100%;
+      .search-box
+      {
+        width: calc(100%);
+        display: inline-block;
+        .searchbar-input-container{
+          input{
+            border-radius: 30px !important;
+          }
+        }
+        .searchbar-input
+        {
+          border-radius: 30px !important;
+        }
+
+      }
+      .search-profile-box {
+        width: 50px;
+        display: inline-block;
+        float: right;
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        border-radius: 50%;
+        border: solid 3px #ffffff;
+        background: #f5f5f5;
+        overflow: hidden;
+        img {
+          width: 100%;
+        }
+      }
+      .popup-profile {
+        position: absolute;
+        background: #ffffff;
+        right: 0px;
+        top: 50px;
+        transition: .5s all;
+        border-radius: 0px 0px 10px 10px;
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        .profile-option-ul {
+          list-style: none;
+          margin: 0px;
+          font-size: 14px;
+          padding: 5px 15px 0px 15px;
+          color: #666666;
+          li {
+            width: 100%;
+            padding: 8px 0px;
+            border-bottom: solid thin #e1e1e1;
+          }
+        }
+      }
+    }
+
+  }
+  .map-det-popup {
+    position: absolute;
+    z-index: 1000000;
+    width: 96%;
+    top: 90px;
+    left: 2%;
+    ion-card {
+      background: #ffffff;
+      overflow: initial;
+    }
+    .det-head-withimg {
+      position: relative;
+      padding: 0px 20px 5px 10px;
+      border-bottom: solid thin #e1e1e1;
+      .det-head-txt {
+        display: inline-block;
+        width: 100%;
+        b {
+          display: inline-block;
+          width: 100%;
+          font-size: 18px;
+        }
+      }
+      .det-close {
+        position: absolute;
+        right: 0px;
+        font-size: 24px;
+        top: 0px;
+        line-height: 20px;
+      }
+    }
+    ion-list {
+      padding: 10px;
+      color:#666666;
+      .create-input-row {
+        position: relative;
+        width: 100%;
+        padding-left: 35px;
+        ion-input{
+          margin-bottom: 15px;
+          border-bottom: 1px solid #ccccccb5;
+        }
+      }
+      .left-createicon {
+        // height: 25px;
+        width: 22px;
+        margin-right: 20px;
+        position: absolute;
+        left: 0px;
+      }
+      .coach-radiobox
+      {
+        .engage-euro
+        {
+          font-size: 18px;
+          margin-right: 3px;
+        }
+        ion-radio
+        {
+          margin-right: 15px;
+        }
+      }
+    }
+    .det-card-content
+    {
+      overflow: initial;
+      padding-bottom: 20px;
+    }
+    .buttonbox-cardouter {
+      position: absolute;
+      z-index: 99;
+      left: calc(50% - 85px);
+      bottom: -20px;
+    }
+  }
+  .bottom-tab{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    .two-tabs{
+      display: inline-block;
+      width: 100%;
+      background: #6B6B6B;
+      --background: #6B6B6B;
+      --ion-color-base: #6B6B6B!important;
+      color: #cccccc;
+      position: relative;
+      padding: 10px 10%;
+      text-align: center;
+      line-height: 30px;
+      .tabs-block {
+        position: relative;
+        text-transform: capitalize;
+      }
+      .tabs-block:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        top: -13px;
+        left: 0px;
+        background: #cccccc;
+      }
+      .selected-tabs {
+        color: #D3C117;
+      }
+      .selected-tabs:before {
+        background: #D3C117;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.invalid-feedback{
+  text-align: center !important;
+  color: red !important;
+}
+.footer-fixed-tab {
+  background: #414141;
+  width: 100%;
+  padding: 0px 5%;
+  ion-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+    .footer-btn-tabs {
+      width: 25%;
+    float: left;
+    text-align: center;
+    padding: 15px;
+    --background: transparent;
+    position: relative;
+      img {
+        width: 50%;
+      }
+      .round{
+        height: 15px;
+        width: 15px;
+        background-color: #D3C117;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        left: 50px;
+        top: 15px;
+        font-size: 12px;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+      }
+    }
+  }
+
+  
+}
+
+
+#addressfield
+
+{
+  .ng-valid{
+    font-weight: bold;
+    
+    opacity: 1;
+  }
+  
+}
+#addressfield
+
+{
+  .ng-invalid{
+    font-weight: bold;
+    color: #B8B8B8;
+    opacity: 0.6;
+  }
+}
+
+// .addressInput:-ms-input-placeholder {
+  
+//   font-weight: bold;
+//   color: #B8B8B8;
+//   opacity: 0.9;
+  
+// }
+
+// .AddressInput:-ms-input-placeholder {
+  
+//   font-weight: bold;
+//   color: #B8B8B8;
+//   opacity: 1;
+  
+// }
+
+
+
+.evenement-card-content
+  {
+    border-radius: 10px;
+    padding-bottom: 0px;
+    .iconswith-row
+    {
+      position: relative;
+      padding-left: 10px;
+      text-align: left;
+      width: 100%;
+      min-height: 30px;
+      margin-bottom: 5px;
+      display: flex;
+    }
+    .iconswith-row img{
+      position: absolute;
+      width: 20px;
+      left: 0px;
+    }
+    .details-box{
+      padding-left: 5%;
+    display: flex;
+    width: 100%;
+    }
+    .time-img
+    {
+      width: 18px !important;
+    }
+    .location-img
+    {
+      width: 16px !important;
+    }
+  }
+
+  ion-backdrop{
+    --backdrop-opacity:0.1 !important;
+  }
+
+  ion-input{
+    font-weight: bold !important;
+    color: #B8B8B8 !important;
+    --placeholder-font-weight: bold !important;
+    --placeholder-color: #B8B8B8 !important;
+    --placeholder-font-family: "montserrat-medium" !important;
+    --placeholder-opacity:1 !important;
+  }
+
+  ion-textarea{
+    font-weight: bold !important;
+    color: #B8B8B8 !important;
+    --placeholder-font-weight: bold !important;
+    --placeholder-color: #B8B8B8 !important;
+    --placeholder-font-family: "montserrat-medium" !important;
+    --placeholder-opacity:1 !important;
+  }
+
+
+  ion-datetime{
+    .datetime-text{
+      font-weight: bold !important;
+    color: #B8B8B8 !important;
+    font-family: "montserrat-medium" !important;
+    --placeholder-opacity:1 !important;
+    }
+  }

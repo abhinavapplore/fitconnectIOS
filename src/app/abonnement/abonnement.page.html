@@ -1,0 +1,361 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading"
+      [translate]="'ABONNEMENT.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="!cardInput">
+    <ion-radio-group value="none">
+      <div *ngFor="let item of subscriptionPlanArray;let i = index">
+        <!-- <div *ngIf="item.user_plan_expire!=''"> -->
+        <div *ngIf="subscribed==true && item.active">
+          <ion-title
+            class="abountment-title"
+            [translate]="'ABONNEMENT.Text2'"
+          ></ion-title>
+          <ion-card class="gray-card">
+            <ion-card-title
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+              "
+              class="engagement-title"
+            >
+              <div class="amount-engagement">{{item.sub_plan_price}}</div>
+              <ion-icon name="logo-euro" class="engage-euro"></ion-icon>
+              <div class="amount-engagement">TTC</div>
+            </ion-card-title>
+            <div class="peramt-box" [translate]="'ABONNEMENT.Text6'"></div>
+            <ion-card-content class="pt-0">
+              <ion-card-subtitle class="engagement-subtitle"
+                ><b [translate]="'ABONNEMENT.Text22'"></b
+                ><span style="font-weight: bold">
+                  {{item.user_plan_expire}}</span
+                ></ion-card-subtitle
+              >
+            </ion-card-content>
+            <div class="buttonbox-cardouter">
+              <button
+                ion-button
+                class="unsubscribeBTN global-btn"
+                [class.newSubmit]="!item.active"
+                (click)="cancelSubscription()"
+                [disabled]="!item.active"
+                [translate]="'ABONNEMENT.Text4'"
+              ></button>
+            </div>
+          </ion-card>
+        </div>
+
+        <!-- <div *ngIf="item.user_plan_expire==''"> -->
+
+        <!-- SHOW THIS WHEN NO PLAN IS SELECTED -->
+        <div *ngIf="subscribed==false">
+          <ion-title
+            class="abountment-title"
+            [translate]="'ABONNEMENT.Text5'"
+          ></ion-title>
+          <ion-card class="gray-card">
+            <ion-card-title
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+              "
+              class="engagement-title themetxtcolor"
+            >
+              <div class="amount-engagement">{{item.sub_plan_price}}</div>
+              <ion-icon name="logo-euro" class="engage-euro"></ion-icon>
+              <div class="amount-engagement">TTC</div>
+            </ion-card-title>
+            <div class="peramt-box" [translate]="'ABONNEMENT.Text6'"></div>
+            <ion-card-content class="pt-0">
+              <ion-card-subtitle
+                class="engagement-subtitle"
+                [translate]="'ABONNEMENT.Text7'"
+              >
+                <b>({{item.sub_plan_type}})</b></ion-card-subtitle
+              >
+            </ion-card-content>
+            <ion-row
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 15px;
+              "
+            >
+              <ion-radio
+                (click)="radioSelect(item,i)"
+                mode="md"
+                value="{{item.sub_plan_type}}"
+              ></ion-radio>
+              <ion-label
+                style="padding-left: 10px"
+                [translate]="'ABONNEMENT.Text8'"
+                ><a (click)="conditionsPage()">
+                  <ion-text [translate]="'ABONNEMENT.Text20'"></ion-text> </a
+              ></ion-label>
+              <p
+                *ngIf="termsReadText"
+                style="color: red"
+                [translate]="'ABONNEMENT.Text9'"
+              ></p>
+            </ion-row>
+
+            <div class="buttonbox-cardouter">
+              <button
+                ion-button
+                class="newSubmit"
+                [disabled]="!item.selected && newSelection!=i"
+                [class.newSelect]="i==newSelection"
+                (click)="choosePlan(item,i)"
+                [translate]="'ABONNEMENT.Text10'"
+              ></button>
+            </div>
+          </ion-card>
+        </div>
+      </div>
+    </ion-radio-group>
+  </ion-list>
+
+  <div
+    *ngIf="cardInput"
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5%;
+    "
+  >
+    <ion-text
+      class=""
+      style="
+        font-family: montserrat-medium;
+        font-weight: bold;
+        text-align: center;
+      "
+      [translate]="'ABONNEMENT.Text11'"
+    >
+      <b style="color: #ffaa00">{{totalAmt | currency:'EUR'}} </b>/
+      {{engaging}}<br />
+      <p [translate]="'ABONNEMENT.Text12'"></p
+    ></ion-text>
+    <ion-text
+      class=""
+      style="font-family: montserrat-medium"
+      [translate]="'ABONNEMENT.Text18'"
+    ></ion-text>
+
+    <ion-item
+      lines="none"
+      style="
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        margin-top: 5%;
+        width: 80%;
+      "
+    >
+      <ion-input
+        (click)="searchFocus()"
+        (ionChange)="cardNumberInput()"
+        style=""
+        required
+        type="number"
+        oninput="handleFirstNameValue(event)"
+        placeholder="{{langpCardPlaceHolder}}"
+        [(ngModel)]="cardNumber"
+      ></ion-input>
+    </ion-item>
+    <p
+      *ngIf="cardNumberText"
+      style="color: red"
+      [translate]="'ABONNEMENT.Text13'"
+    ></p>
+    <ion-item
+      lines="none"
+      style="
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        margin-top: 5%;
+        text-align: center;
+        width: 80%;
+      "
+    >
+      <ion-datetime
+        *ngIf="English"
+        (ionChange)="dateInput()"
+        displayFormat="MM/YYYY"
+        pickerFormat="MM YYYY"
+        placeholder="{{langpDatePlaceHolder}}"
+        cancelText="Cancel"
+        doneText="Done"
+        min="2020"
+        max="2050"
+        (ionChange)="dateSelected()"
+        oninput="handleLastNameValue(event)"
+        [(ngModel)]="expDate"
+        style="--padding-start: 5px"
+      ></ion-datetime>
+
+      <ion-datetime
+        *ngIf="!English"
+        (ionChange)="dateInput()"
+        displayFormat="MM/YYYY"
+        pickerFormat="MM YYYY"
+        placeholder="{{langpDatePlaceHolder}}"
+        cancelText="annuler"
+        doneText="Valider"
+        min="2020"
+        max="2050"
+        (ionChange)="dateSelected()"
+        oninput="handleLastNameValue(event)"
+        [(ngModel)]="expDate"
+        style="--padding-start: 5px"
+      ></ion-datetime>
+    </ion-item>
+    <p *ngIf="expText" style="color: red" [translate]="'ABONNEMENT.Text14'"></p>
+    <ion-item
+      lines="none"
+      style="
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        margin-top: 5%;
+        width: 80%;
+      "
+    >
+      <ion-input
+        (click)="searchFocus()"
+        (ionChange)="cvvInput()"
+        style=""
+        required
+        type="number"
+        ng-pattern="/^([0-9]{4})?$/"
+        oninput="handleLastNameValue(event)"
+        placeholder="{{langCvvPlaceHolder}}"
+        [(ngModel)]="cvv"
+      ></ion-input>
+    </ion-item>
+    <p *ngIf="cvvText" style="color: red" [translate]="'ABONNEMENT.Text15'"></p>
+
+    <ion-row
+      style="font-family: montserrat-medium; text-align: center; margin-top: 5%"
+    >
+      <ion-text [translate]="'ABONNEMENT.Text16'"></ion-text>
+    </ion-row>
+
+    <ion-row
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 5%;
+      "
+    >
+      <ion-col size="8">
+        <ion-input
+          (click)="searchFocus()"
+          style="border: 2px solid lightgray; border-radius: 10px"
+          type="text"
+          oninput="handleLastNameValue(event)"
+          placeholder="{{langpromoPlaceHolder}}"
+          [(ngModel)]="code"
+        ></ion-input>
+      </ion-col>
+      <ion-col
+        size="4"
+        style="display: flex; flex-direction: row-reverse; align-items: center"
+        (click)="checkCouponCode()"
+        *ngIf="!couponApplied"
+      >
+        <ion-text
+          style="
+            font-family: montserrat-medium;
+            font-size: 14px;
+            color: #ffaa00 !important;
+          "
+          [translate]="'ABONNEMENT.Text21'"
+        ></ion-text>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row style="margin-top: 5%;">
+          <ion-col size="2" style="display: flex;
+          justify-content: flex-end;">
+            
+              <ion-checkbox mode="ios" (ionChange)="setconditions($event)"></ion-checkbox>
+            
+            
+          </ion-col>
+          
+          <ion-col size="10">
+            
+              <ion-label style="font-size: 14px;margin-top: 19px;">J’accepte les
+                <b (click)="conditionsPage()" class="ion-no-padding"
+                  style="text-decoration: underline;font-family: montserrat-medium;font-weight: bold;">
+                  CONDITIONS GENERALES D’UTILISATION
+                </b>
+              </ion-label>
+            
+          </ion-col>
+          <div *ngIf="submitted && f.conditions.errors" class="invalid-feedback left" style="width: 100%;text-align: center;">
+            <div *ngIf="conditions">Veuillez accepter les termes et conditions</div>
+        </div>
+        </ion-row> -->
+    <div class="buttonbox-cardouter">
+      <button
+        ion-button
+        class="global-submit-button global-btn themecolor"
+        (click)="payWithStripe()"
+        [translate]="'ABONNEMENT.Text17'"
+      ></button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="footer-fixed-tab" *ngIf="footerAction">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

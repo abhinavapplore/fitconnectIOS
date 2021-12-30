@@ -1,0 +1,163 @@
+.header-fixed-top {
+  text-align: center;
+  ion-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+  }
+  .top-tabs
+  {
+    --background: #ffffff;
+    --ion-color-base: #ffffff !important;
+    color: #cccccc;
+    position: relative;
+    font-weight: bold;
+    .tabs-block
+    {
+      position:relative;
+    }
+    .tabs-block:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      top: -19px;
+      left: 0px;
+    }
+    .selected-tabs
+    {
+      color:#D3C117;
+      font-weight: bold;
+      font-family: "montserrat-medium;";
+    }
+    .selected-tabs:before {
+      background: #D3C117;
+    }
+  }
+}
+.evenement-title
+{
+  font-size: 14px;
+  text-align: center;
+  color: #666666;
+  margin: 10px 0px 15px 0px;
+}
+.mes-content{
+  padding: 10px 10px 0px 10px;
+  .gray-box{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+    background: #F8F8F8;
+    padding: 15px;
+    overflow: initial;
+    .title-with-date {
+      margin-bottom: 10px;
+      position: relative;
+      font-size: 16px;
+      display: inline-block;
+      width: 100%;
+      text-align: left;
+      color: #666666;
+      .date-txt {
+        float: right;
+        font-size: 12px;
+      }
+    }
+    .buttonbox-cardouter {
+      position: absolute;
+      z-index: 10;
+      left: calc(50% - 85px);
+      bottom: -20px;
+    }
+    .iconswith-row {
+      position: relative;
+      padding-left: 20px;
+      text-align: left;
+      width: 100%;
+      font-size: 14px;
+      color: #666666;
+      img {
+        position: absolute;
+        left: 0px;
+      }
+      .location-img {
+        width: 12px !important;
+      }
+    }
+  }
+}
+
+
+.card-coach {
+  margin-top: 10px;
+  text-align: center;
+  position: relative;
+  background: #F8F8F8;
+  padding: 15px 0px 20px 0px;
+  overflow: initial;
+  margin-bottom: 35px !important;
+  .amount-engagement {
+    display: inline-block;
+  }
+
+  .peramt-box {
+    margin-bottom: 10px;
+    color: #a9a9a9;
+    margin-top: -3px;
+  }
+
+  .engage-radio-box ion-radio {
+    margin-right: 10px;
+  }
+
+  .buttonbox-cardouter {
+    position: absolute;
+    z-index: 10;
+    left: calc(50% - 85px);
+    bottom: -20px;
+  }
+  .label-withterms a {
+    color: #525252;
+    text-decoration: underline;
+  }
+  .engage-radio-box {
+    background: #f5f5f5;
+    radio {
+      color: #000000;
+    }
+  }
+}
+.footer-fixed-tab {
+  background: #414141;
+  width: 100%;
+  padding: 0px 5%;
+  ion-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+    .footer-btn-tabs {
+      width: 25%;
+    float: left;
+    text-align: center;
+    padding: 15px;
+    --background: transparent;
+    position: relative;
+      img {
+        width: 50%;
+      }
+      .round{
+        height: 15px;
+        width: 15px;
+        background-color: #D3C117;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        left: 50px;
+        top: 15px;
+      }
+    }
+  }
+}

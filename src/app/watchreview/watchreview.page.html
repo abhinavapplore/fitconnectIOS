@@ -1,0 +1,501 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-row>
+      <ion-title
+        style="font-family: montserrat-medium; font-weight: bolder"
+        class="top-fixed-heading uppercaes"
+        >{{name | titlecase}} <br />
+        <ng-container *ngIf="userRank && coachType">
+          {{'WATCHREVIEW.Text19' | translate}} -
+          <ion-text
+            style="
+              font-size: 16px;
+              font-weight: bold;
+              font-family: montserrat-medium;
+              color: #d3c117;
+            "
+          >
+            {{userRank | number}}
+          </ion-text>
+        </ng-container>
+      </ion-title>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-title style="font-family: montserrat-medium; font-weight: bolder;" class="top-fixed-heading uppercaes">
+        
+      </ion-title>
+
+    </ion-row> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="dataLoaded">
+  <div class="overall-content">
+    <ion-row *ngIf="coachType">
+      <ion-title
+        style="font-family: montserrat-medium; font-weight: bolder"
+        class="top-fixed-heading uppercaes"
+        [translate]="'WATCHREVIEW.Text19'"
+        >{{userRanking}}
+      </ion-title>
+    </ion-row>
+    <!-- <div class="overall-content" [routerLink]="['/coacheditprofile']"
+       routerLinkActive="router-link-active"> -->
+    <div class="top-black-block"></div>
+    <div class="top-header-content">
+      <div class="top-btn-toolbar">
+        <ion-row>
+          <ion-col class="ion-text-left">
+            <div>
+              <ion-button
+                *ngIf="!blockedHost"
+                size="small"
+                class="profile-btn"
+                (click)="block()"
+                [translate]="'WATCHREVIEW.Text1'"
+              ></ion-button>
+              <ion-button
+                style="background: #d3c117"
+                *ngIf="blockedHost"
+                size="small"
+                class="profile-btn"
+                (click)="unfollow('block')"
+                [translate]="'WATCHREVIEW.Text1'"
+              >
+              </ion-button>
+            </div>
+
+            <!-- <div *ngIf="user_Type==='2'" style="height: 30px;"></div> -->
+            <!-- <ion-button  *ngIf="user_Type==='2'" size="small" class="profile-btn" (click)="block()">Bloquer</ion-button> -->
+            <div class="social-counterbox">
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-count"
+              >
+                {{followers}}
+              </div>
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-counttxt"
+                [translate]="'WATCHREVIEW.Text2'"
+              ></div>
+            </div>
+          </ion-col>
+          <ion-col
+            style="display: flex; flex-direction: row; justify-content: center"
+          >
+            <div class="profile-center">
+              <img *ngIf="!Avatar" src="assets/images/profile-img.png" />
+              <ion-avatar style="height: 92px; width: 92px" *ngIf="Avatar">
+                <ion-img [src]="imgUrl"></ion-img>
+              </ion-avatar>
+            </div>
+          </ion-col>
+          <ion-col class="ion-text-right">
+            <div></div>
+            <div>
+              <ion-button
+                *ngIf="!followHost"
+                size="small"
+                class="profile-btnicon"
+                (click)="follow()"
+              >
+                <ion-icon name="add"></ion-icon>
+                <span [translate]="'WATCHREVIEW.Text3'"></span>
+              </ion-button>
+            </div>
+
+            <!-- <div *ngIf="user_Type==='2'" style="height: 30px;">
+                         
+                      </div> -->
+
+            <div>
+              <ion-button
+                style="background: #d3c117"
+                *ngIf="followHost"
+                size="small"
+                class="profile-btnicon"
+                (click)="unfollow()"
+                [translate]="'WATCHREVIEW.Text4'"
+              >
+              </ion-button>
+            </div>
+
+            <!-- <div *ngIf="user_Type==='2'" style="display: none;">
+                          <ion-button style="background: #D3C117;" *ngIf="followHost" size="small" class="profile-btnicon" (click)="unfollow()">
+                          
+                              ne plus suivre
+                          </ion-button>
+                      </div> -->
+
+            <div class="social-counterbox">
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-count"
+              >
+                {{following}}
+              </div>
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-counttxt"
+                [translate]="'WATCHREVIEW.Text5'"
+              ></div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            color: #d3c117;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+        >
+          <div
+            *ngIf="userType"
+            class="ion-text-center"
+            style="
+              font-family: montserrat-medium;
+              font-weight: bolder;
+              margin-top: 5%;
+              color: #d3c117;
+            "
+          >
+            {{name | titlecase}}
+          </div>
+          <div *ngIf="coachType" style="margin-top: 5%" class="ion-text-center">
+            <ion-row style="margin-top: 2%">
+              <ion-icon name="star"></ion-icon>
+              <ion-text style="font-family: montserrat-medium"
+                >{{name | titlecase}}</ion-text
+              >
+            </ion-row>
+            <ion-row>
+              <ion-text
+                class="gray-color"
+                style="font-family: montserrat-medium"
+                [translate]="'PROFILEACTIVITE.Text6'"
+              ></ion-text>
+            </ion-row>
+          </div>
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 2%;
+          "
+        >
+          <div
+            class="small-txt ion-text-center"
+            style="font-family: montserrat-medium"
+          >
+            {{gender}} - {{age}}
+            <span [translate]="'PROFILEACTIVITE.Text7'"></span>
+          </div>
+        </ion-row>
+
+        <ion-row style="justify-content: center" *ngIf="coachType">
+          <div
+            class="small-txt ion-text-center"
+            style="font-family: montserrat-medium"
+          >
+            <ion-icon color="primary" name="star"></ion-icon>
+            <span [translate]="'WATCHREVIEW.Text12'"></span
+            >{{userRating|number:"0.1-2"}}/5 - ({{total_review}}
+            <span [translate]="'WATCHREVIEW.Text16'"></span>
+          </div>
+        </ion-row>
+        <ion-row class="top-profile-center ion-align-items-center">
+          <div class="small-txt-location ion-no-margin ion-text-center">
+            <img
+              class="top-location-img"
+              src="assets/images/icon-location.png"
+            />
+            {{distance}} KM
+          </div>
+          <button *ngIf="!followHost" class="top-profile-btn">
+            <img src="assets/images/chat-white.png" />
+            <span [translate]="'WATCHREVIEW.Text8'"></span>
+          </button>
+
+          <button *ngIf="followHost" class="top-profile-btn" (click)="chat()">
+            <img src="assets/images/chat-white.png" />
+            <span [translate]="'WATCHREVIEW.Text8'"></span>
+          </button>
+        </ion-row>
+        <div class="top-tabs">
+          <ion-row>
+            <ion-col class="ion-no-padding" (click)="profile()">
+              <div
+                class="tabs-block uppercaes"
+                style="font-weight: bold"
+                [translate]="'WATCHREVIEW.Text9'"
+              >
+                \
+              </div>
+            </ion-col>
+            <ion-col class="ion-no-padding" (click)="activity()">
+              <div
+                class="tabs-block uppercaes"
+                [translate]="'WATCHREVIEW.Text10'"
+              ></div>
+            </ion-col>
+            <ion-col class="ion-no-padding">
+              <div
+                style="font-family: montserrat-medium"
+                class="tabs-block uppercaes selected-tabs"
+                [translate]="'WATCHREVIEW.Text11'"
+              ></div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-inner-block">
+      <ion-row *ngIf="coachType">
+        <ion-col size="4">
+          <ion-text
+            style="
+              font-size: 16px;
+              font-weight: bold;
+              font-family: montserrat-medium;
+            "
+            [translate]="'WATCHREVIEW.Text12'"
+          ></ion-text>
+        </ion-col>
+        <ion-col size="8" (click)="openRating()" *ngIf="userBoolean">
+          <img src="assets/chaticonoval.svg" />
+          <ion-text
+            style="color: #708aaa; font-size: 14px"
+            [translate]="'WATCHREVIEW.Text13'"
+          >
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="8">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="4">
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+
+          <ion-text
+            >{{getReviewPercentage(review_ranking.one_star) |
+            percent}}</ion-text
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="8">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="4">
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-text
+            >{{getReviewPercentage(review_ranking.two_star) |
+            percent}}</ion-text
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="8">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="4">
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-text
+            >{{getReviewPercentage(review_ranking.three_star) |
+            percent}}</ion-text
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="8">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="4">
+          <ion-icon color="medium" name="star-outline"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-text
+            >{{getReviewPercentage(review_ranking.four_star) |
+            percent}}</ion-text
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="8">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="4">
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-icon color="primary" name="star"></ion-icon>
+          <ion-text
+            >{{getReviewPercentage(review_ranking.five_star) |
+            percent}}</ion-text
+          >
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-text
+            style="
+              font-size: 16px;
+              font-weight: bold;
+              font-family: montserrat-medium;
+            "
+            [translate]="'WATCHREVIEW.Text18'"
+          >
+          </ion-text>
+        </ion-col>
+        <ion-col size="6">
+          <span
+            style="
+              font-size: 16px;
+              font-weight: bold;
+              font-family: montserrat-medium;
+            "
+            [translate]="'WATCHREVIEW.Text17'"
+          >
+          </span>
+          <ion-text
+            style="
+              font-size: 16px;
+              font-weight: bold;
+              font-family: montserrat-medium;
+              color: #d3c117;
+            "
+          >
+            {{total_review}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-card *ngFor="let userReview of userReviews">
+        <ion-card-header>
+          <ion-row style="border-bottom: 1px solid lightgray">
+            <ion-col size="2">
+              <ion-avatar>
+                <img [src]="userReview.user_img" />
+              </ion-avatar>
+            </ion-col>
+            <ion-col size="6" style="padding-left: 10%">
+              <ion-row>
+                <ion-text
+                  style="
+                    font-weight: bold;
+                    font-size: 16px;
+                    font-family: montserrat-medium;
+                  "
+                >
+                  {{userReview.user_f_name}} {{userReview.user_l_name}}
+                </ion-text>
+              </ion-row>
+              <ion-row>
+                <ion-icon
+                  color="primary"
+                  [name]="userReview.urate_rating >= 1 ? 'star' : 'star-outline'"
+                ></ion-icon>
+                <ion-icon
+                  color="primary"
+                  [name]="userReview.urate_rating >= 2 ? 'star' : 'star-outline'"
+                ></ion-icon>
+                <ion-icon
+                  color="primary"
+                  [name]="userReview.urate_rating >= 3 ? 'star' : 'star-outline'"
+                ></ion-icon>
+                <ion-icon
+                  color="primary"
+                  [name]="userReview.urate_rating >= 4 ? 'star' : 'star-outline'"
+                ></ion-icon>
+                <ion-icon
+                  color="primary"
+                  [name]="userReview.urate_rating >= 5 ? 'star' : 'star-outline'"
+                ></ion-icon>
+                <ion-text
+                  style="
+                    font-size: 10px;
+                    font-weight: bold;
+                    font-family: montserrat-medium;
+                  "
+                >
+                  {{userReview.urate_rating}} Ratings</ion-text
+                >
+              </ion-row>
+            </ion-col>
+            <!-- <ion-col size="3">
+              <ion-text style="font-size: 9px;">02 Oct 2020 02:00 PM</ion-text>
+            </ion-col> -->
+          </ion-row>
+        </ion-card-header>
+
+        <ion-card-content style="font-family: montserrat-medium">
+          {{userReview.urate_review}}
+        </ion-card-content>
+      </ion-card>
+      <ion-row *ngIf="userReviews.length==0" style="justify-content: center">
+        <ion-text [translate]="'WATCHREVIEW.Text14'"></ion-text>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

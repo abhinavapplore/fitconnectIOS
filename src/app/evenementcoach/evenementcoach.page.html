@@ -1,0 +1,345 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading"
+      *ngIf="!eventId"
+      [translate]="'EVENTMENTCOACH.Text1'"
+    >
+    </ion-title>
+    <ion-title
+      *ngIf="eventId"
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading"
+      [translate]="'EVENTMENTCOACH.Text11'"
+    >
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="coach-create-coponent">
+  <form [formGroup]="CreateEvent" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <!-- <ion-row class="create-input-row" style="margin-bottom: 1%;">
+                <img src="../../assets/images/running.png" class="left-createicon" />
+                <ion-input formControlName="event_coach_title" autocorrect="on" autofocus="on" clearInput="true"
+                    clearOnEdit="true" inputmode="text" placeholder="{{langSportNamePlaceHolder}}" required="true"
+                    class="ion-no-padding"></ion-input>
+            </ion-row> -->
+
+      <ion-row class="create-input-row">
+        <div style="display: flex; align-items: center">
+          <img src="../../assets/images/filter.svg" class="left-createicon" />
+        </div>
+        <ion-select
+          placeholder="{{'EVENTMENTCOACH.Text8' | translate}}"
+          style="
+            width: 100%;
+            padding-left: 0px;
+            margin-bottom: 0.4rem;
+
+            font-weight: bold;
+          "
+          formControlName="event_coach_sport_name"
+        >
+          <ion-select-option
+            (change)="sportsValueSelected()"
+            *ngFor="let userSport of userSportCategory"
+            value="{{userSport}}"
+            >{{userSport}}
+          </ion-select-option>
+        </ion-select>
+      </ion-row>
+
+      <div
+        *ngIf="submitted && f.event_coach_title.errors"
+        class="invalid-feedback left"
+      >
+        <div
+          *ngIf="f.event_coach_title.errors.required"
+          [translate]="'EVENTMENTCOACH.Text1'"
+        >
+          Veuillez remplir
+        </div>
+      </div>
+      <ion-row
+        class="create-input-row"
+        style="margin-bottom: 2%"
+        id="addressfield"
+      >
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="left-createicon"
+        />
+        <input
+          style="
+            width: 100%;
+            margin-bottom: 15px;
+            color: #b8b8b8;
+            border: none;
+            border-bottom: 1px solid #ccccccb5;
+          "
+          formControlName="event_coach_address"
+          type="text"
+          class="form-control addressInput"
+          (keydown.enter)="$event.preventDefault()"
+          placeholder="{{langAddressPlaceHolder}}"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="off"
+          #search
+        />
+        <!-- <ion-input formControlName="event_coach_address" autocorrect="on" autofocus="on" 
+                clearInput="true" clearOnEdit="true"
+                           inputmode="text" placeholder="Address" required="true" class="ion-no-padding"></ion-input> -->
+      </ion-row>
+      <div
+        *ngIf="submitted && f.event_coach_address.errors"
+        class="invalid-feedback left"
+      >
+        <div
+          *ngIf="f.event_coach_address.errors.required"
+          [translate]="'EVENTMENTCOACH.Text1'"
+        >
+          Veuillez remplir
+        </div>
+      </div>
+      <ion-row class="create-input-row" style="margin-bottom: 5%">
+        <img src="../../assets/images/calendar.png" class="left-createicon" />
+
+        <ion-datetime
+          *ngIf="English"
+          displayFormat="DD MMM YY H:mm"
+          pickerFormat="DD MMM YY H:mm"
+          placeholder="{{langDatePlaceHolder}}"
+          min="2020"
+          max="2030"
+          formControlName="event_coach_date"
+          (ionChange)="dateSelected()"
+          class="ion-no-padding"
+          style="
+            border-bottom: 1px solid #ccccccb5;
+            width: 100%;
+            font-weight: bold;
+            color: #b8b8b8;
+            --placeholder-font-weight: bold;
+            --placeholder-color: #b8b8b8;
+          "
+          monthShortNames="jan,feb,mar,apr,may,june,july,aug,sept,oct,nov,dec"
+          cancelText="Cancel"
+          doneText="Done"
+        >
+        </ion-datetime>
+
+        <ion-datetime
+          *ngIf="!English"
+          displayFormat="DD MMM YY H:mm"
+          pickerFormat="DD MMM YY H:mm"
+          placeholder="{{langDatePlaceHolder}}"
+          min="2020"
+          max="2030"
+          formControlName="event_coach_date"
+          (ionChange)="dateSelected()"
+          class="ion-no-padding"
+          style="
+            border-bottom: 1px solid #ccccccb5;
+            width: 100%;
+            font-weight: bold;
+            color: #b8b8b8;
+            --placeholder-font-weight: bold;
+            --placeholder-color: #b8b8b8;
+          "
+          monthShortNames="jan,fév,mar,avr,mai,juin,juil,août,sept,oct,nov,déc"
+          cancelText="annuler"
+          doneText="Validate"
+        >
+        </ion-datetime>
+        <!-- <ion-datetime #dateTime style="display:none" displayFormat="H:mm" pickerFormat="H:mm" formControlName="eventTime"></ion-datetime> -->
+      </ion-row>
+
+      <div
+        *ngIf="submitted && f.event_coach_date.errors"
+        class="invalid-feedback left"
+      >
+        <div
+          *ngIf="f.event_coach_date.errors.required"
+          [translate]="'EVENTMENTCOACH.Text1'"
+        >
+          Veuillez remplir
+        </div>
+      </div>
+
+      <!-- <ion-input style="display: none;" (ionChange)="timeSelected()">{{eventTime}}</ion-input> -->
+      <!-- [disabled]="editingMode" -->
+      <ion-row class="create-input-row" *ngIf="!editingMode">
+        <img src="../../assets/images/user.png" class="left-createicon" />
+        <ion-input
+          formControlName="event_coach_participants_min"
+          autocorrect="on"
+          autofocus="on"
+          clearInput="true"
+          clearOnEdit="true"
+          type="number"
+          inputmode="number"
+          placeholder="{{langParticipantsMinPlaceHolder}}"
+          required="true"
+          class="ion-no-padding"
+        ></ion-input>
+      </ion-row>
+      <div
+        *ngIf="submitted && f.event_coach_participants_min.errors"
+        class="invalid-feedback left"
+      >
+        <div
+          *ngIf="f.event_coach_participants_min.errors.required"
+          [translate]="'EVENTMENTCOACH.Text1'"
+        >
+          Veuillez remplir
+        </div>
+      </div>
+      <ion-row class="create-input-row">
+        <img src="../../assets/images/user.png" class="left-createicon" />
+        <!-- [disabled]="editingMode" -->
+        <ion-input
+          formControlName="event_coach_participants_max"
+          autocorrect="on"
+          autofocus="on"
+          clearInput="true"
+          clearOnEdit="true"
+          type="number"
+          inputmode="number"
+          placeholder="{{langParticipantsMaxPlaceHolder}}"
+          required="true"
+          class="ion-no-padding"
+        ></ion-input>
+      </ion-row>
+      <div
+        *ngIf="submitted && f.event_coach_participants_max.errors"
+        class="invalid-feedback left"
+      >
+        <div
+          *ngIf="f.event_coach_participants_max.errors.required"
+          [translate]="'EVENTMENTCOACH.Text1'"
+        >
+          Veuillez remplir
+        </div>
+      </div>
+
+      <ion-row class="create-input-row">
+        <img
+          style="width: 6%"
+          src="../../assets/price.png"
+          class="left-createicon"
+        />
+        <ion-input
+          formControlName="event_price"
+          type="number"
+          placeholder="{{langPricePlaceHolder}}"
+          name="event_price"
+          class="ion-no-padding"
+        ></ion-input>
+      </ion-row>
+      <div
+        *ngIf="submitted && f.event_price.errors"
+        class="invalid-feedback left"
+      >
+        <div
+          *ngIf="f.event_price.errors.required"
+          [translate]="'EVENTMENTCOACH.Text7'"
+        ></div>
+      </div>
+      <!-- <ion-row class="create-input-row">
+                <img src="../../assets/images/filter.svg" class="left-createicon" />
+                <ion-select placeholder="{{'EVENTMENTCOACH.Text8' | translate}}" style="width: 100%;"
+                    formControlName="event_coach_sport_name">
+                    <ion-select-option *ngFor="let userSport of userSportCategory" value="{{userSport}}">{{userSport}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-row> -->
+      <div
+        *ngIf="submitted && f.event_coach_sport_name.errors"
+        class="invalid-feedback left"
+      >
+        <div *ngIf="f.event_coach_sport_name.errors.required">
+          {{'EVENTMENTCOACH.Text8' | translate}} {{'EVENTMENTCOACH.Text9' |
+          translate}}
+        </div>
+      </div>
+
+      <!-- <ion-radio-group formControlName="eventPrice" name="gender">
+                            <ion-item class="coach-radiobox ion-no-margin">
+                                <ion-radio mode="md" slot="start" value="hour" (click)="cost('hour')"></ion-radio>
+                                <ion-icon name="logo-euro" class="engage-euro"></ion-icon>
+                                <ion-label class="ion-no-padding" style="font-weight: bold;color: #B8B8B8;" [translate]="'EVENTMENTCOACH.Text3'"></ion-label>
+                            </ion-item>
+                            <ion-item class="coach-radiobox">
+                                <ion-radio mode="md" slot="start" value="person" (click)="cost('person')"></ion-radio>
+                                <ion-icon name="logo-euro" class="engage-euro"></ion-icon>
+                                <ion-label class="ion-no-padding" style="font-weight: bold;color: #B8B8B8;" [translate]="'EVENTMENTCOACH.Text4'"> </ion-label>
+                            </ion-item>
+                        </ion-radio-group> -->
+
+      <!-- <div *ngIf="submitted && f.eventPrice.errors" class="invalid-feedback left" style="width: 100%;text-align: center;">
+                    <div *ngIf="f.eventPrice.errors.required" [translate]="'EVENTMENTCOACH.Text1'">Veuillez remplir</div>
+                </div>
+            </ion-grid> -->
+      <ion-row>
+        <ion-textarea
+          (ionChange)="textChange()"
+          formControlName="event_coach_discription"
+          class="global-txtarea"
+          cols="3"
+          rows="3"
+          placeholder="{{langDescPlaceHolder}}"
+        ></ion-textarea>
+      </ion-row>
+      <div
+        *ngIf="submitted && f.event_coach_discription.errors"
+        class="invalid-feedback left"
+      >
+        <div
+          *ngIf="f.event_coach_discription.errors.required"
+          [translate]="'EVENTMENTCOACH.Text5'"
+        ></div>
+      </div>
+      <ion-row>
+        <button
+          *ngIf="!this.eventId"
+          type="submit"
+          ion-button
+          class="global-submit-button global-btn"
+          style="background-color: #d3c117"
+          [translate]="'EVENTMENTCOACH.Text6'"
+        ></button>
+        <button
+          *ngIf="this.eventId"
+          type="submit"
+          ion-button
+          class="global-submit-button global-btn"
+          style="background-color: #d3c117"
+          [translate]="'EVENTMENTCOACH.Text10'"
+        ></button>
+      </ion-row>
+    </ion-list>
+  </form>
+</ion-content>
+<!-- <ion-footer class="footer-fixed-tab">
+    <ion-toolbar>
+        <ion-buttons>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/selectedlocation.png" class="footer-img-location"/>
+            </div>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/unselectedcalendar.png" class="footer-img-date"/>
+            </div>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/unselectedmsg.png" class="footer-img-chat"/>
+            </div>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/unselectednotification.png" class="footer-img-noti"/>
+            </div>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer> -->

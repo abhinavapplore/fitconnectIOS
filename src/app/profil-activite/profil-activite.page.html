@@ -1,0 +1,396 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium; font-weight: bold"
+      class="top-fixed-heading uppercaes"
+      >{{name}} <br />
+      <ng-container *ngIf="userRank && coachType">
+        {{'WATCHREVIEW.Text19' | translate}} -
+        <ion-text
+          style="
+            font-size: 16px;
+            font-weight: bold;
+            font-family: montserrat-medium;
+            color: #d3c117;
+          "
+        >
+          {{userRank | number}}
+        </ion-text>
+      </ng-container></ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="overall-content">
+    <ion-row *ngIf="coachType">
+      <ion-title
+        style="font-family: montserrat-medium; font-weight: bolder"
+        class="top-fixed-heading uppercaes"
+        [translate]="'WATCHREVIEW.Text19'"
+        >{{userRanking}}
+      </ion-title>
+    </ion-row>
+    <div class="top-black-block"></div>
+    <div class="top-header-content">
+      <div class="top-btn-toolbar">
+        <ion-row>
+          <ion-col class="ion-text-left">
+            <div *ngIf="user_type==='1'">
+              <ion-button
+                *ngIf="!blockedHost"
+                size="small"
+                class="profile-btn"
+                (click)="block()"
+                [translate]="'PROFILEACTIVITE.Text1'"
+              ></ion-button>
+              <ion-button
+                style="background: #d3c117"
+                *ngIf="blockedHost"
+                size="small"
+                class="profile-btn"
+                (click)="unfollow('block')"
+                [translate]="'PROFILEACTIVITE.Text1'"
+              ></ion-button>
+            </div>
+
+            <div *ngIf="user_type==='2'" style="height: 30px"></div>
+            <!-- <ion-button  *ngIf="user_Type==='2'" size="small" class="profile-btn" (click)="block()">Bloquer</ion-button> -->
+            <div class="social-counterbox">
+              <div
+                class="soc-count"
+                style="font-family: montserrat-medium; font-weight: bold"
+              >
+                {{followers}}
+              </div>
+              <div
+                class="soc-counttxt"
+                style="font-family: montserrat-medium; font-weight: bold"
+                [translate]="'PROFILEACTIVITE.Text2'"
+              ></div>
+            </div>
+          </ion-col>
+          <ion-col
+            style="display: flex; flex-direction: row; justify-content: center"
+          >
+            <div class="profile-center">
+              <img *ngIf="!Avatar" src="assets/images/profile-img.png" />
+              <ion-avatar style="height: 92px; width: 92px" *ngIf="Avatar">
+                <ion-img [src]="imgUrl"></ion-img>
+              </ion-avatar>
+            </div>
+          </ion-col>
+          <ion-col class="ion-text-right">
+            <div></div>
+            <div *ngIf="user_type==='1'">
+              <ion-button
+                *ngIf="!followHost"
+                size="small"
+                class="profile-btnicon"
+                (click)="follow()"
+              >
+                <ion-icon name="add"></ion-icon>
+                <span [translate]="'PROFILEACTIVITE.Text3'"></span>
+              </ion-button>
+            </div>
+
+            <div *ngIf="user_type==='2'" style="height: 30px"></div>
+
+            <div *ngIf="user_type==='1'">
+              <ion-button
+                style="background: #d3c117"
+                *ngIf="followHost"
+                size="small"
+                class="profile-btnicon"
+                (click)="unfollow()"
+                [translate]="'PROFILEACTIVITE.Text4'"
+              >
+              </ion-button>
+            </div>
+
+            <div *ngIf="user_type==='2'" style="display: none">
+              <ion-button
+                style="background: #d3c117"
+                *ngIf="followHost"
+                size="small"
+                class="profile-btnicon"
+                (click)="unfollow()"
+                [translate]="'PROFILEACTIVITE.Text4'"
+              >
+              </ion-button>
+            </div>
+
+            <div class="social-counterbox">
+              <div
+                class="soc-count"
+                style="font-family: montserrat-medium; font-weight: bold"
+              >
+                {{following}}
+              </div>
+              <div
+                class="soc-counttxt"
+                style="font-family: montserrat-medium; font-weight: bold"
+                [translate]="'PROFILEACTIVITE.Text5'"
+              ></div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row
+          style="
+            text-align: center;
+            color: #d3c117;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+        >
+          <div
+            *ngIf="userType"
+            class="ion-text-center"
+            style="
+              font-family: montserrat-medium;
+              font-weight: bolder;
+              margin-top: 5%;
+            "
+          >
+            {{name | titlecase}}
+          </div>
+          <div *ngIf="coachType" style="margin-top: 5%" class="ion-text-center">
+            <ion-row style="margin-top: 2%">
+              <ion-icon name="star"></ion-icon>
+              <ion-text style="font-family: montserrat-medium"
+                >{{name | titlecase}}</ion-text
+              >
+            </ion-row>
+            <ion-row>
+              <ion-text
+                class="gray-color"
+                style="font-family: montserrat-medium"
+                [translate]="'PROFILEACTIVITE.Text6'"
+              ></ion-text>
+            </ion-row>
+          </div>
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 2%;
+            color: grey;
+          "
+        >
+          <div
+            class="small-txt ion-text-center"
+            style="font-family: montserrat-medium"
+          >
+            {{gender}} - {{age}}
+            <span [translate]="'PROFILEACTIVITE.Text7'"></span>
+          </div>
+        </ion-row>
+
+        <ion-row style="justify-content: center" *ngIf="coachType">
+          <div
+            class="small-txt ion-text-center"
+            style="font-family: montserrat-medium"
+          >
+            <ion-icon color="primary" name="star"></ion-icon>
+            <span [translate]="'WATCHREVIEW.Text12'"></span> {{userRating
+            |number:"0.1-2"}}/5 - ({{total_review}}
+            <span [translate]="'WATCHREVIEW.Text16'"></span>
+          </div>
+        </ion-row>
+
+        <ion-row class="top-profile-center ion-align-items-center">
+          <div class="small-txt-location ion-no-margin ion-text-center">
+            <img
+              class="top-location-img"
+              src="assets/images/icon-location.png"
+            />
+            {{distance}} KM
+          </div>
+          <button *ngIf="!followHost" class="top-profile-btn">
+            <img src="assets/images/chat-white.png" />
+            <span [translate]="'PROFILEACTIVITE.Text8'"></span>
+          </button>
+
+          <button *ngIf="followHost" class="top-profile-btn" (click)="chat()">
+            <img src="assets/images/chat-white.png" />
+            <span [translate]="'PROFILEACTIVITE.Text8'"></span>
+          </button>
+        </ion-row>
+        <div class="top-tabs">
+          <ion-row>
+            <ion-col class="ion-no-padding" (click)="profile()">
+              <div
+                class="tabs-block uppercaes"
+                [translate]="'PROFILEACTIVITE.Text9'"
+              ></div>
+            </ion-col>
+            <ion-col class="ion-no-padding">
+              <div
+                class="tabs-block uppercaes selected-tabs"
+                [translate]="'PROFILEACTIVITE.Text10'"
+              ></div>
+            </ion-col>
+            <ion-col class="ion-no-padding" (click)="reviewPage()">
+              <div
+                style="font-family: montserrat-medium"
+                class="tabs-block uppercaes"
+                [translate]="'PROFILEACTIVITE.Text18'"
+              ></div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+    <div class="profile-inner-block" *ngIf="!empty">
+      <ion-list>
+        <ion-row class="slide-toggle-row">
+          <div class="togle-btn-countrow">
+            <h5
+              class="toggle-title uppercaes"
+              style="font-family: montserrat-medium; font-weight: bold"
+              [translate]="'PROFILEACTIVITE.Text11'"
+            ></h5>
+            <b
+              class="toggle-count"
+              style="font-family: montserrat-medium; font-weight: bold"
+              >{{totalEvents}}</b
+            >
+          </div>
+
+          <section class="gray-box" *ngFor="let event of activeEvent">
+            <ion-row class="title-with-date">
+              <!-- <b *ngIf="userType" class="title-txt">{{event.event_individuals_title}}</b> -->
+              <!-- <b *ngIf="userType" class="title-txt">{{event.event_sport_cate}}</b -->
+              <b *ngIf="userType" class="title-txt">{{event.spcat_name}}</b>
+              <!-- <b *ngIf="coachType" class="title-txt">{{event.event_coach_title}}</b> -->
+              <!-- <b *ngIf="coachType" class="title-txt">{{event.event_sport_cate}}</b -->
+              <b *ngIf="coachType" class="title-txt">{{event.spcat_name}}</b>
+              <div *ngIf="userType" class="date-txt">
+                {{event.event_individuals_date}}
+              </div>
+              <div *ngIf="coachType" class="date-txt">
+                {{event.event_coach_date}}
+              </div>
+            </ion-row>
+            <div class="iconswith-row">
+              <img
+                class="location-img"
+                src="assets/images/unselectedlocation.png"
+              />
+              <div *ngIf="userType" class="details-box">
+                {{event.event_individuals_address}}
+              </div>
+              <div *ngIf="coachType" class="details-box">
+                {{event.event_coach_address}}
+              </div>
+            </div>
+            <!-- <div *ngIf="user_type=='1'" class="buttonbox-cardouter"> -->
+            <div class="buttonbox-cardouter">
+              <!-- {{event.isAvailable}} {{!event.isBooked}} -->
+              <button
+                *ngIf="event.isAvailable && !event.isBooked"
+                ion-button
+                class="global-submit-button global-btn themecolor"
+                [translate]="'PROFILEACTIVITE.Text12'"
+                (click)="presentAlertBooking(event)"
+              ></button>
+              <button
+                *ngIf="!event.isAvailable || event.isBooked"
+                style="opacity: 0.5 !important"
+                ion-button
+                class="global-submit-button global-btn themecolor"
+                [translate]="'PROFILEACTIVITE.Text12'"
+              ></button>
+            </div>
+            <!-- <div *ngIf="user_type=='2'" class="buttonbox-cardouter">
+              <button
+                ion-button
+                class="global-submit-button global-btn themecolor"
+                [translate]="'EVENTMENTCOACHVUE.Text6'"
+                (click)="takeScreenshot(event)"
+              ></button>
+            </div> -->
+          </section>
+
+          <section class="gray-box" *ngFor="let detail of pastEvent">
+            <ion-row class="title-with-date">
+              <!-- <b *ngIf="userType" class="title-txt">{{detail.event_individuals_title}}</b> -->
+              <b *ngIf="userType" class="title-txt"
+                >{{detail.event_sport_cate}}</b
+              >
+              <!-- <b *ngIf="coachType" class="title-txt">{{detail.event_coach_title}}</b> -->
+              <b *ngIf="coachType" class="title-txt"
+                >{{detail.event_sport_cate}}</b
+              >
+              <div *ngIf="userType" class="date-txt">
+                {{detail.event_individuals_date}}
+              </div>
+              <div *ngIf="coachType" class="date-txt">
+                {{detail.event_coach_date}}
+              </div>
+            </ion-row>
+            <div class="iconswith-row">
+              <img
+                class="location-img"
+                src="assets/images/unselectedlocation.png"
+              />
+              <div *ngIf="userType" class="details-box">
+                {{detail.event_individuals_address}}
+              </div>
+              <div *ngIf="coachType" class="details-box">
+                {{detail.event_coach_address}}
+              </div>
+            </div>
+          </section>
+        </ion-row>
+      </ion-list>
+    </div>
+
+    <div
+      *ngIf="empty"
+      style="display: flex; justify-content: center"
+      [translate]="'PROFILEACTIVITE.Text13'"
+    ></div>
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

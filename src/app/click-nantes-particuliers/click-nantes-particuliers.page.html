@@ -1,0 +1,134 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading uppercaes"
+      >{{userCity | titlecase}}</ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+<ion-content class="click-particuliers-component">
+  <!-- <h5 *ngIf="particulars" class="parti-top-head" >{{totalParticular}} <span [translate]="'CLICKNAN.Text1'"></span></h5> -->
+  <h5 class="parti-top-head">
+    {{totalCoach}} <span [translate]="'CLICKNAN.Text1'"></span>
+  </h5>
+  <!--   
+    <ion-row>
+        <ion-col>
+        <ion-radio-group style="width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;" class="ans-radiobox" value="particuliers" (ionChange)="radio($event)">
+            
+                <ion-radio mode="md" value="particuliers"></ion-radio>
+                <ion-label  [translate]="'CLICKNAN.Text2'"></ion-label>
+           
+                <ion-radio style="margin-left: 5%;" mode="md" value="coachs"></ion-radio>
+                <ion-label  [translate]="'CLICKNAN.Text3'"></ion-label>
+            
+        </ion-radio-group>
+    </ion-col>
+    </ion-row> -->
+  <!-- <ion-list class="parti-list" *ngIf="particulars">
+        <div *ngIf="nearbyUsers.length==0" style="text-align: center;" [translate]="'CLICKNAN.Text4'"></div>
+        <ion-row class="parti-list-row" *ngFor="let user of nearbyUsers">
+            <ion-col class="parti-list-col-img ion-no-padding" >
+                <div class="parti-image-box">
+                    <ion-avatar style="display: flex;
+                    align-items: center;">
+                        <ion-img style="width: 50px;
+                        height: 50px;" [src]="user.user_img"></ion-img>
+                    </ion-avatar>
+                </div>
+            </ion-col>
+            <ion-col class="parti-list-col-txt ion-no-padding" style="display: flex;
+            align-items: center;"
+             (click)="viewProfile(user)">
+                <div class="parti-details-box">
+                    <h4 class="themetxtcolor" style="font-family: montserrat-medium;font-weight: bold;">{{user.nameFormatted}}</h4>
+                    <div class="iconswith-row">
+                        <img class="location-img" src="assets/images/icon-location.png">
+                        <div class="details-box">{{user.distance}} KM</div>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-list> -->
+  <ion-list class="parti-list">
+    <div
+      *ngIf="nearbyCoaches.length==0"
+      style="text-align: center"
+      [translate]="'CLICKNAN.Text5'"
+    ></div>
+    <ion-row class="parti-list-row" *ngFor="let user of nearbyCoaches">
+      <ion-col class="parti-list-col-img ion-no-padding">
+        <ion-avatar style="display: flex; align-items: center">
+          <ion-img
+            style="width: 50px; height: 50px"
+            [src]="user.user_img"
+          ></ion-img>
+        </ion-avatar>
+      </ion-col>
+      <ion-col
+        class="parti-list-col-txt ion-no-padding"
+        style="display: flex; align-items: center"
+        (click)="viewProfile(user)"
+      >
+        <div class="parti-details-box">
+          <h4 class="themetxtcolor" style="font-family: montserrat-medium">
+            {{user.nameFormatted}}
+          </h4>
+          <div class="iconswith-row">
+            <img class="location-img" src="assets/images/icon-location.png" />
+            <div class="details-box">{{user.distance}} KM</div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="user.user_verified=='1'">
+        <img
+          src="assets/images/tickicon.svg"
+          style="width: 18px !important; margin-right: 2%"
+        />
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="eventsTab()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="eventdetails()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

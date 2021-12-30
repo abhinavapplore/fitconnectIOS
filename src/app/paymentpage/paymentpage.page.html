@@ -1,0 +1,73 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+      <ion-buttons slot="start">
+          <ion-back-button text="" defaultHref="response3"></ion-back-button>
+      </ion-buttons>
+      <ion-title style="font-family:montserrat-medium;" class="top-fixed-heading uppercaes" [translate]="'PAYMENT.Text1'"></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <ion-item lines="none">
+      <ion-label position="floating" [translate]="'PAYMENT.Text2'">
+       </ion-label>
+      <ion-input type="tel" formControlName="cardnumber" name="cardnumber"></ion-input>
+      
+      <div *ngIf="submitted && f.cardnumber.errors" class="invalid-feedback left">
+        <div *ngIf="f.cardnumber.errors.required" [translate]="'PAYMENT.Text3'"></div>
+    </div>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="floating" [translate]="'PAYMENT.Text4'">
+        </ion-label>
+        <ion-datetime pickerFormat="MM/YYYY" displayFormat="MM/YYYY"
+        monthShortNames="jan,fév,mar,avr,mai,juin,juillet,août,sept,oct,nov,déc" cancelText="annuler" doneText="Valider" min="2020" max="2050" formControlName="expiration" name="expiration"></ion-datetime>
+     
+      <div *ngIf="submitted && f.expiration.errors" class="invalid-feedback left">
+        <div *ngIf="f.expiration.errors.required" [translate]="'PAYMENT.Text5'"></div>
+    </div>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="floating">CVC*</ion-label>
+      <ion-input type="tel" formControlName="cvc" name="cvc"></ion-input>
+      <div *ngIf="submitted && f.cvc.errors" class="invalid-feedback left">
+        <div *ngIf="f.cvc.errors.required" [translate]="'PAYMENT.Text6'"></div>
+        
+    </div>
+    </ion-item>
+
+    <ion-row style="margin-top: 5%;">
+      <ion-col size="2" style="display: flex;
+      justify-content: flex-end;">
+        
+          <ion-checkbox mode="ios" formControlName="conditions" name="conditions" (ngModelChange)="setconditions($event)"></ion-checkbox>
+        
+        
+      </ion-col>
+      
+      <ion-col size="10">
+        
+          <ion-label style="font-size: 14px;margin-top: 19px;" [translate]="'PAYMENT.Text7'">
+            <b (click)="conditionsPage()" class="ion-no-padding"
+              style="text-decoration: underline;font-family: montserrat-medium;font-weight: bold;" [translate]="'PAYMENT.Text8'">
+              CONDITIONS GENERALES D’UTILISATION
+            </b>
+          </ion-label>
+        
+      </ion-col>
+      <div *ngIf="submitted && f.conditions.errors" class="invalid-feedback left" style="width: 100%;text-align: center;">
+        <div *ngIf="f.conditions.errors.required" [translate]="'PAYMENT.Text9'">Veuillez accepter les termes et conditions</div>
+    </div>
+    </ion-row>
+
+    <ion-item lines="none">
+      <button style="font-size: 12px; " type="submit" ion-button class="global-submit-button global-btn themecolor" [translate]="'PAYMENT.Text10'">
+        effectuer le paiement
+      </button>
+    </ion-item>
+    </form>
+
+</ion-content>

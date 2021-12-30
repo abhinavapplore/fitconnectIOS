@@ -1,0 +1,176 @@
+<ion-header no-border>
+  <ion-toolbar class="terms-headersection">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="mon-profil"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen #content>
+  <section>
+    <div class="center-content">
+      <ion-row>
+        <ion-col
+          style="font-family: montserrat-medium; font-weight: bold"
+          col-12
+          class="question-box-main"
+        >
+          {{ 'SportsPractice.title'|translate}}
+        </ion-col>
+      </ion-row>
+      <ion-grid>
+        <!-- <ion-row>
+          <ion-searchbar
+            placeholder="{{searchplaceholder}}"
+            (ionInput)="searchEvent($event)"
+            [(ngModel)]="searchTerm"
+          ></ion-searchbar>
+        </ion-row>
+        <div *ngIf="showList">
+          <ion-list>
+            <ion-item
+              *ngFor="let item of search;let z=index"
+              (click)="selectItem(item)"
+            >
+              <ion-text>{{item.spcat_name}}</ion-text>
+            </ion-item>
+          </ion-list>
+        </div> -->
+        <div
+          style="display: inline"
+          *ngFor="let anythingElse of [1,1,1];let i=index"
+        >
+          <ion-row>
+            <ion-searchbar
+              placeholder="{{searchplaceholder}} {{i+1}}"
+              (ionInput)="searchEvent($event,i)"
+              [(ngModel)]="searchTerms[i]"
+              [disabled]="searchTermsDisabled[i] "
+            ></ion-searchbar>
+          </ion-row>
+          <div *ngIf="showLists[i]">
+            <ion-list>
+              <div *ngFor="let item of searches[i];let z=index">
+                <ion-item
+                  (click)="selectItem(item,i)"
+                  *ngIf="item.spcat_name!=searchTerms[0] && item.spcat_name!=searchTerms[1]"
+                >
+                  <ion-text>{{item.spcat_name}}</ion-text>
+                </ion-item>
+              </div>
+            </ion-list>
+          </div>
+          <br />
+        </div>
+        <!-- *ngIf="isCheckboxDisabled" -->
+        <br />
+        <div
+          col-12
+          (click)="reset()"
+          style="
+            font-family: montserrat-medium;
+            font-weight: bold;
+            color: #ffffff;
+          "
+          [translate]="'INSCRIPTIONPROFESSIONNEL3.Text2'"
+        ></div>
+
+        <br />
+        <ion-row
+          style="display: flex; flex-direction: row; justify-content: center"
+        >
+          <button
+            (click)="submit()"
+            style="font-family: montserrat-medium"
+            ion-button
+            class="global-submit-button global-btn themecolor"
+            [translate]="'INSCRIPTIONPROFESSIONNEL3.Text3'"
+          ></button>
+        </ion-row>
+        <!-- <ion-col size="12" style="font-family: montserrat-medium;font-weight: bold;" class="question-box-main"
+                  [translate]="'INSCRIPTIONPROFESSIONNEL3.Text1'"></ion-col>
+                  <ion-col  size="12">
+                      <ion-label class="center-professional-txt" size="small" [translate]="'INSCRIPTIONPROFESSIONNEL3.Text2'"></ion-label>
+                      <div class="center-professional-amtbox">
+                          <ion-input type="number" class="small-txtbox" name="rateone" [(ngModel)]="rateone"></ion-input>
+                          <ion-label>
+                              <ion-icon name="logo-euro"></ion-icon>
+                          </ion-label>
+                      </div>
+                  </ion-col>
+                  <ion-col  size="12">
+
+                      <ion-label class="center-professional-txt" size="small" [translate]="'INSCRIPTIONPROFESSIONNEL3.Text3'"></ion-label>
+                      <div class="center-professional-amtbox">
+                          <ion-input type="number" class="small-txtbox" name="ratetwo" [(ngModel)]="ratetwo"></ion-input>
+                          <ion-label>
+                              <ion-icon name="logo-euro"></ion-icon>
+                          </ion-label>
+                      </div>
+                  </ion-col>
+                  <ion-col  size="12">
+                      <button style="font-family: montserrat-medium;" ion-button class="global-submit-button global-btn themecolor"
+                     (click)="submit()" [translate]="'INSCRIPTIONPROFESSIONNEL3.Text4'">
+              </button>
+                  </ion-col> -->
+
+        <ion-row
+          style="display: none; flex-direction: row; justify-content: center"
+        >
+          <ion-list>
+            <ion-item *ngFor="let sports of sportsListArray;let z=index;">
+              <ion-label>{{sports.spcat_name}}</ion-label>
+              <ion-checkbox
+                [disabled]="isCheckboxDisabled && userType=='2'"
+                (ionChange)="checked($event,sports,z)"
+                [(ngModel)]="sports.isChecked"
+              ></ion-checkbox>
+            </ion-item>
+
+            <!-- <ion-item>
+                        <ion-label>Sports</ion-label>
+                        <ion-select [disabled]="isCheckboxDisabled" multiple="true" (ionChange)="checked($event,sports)" [(ngModel)]="checkedSports" >
+                            <ion-select-option *ngFor="let sports of sportsListArray" value="{{sports.spcat_id}}">
+                                {{sports.spcat_name}}</ion-select-option>
+                        </ion-select>
+                    </ion-item> -->
+          </ion-list>
+        </ion-row>
+        <!-- <ion-row>
+          <ion-col
+            *ngIf="isCheckboxDisabled"
+            col-12
+            (click)="reset()"
+            style="
+              font-family: montserrat-medium;
+              font-weight: bold;
+              color: #ffffff;
+            "
+            [translate]="'INSCRIPTIONPROFESSIONNEL3.Text2'"
+          ></ion-col>
+        </ion-row> -->
+
+        <!-- // COMMENTED THIS ONE -->
+        <!-- <ion-row class="textwith-label">
+          <ion-input
+            type="text"
+            placeholder="other sports category"
+            [(ngModel)]="otherSportsCat"
+            style="font-weight: bold; color: white"
+          ></ion-input>
+        </ion-row> -->
+      </ion-grid>
+    </div>
+  </section>
+</ion-content>
+<!-- 
+<ion-footer>
+  <ion-row style="display: flex; flex-direction: row; justify-content: center">
+    <button
+      style="font-family: montserrat-medium"
+      ion-button
+      class="global-submit-button global-btn themecolor"
+      (click)="submit()"
+      [translate]="'INSCRIPTIONPROFESSIONNEL3.Text3'"
+    ></button>
+  </ion-row>
+</ion-footer> -->

@@ -1,0 +1,42 @@
+
+  .professional-block {
+    width:calc(100% - 80px);
+    max-width: 400px;
+    margin: 0px auto;
+  }
+  .terms-headersection {
+    color: #ffffff;
+    background: transparent;
+  }
+  .question-count {
+    color: #D3C117;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16px !important;
+  }
+  .question-box-main {
+    font-size: 16px;
+    color: #ffffff;
+  }
+  ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+  }
+  ion-textarea {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px !important;
+    padding: 1%;
+    margin: 3%;
+    color: white;
+    text-align: initial;
+  }
+
+
+  ion-content {
+    --background: url('../../assets/login-bg.svg') no-repeat 52% center/cover;
+    text-align: center;
+  }
+  ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    }

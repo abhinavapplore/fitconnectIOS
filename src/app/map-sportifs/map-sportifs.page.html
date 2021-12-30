@@ -1,0 +1,180 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="font-family: montserrat-medium" class="top-fixed-heading">
+      {{'MAPSPORTIFS.Text8'|translate}} : {{total_coach_users}}
+    </ion-title>
+    <!-- [translate]="'MAPSPORTIFS.Text8'" -->
+    <!-- [translate]="'ABONNEMENT.Text1'" -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-content class="map-content" routerLinkActive="router-link-active">
+    <div class="map-block">
+      <ion-grid class="map-search-box">
+        <ion-row
+          class="map-search-withrow"
+          style="display: flex; flex-direction: row; align-items: center"
+        >
+          <ion-col size="10">
+            <div class="search-box">
+              <ion-searchbar
+                class="ion-no-padding"
+                placeholder="{{topSearchPlaceHolder}}"
+                showCancelButton="focus"
+                (ionFocus)="searchFocus($event)"
+                (ionCancel)="cancelSearch($event)"
+                (ionInput)="searchEvent($event)"
+                [(ngModel)]="searchTerm"
+              ></ion-searchbar>
+            </div>
+          </ion-col>
+          <ion-col size="2" style="padding-top: 0">
+            <!-- <div class="search-profile-box" style="margin-right: 15%;" (click)="subMenu()"> -->
+            <img
+              *ngIf="!Avatar"
+              (click)="subMenu()"
+              src="assets/images/profile-img2.jpg"
+            />
+
+            <ion-avatar
+              (click)="subMenu()"
+              style="display: flex; align-items: center"
+              *ngIf="Avatar"
+            >
+              <ion-img
+                style="width: 50px; height: 50px"
+                [src]="imgUrl"
+              ></ion-img>
+            </ion-avatar>
+
+            <!-- </div> -->
+          </ion-col>
+        </ion-row>
+
+        <div *ngIf="showList">
+          <ion-list>
+            <ion-item *ngFor="let item of search" (click)="selectItem(item)">
+              <!-- <ion-avatar style="display: flex;
+                   align-items: center;">
+                       <ion-img [src]="item.user_img" style="width: 30px;height: 30px;"></ion-img>
+                   </ion-avatar>  -->
+              <ion-text>{{item.user_postal_code}}</ion-text>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <!-- Side menu Options -->
+
+        <ion-row
+          *ngIf="subMenuList"
+          style="display: flex; flex-direction: row-reverse"
+        >
+          <ion-list>
+            <ion-item (click)="profile()">
+              <ion-label [translate]="'MAPSPORTIFS.Text1'"
+                >Mon profil</ion-label
+              >
+            </ion-item>
+            <ion-item (click)="myAcc()">
+              <ion-label [translate]="'MAPSPORTIFS.Text2'"
+                >Mon compte</ion-label
+              >
+            </ion-item>
+            <ion-item *ngIf="userType==='2'" (click)="abbonement()">
+              <ion-label [translate]="'MAPSPORTIFS.Text3'"
+                >Abonnement</ion-label
+              >
+            </ion-item>
+            <ion-item (click)="settings()">
+              <ion-label [translate]="'MAPSPORTIFS.Text4'"
+                >Paramètres</ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" (click)="logout()">
+              <ion-label [translate]="'MAPSPORTIFS.Text5'"
+                >Déconnexion</ion-label
+              >
+            </ion-item>
+          </ion-list>
+        </ion-row>
+      </ion-grid>
+
+      <div class="google-map" id="map2"></div>
+
+      <div class="bottom-tab" *ngIf="footerAction">
+        <div class="two-tabs">
+          <ion-row>
+            <ion-col class="ion-no-padding" (click)="eventsTab()">
+              <div
+                style="
+                  text-transform: uppercase;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="tabs-block uppercaes"
+                [translate]="'MAPSPORTIFS.Text6'"
+              >
+                événements
+              </div>
+            </ion-col>
+            <ion-col class="ion-no-padding">
+              <div
+                style="
+                  text-transform: uppercase;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="tabs-block uppercaes selected-tabs"
+                [translate]="'MAPSPORTIFS.Text7'"
+              >
+                sportifs
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer class="footer-fixed-tab" *ngIf="footerAction">
+    <ion-toolbar>
+      <ion-buttons>
+        <div class="footer-btn-tabs">
+          <img
+            src="assets/images/selectedlocation.png"
+            class="footer-img-location"
+          />
+        </div>
+
+        <div class="footer-btn-tabs" (click)="rankingDetails()">
+          <img
+            src="assets/rankiconunselected.svg"
+            class="footer-img-location"
+          />
+        </div>
+
+        <div class="footer-btn-tabs" (click)="eventdetails()">
+          <img
+            src="assets/images/unselectedcalendar.png"
+            class="footer-img-date"
+          />
+        </div>
+        <div class="footer-btn-tabs" (click)="messages()">
+          <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+          <div class="round" *ngIf="this.api.showMessageDot"></div>
+        </div>
+        <div class="footer-btn-tabs" (click)="notifications()">
+          <img
+            src="assets/images/unselectednotification.png"
+            class="footer-img-noti"
+          />
+          <div class="round" *ngIf="this.api.showNotificationDot">
+            {{notificationArray}}
+          </div>
+        </div>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer></ion-content
+>

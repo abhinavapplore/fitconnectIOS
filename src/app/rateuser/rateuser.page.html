@@ -1,0 +1,60 @@
+<ion-content>
+  <ion-row>
+    <ion-col
+      size="8"
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <ion-text style="font-weight: bold; font-size: 14px"
+        >Rating and Reviews</ion-text
+      >
+    </ion-col>
+    <ion-col
+      size="4"
+      style="display: flex; flex-direction: row-reverse"
+      (click)="dismiss()"
+    >
+      <ion-icon style="font-size: 24px" name="close"></ion-icon>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="justify-content: center; margin-top: 5%">
+    <ion-text style="font-weight: bold; font-size: 14px">Rating</ion-text>
+  </ion-row>
+
+  <ion-row style="justify-content: center; margin-top: 5%">
+    <div
+      style="
+        height: 28%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <rating [rate]="rate" readonly="false" [(ngModel)]="rate" size="default">
+        <!-- size="default" (click)="clicked($event)" 
+      (rateChange)="onRateChange($event)"> -->
+      </rating>
+    </div>
+  </ion-row>
+
+  <ion-row style="justify-content: center; margin-top: 5%">
+    <ion-text> Review </ion-text>
+  </ion-row>
+
+  <ion-row style="justify-content: center; margin-top: 5%">
+    <ion-textarea
+      [(ngModel)]="review"
+      style="border: 1px solid #707070"
+    ></ion-textarea>
+  </ion-row>
+
+  <ion-row style="justify-content: center; margin-top: 5%">
+    <ion-button shape="round" (click)="sendRating()">Send</ion-button>
+  </ion-row>
+</ion-content>

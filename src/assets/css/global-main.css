@@ -1,0 +1,121 @@
+.main-bg
+{
+    background-image: url("../images/login-bg.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+    width: 100%;
+    background-attachment:fixed;
+}
+/*.login-logocenter {*/
+    /*margin-top: 100px;*/
+/*}*/
+.center-content {
+padding-top: 10%;
+}
+
+.center-content2 {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+
+
+.themecolor {
+    background: #D3C117;
+    color: #ffffff;
+}
+.themetxtcolor
+{
+    color: #D3C117;
+}
+.theme-txtcolor
+{
+    color: #D3C117;
+}
+.global-btn
+{
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    height: 40px;
+}
+.showhighlite{
+    border-top: 3px solid #D3C117 !important;
+    padding-top: 20px !important;
+    color: #D3C117 !important;
+    font-weight: bold !important; 
+  }
+  
+  .showlowlite{
+    border-top: 3px solid #B5A9A2 !important;
+    padding-top: 20px !important;
+    color: #B5A9A2 !important;
+  }
+
+  .selectedans
+{
+    color: #D3C117 !important;
+}
+  
+.selected-ans
+{
+    color: #D3C117 !important;
+}
+.global-submit-button {
+    width: 170px;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    margin: 15px auto 0px auto;
+    font-weight: bold;
+  font-family: "montserrat";
+}
+ion-radio {
+    width: 15px;
+    height: 15px;
+    color: white;
+}
+:focus {
+    outline: none;
+}
+ion-toolbar .question-count
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+.main-bg ion-toolbar
+{
+    min-height: 56px;
+}
+.question-box .main-bg {
+    padding-top: 5px !important;
+}
+ion-toolbar .top-fixed-heading
+{
+    font-weight:bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+}
+.uppercaes
+{
+    text-transform: uppercase;
+}
+.pt-0
+{
+    padding-top: 0px !important;
+}
+.global-txtarea
+{
+    border: solid thin #e1e1e1;
+}

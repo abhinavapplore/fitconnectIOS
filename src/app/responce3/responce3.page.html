@@ -1,0 +1,31 @@
+
+<ion-header no-border>
+    <ion-toolbar class="terms-headersection">
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="question2"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen >
+  <section >
+   
+      <div class="center-content" style="padding-top: 30%;">
+        <ion-row>
+            <ion-col style="font-family: montserrat-medium;" style="color: #D3C117;" class="question-count" [translate]="'RESPONCE3.Text1'"></ion-col>
+        </ion-row>
+          <ion-row>
+              <ion-col col-12 class="question-box-main" [translate]="'RESPONCE3.Text2'">  
+                  
+            
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-textarea style="font-weight: bold;color: white;font-family: montserrat" placeholder="Description" rows="10" [(ngModel)]="discription" ></ion-textarea>
+          </ion-row>
+          <ion-row>
+              <button ion-button class="global-submit-button global-btn" style="background-color: #D3C117; color: white;" (click)="submit()" [translate]="'RESPONCE3.Text4'">
+              </button>
+          </ion-row>
+      </div>
+  </section>
+</ion-content>

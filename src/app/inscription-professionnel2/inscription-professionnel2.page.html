@@ -1,0 +1,35 @@
+<ion-header no-border>
+    <ion-toolbar class="terms-headersection">
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="connexion"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+    <section>
+
+        <div class="center-content">
+            <div class="professional-block">
+                <ion-row>
+                    <ion-col style="font-family: montserrat-medium;font-weight: bold;" col-12 class="question-box-main"
+                        [translate]="'INSCRIPTIONPROFESSIONNEL2.Text1'"></ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-textarea style="font-weight: bold;color: #FFFFFF;" placeholder="Description" rows="5"
+                        name="discription1" [(ngModel)]="discription1"></ion-textarea>
+                </ion-row>
+              
+
+
+              
+              
+                <ion-row>
+                    <button style="font-family: montserrat-medium;" ion-button
+                        class="global-submit-button global-btn themecolor" (click)="submit()"
+                        [translate]="'INSCRIPTIONPROFESSIONNEL2.Text3'">
+                    </button>
+                </ion-row>
+            </div>
+        </div>
+    </section>
+</ion-content>

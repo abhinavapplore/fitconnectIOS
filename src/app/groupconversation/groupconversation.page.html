@@ -1,0 +1,238 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          [size]="2"
+          style="display: flex; flex-direction: column; justify-content: center"
+          (click)="back()"
+        >
+          <img style="width: 50%" src="../../assets/images/backblack.png" />
+        </ion-col>
+        <!-- <ion-col [size]="2" (click)="viewProfile()"> -->
+        <!-- <ion-col [size]="2">
+          <ion-avatar style="display: flex; align-items: center"> </ion-avatar>
+        </ion-col> -->
+        <ion-col
+          *ngIf="chatUserName"
+          [size]="8"
+          style="
+            font-family: 'montserrat';
+            font-size: 1rem;
+            font-weight: bolder;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+          "
+        >
+          <ion-text style="color: #ceb900; margin-top: 2px"
+            >{{recieverName}}</ion-text
+          >
+        </ion-col>
+        <ion-col
+          *ngIf="!chatUserName"
+          [size]="8"
+          style="
+            text-align: center;
+            font-family: Open Sans-semibold;
+            font-size: 24px;
+          "
+        >
+          <ion-text>{{title}}</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <div id="searchOverlay">
+
+
+  <div *ngIf="isSearch">
+    <ion-item style="background-color: #FFFFFF;">
+      <ion-input style="background-color: whitesmoke;border-radius: 12px;font-family: Proxima Nova-bold;" type="text" searchIcon="disable" placeholder="Type Here" (ionInput)="getUser($event)" value={{searchTerm}}></ion-input>
+    <ion-icon name="close-circle-outline" (click)="closeSearch()"></ion-icon>
+    </ion-item>
+    
+    
+   </div>
+
+   <div *ngIf="showList">
+    <ion-list style="height: 55px;width: 30%;background-color: #FFFFFF;" *ngFor="let item of search" (click)="selectChat(item)">
+      <ion-grid>
+        <ion-row style="text-align: center;">
+          
+          
+              
+                <ion-text style="font-size: 13px;font-family:Open Sans-regular;color: #454F63;">{{item.Message}}</ion-text><br>
+                
+             
+          
+        </ion-row>
+          
+        
+      </ion-grid>
+    </ion-list>
+  </div>
+</div> -->
+
+<ion-content #content>
+  <div class="chat" *ngFor="let chat of chatRef | async">
+    <div *ngIf="uid== chat.UserID" class="me" style="display: flex">
+      <div class="me" style="color: black; background: whitesmoke">
+        <span>
+          {{chat.Message}} <br />
+          <span
+            style="
+              font-size: 10px;
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-end;
+            "
+          >
+            {{chat.msgTime}}
+          </span>
+        </span>
+      </div>
+      <ion-avatar
+        style="display: flex; justify-content: center; align-items: flex-end"
+      >
+        <ion-img [src]="userImage" style="height: 35px; width: 35px"> </ion-img>
+      </ion-avatar>
+    </div>
+    <div *ngIf="uid!=chat.UserID" class="you" style="display: flex">
+      <ion-avatar
+        style="
+          display: flex;
+          flex-direction: row;
+          height: 35px;
+          width: 36px;
+          padding-top: 16%;
+          margin-right: 10%;
+        "
+      >
+        <ion-img [src]="chat.imgUrl" style="height: 35px; width: 35px">
+        </ion-img>
+      </ion-avatar>
+      <div
+        class="you"
+        style="color: white; background: #3e9dff; margin: 15px 0px 15px 0px"
+      >
+        <span>
+          {{chat.Message}} <br />
+          <span
+            style="
+              font-size: 10px;
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-end;
+            "
+          >
+            {{chat.msgTime}}
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- <ion-content class="massagechat-content" [routerLink]="['/messagerie']"
+             routerLinkActive="router-link-active">
+    <section class="chat-internal-block">
+        <div class="chat-massage-box" *ngFor="let chat of chatRef | async">
+            <div class="chat-row sender" *ngIf="uid== chat.UserID">
+                
+                <ion-img [src]="userImage" style="height: 35px;width: 35px;">
+                </ion-img>
+                <div class="chat-msgbox">
+                    <ion-text class="chatmsg">
+                      {{chat.Message}}
+                    </ion-text>
+                    <small class="chat-time">15:07</small>
+                </div>
+            </div>
+            <div class="chat-row reciver" *ngIf="uid!=chat.UserID">
+              
+                <ion-img [src]="recieverImg" style="height: 35px;width: 35px;">
+                </ion-img>
+                <div class="chat-msgbox">
+                    <ion-text class="chatmsg">
+                      {{chat.Message}}
+                    </ion-text>
+                    <small class="chat-time">15:10</small>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        
+    </section>
+</ion-content> -->
+
+<ion-row>
+  <ion-col>
+    <ion-item
+      class="chatbox"
+      style="
+        border-radius: 25px;
+        box-shadow: #000000 !important;
+        width: 80%;
+        margin: auto;
+      "
+    >
+      <ion-input
+        style="font-weight: bolder"
+        placeholder="Type..."
+        [(ngModel)]="text"
+      ></ion-input>
+      <ion-button
+        style="border-radius: 50px"
+        (click)="send(text)"
+        fill="clear"
+        icon-only
+        slot="end"
+      >
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-footer class="footer-fixed-tab" *ngIf="footerAction">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="eventdetails()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/selectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

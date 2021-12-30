@@ -1,0 +1,140 @@
+.invalid-feedback {
+  font-size: 12px;
+}
+// .sportSelect::placeholder {
+//   color: green;
+// }
+// ion-select {
+//   --placeholder-opacity: 1 !important;
+//   color: black;
+// }
+// ion-select::part(placeholder) {
+//   color: blue;
+//   opacity: 1;
+// }
+
+ion-select {
+  --placeholder-color: #ffffff;
+}
+.header-fixed-top {
+  text-align: center;
+  ion-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+  }
+}
+.coach-create-coponent {
+  ion-list {
+    padding: 20px 30px;
+    color: #666666;
+    .create-input-row {
+      position: relative;
+      width: 100%;
+      padding-left: 40px;
+      ion-input {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ccccccb5;
+      }
+    }
+    .left-createicon {
+      height: 25px;
+      margin-right: 20px;
+      position: absolute;
+      left: 0px;
+    }
+    .coach-radiobox {
+      .engage-euro {
+        font-size: 18px;
+        margin-right: 3px;
+      }
+      ion-radio {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+.invalid-feedback {
+  text-align: center !important;
+  color: red !important;
+}
+
+.footer-fixed-tab {
+  background: #414141;
+  width: 100%;
+  padding: 0px 5%;
+  ion-toolbar {
+    --background: #414141;
+    --ion-color-base: #000000 !important;
+    color: #ffffff;
+    .footer-btn-tabs {
+      width: 25%;
+      float: left;
+      text-align: center;
+      padding: 15px;
+      --background: transparent;
+      position: relative;
+      img {
+        width: 50%;
+      }
+      .round {
+        height: 15px;
+        width: 15px;
+        background-color: #ffaa00;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        left: 50px;
+        top: 15px;
+        font-size: 12px;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+      }
+    }
+  }
+}
+
+#addressfield {
+  .ng-valid {
+    font-weight: bold;
+
+    opacity: 1;
+  }
+}
+#addressfield {
+  .ng-invalid {
+    font-weight: bold;
+    color: #b8b8b8;
+    opacity: 0.6;
+  }
+}
+
+ion-input {
+  font-weight: bold !important;
+  color: #b8b8b8 !important;
+  --placeholder-font-weight: bold !important;
+  --placeholder-color: #b8b8b8 !important;
+  --placeholder-font-family: 'montserrat-medium' !important;
+  --placeholder-opacity: 1 !important;
+}
+
+ion-textarea {
+  font-weight: bold !important;
+  color: #b8b8b8 !important;
+  --placeholder-font-weight: bold !important;
+  --placeholder-color: #b8b8b8 !important;
+  --placeholder-font-family: 'montserrat-medium' !important;
+  --placeholder-opacity: 1 !important;
+}
+
+ion-datetime {
+  .datetime-text {
+    font-weight: bold !important;
+    color: #b8b8b8 !important;
+    font-family: 'montserrat-medium' !important;
+    --placeholder-opacity: 1 !important;
+  }
+}

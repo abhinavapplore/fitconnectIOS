@@ -1,0 +1,147 @@
+.global-page {
+    font-weight: inherit;
+    .started-row {
+      width: 94%;
+      margin-left: 3%;
+      margin-top: 20px;
+      ion-label {
+        font-weight: bold;
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+  
+      .textwith-label {
+        padding: 10px 0px;
+        border-bottom: solid thin #cccccc;
+        ion-input {
+          display: inline-block;
+          text-align: left !important;
+          background: transparent;
+          border: none;
+          font-size: 18px;
+          padding-left: 0px;
+          color: #cccccc;
+          margin-top: 3px;
+          --placeholder-color: #ffffff;
+          input {
+            text-align: left;
+            margin: 0px;
+            margin-top: 8px;
+            font-weight: initial;
+            --placeholder-color: #ffffff;
+          }
+  
+        }
+      }
+      .started_txt {
+        max-width: 30px;
+        width: 30px;
+        margin: 0px;
+        padding: 12px 0px 0px 0px;
+        height: auto;
+        font-size: 16px;
+      }
+      .started_txt img {
+        width: 20px;
+      }
+      small {
+        font-size: 16px;
+        color: #cccccc;
+        margin: 10px auto;
+        text-align: center;
+        border-bottom: solid thin #7b7b7b;
+      }
+      .login-button {
+        width: 55%;
+        margin: 30px auto 15px auto;
+        font-weight: bold;
+        background-color: #D3C117;
+      }
+      .ios .login-button {
+        width: 55%;
+        margin: 30px auto 15px auto;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  
+  .showhighlite{
+    border-top: 3px solid #D3C117 !important;
+    padding-top: 20px !important;
+    color: #D3C117 !important;
+    font-weight: bold !important; 
+  }
+  
+  .showlowlite{
+    border-top: 3px solid #B5A9A2 !important;
+    padding-top: 20px !important;
+    color: #B5A9A2 !important;
+  }
+  
+  
+  
+    .started-row {
+      width: 100%;
+      ion-label {
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+      .started_txt {
+        max-width: 40px;
+        width: 40px;
+        margin: 0px;
+        padding: 12px 0px 0px 0px;
+        height: auto;
+        font-size: 16px;
+      }
+      .center-head {
+        font-size: 24px !important;
+        color: #ffffff;
+        margin: 30px auto 10px auto;
+        text-align: center;
+        font-weight: initial;
+      }
+      .inscription-login-button {
+        width: 60%;
+        text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: 1px;
+        border-radius: 20px;
+        margin: 15px auto;
+      }
+      .ios .inscription-login-button {
+        width: 60%;
+        text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: 1px;
+        border-radius: 20px;
+        margin: 15px auto;
+      }
+    }
+  
+  #whiteCard{
+    height: 160px;
+    width: 280px;
+    background: white;
+  }
+  
+    ion-content.main-content {
+      --background: url('../../assets/login-bg.svg') no-repeat 52% center/cover;
+      text-align: center;
+      justify-content: center;
+    }
+  
+    ion-toolbar {
+      --background: transparent;
+      --ion-color-base: transparent !important;
+      }
+  
+  
+      .invalid-feedback{
+        font-size: 13px;
+        color: red;
+        background: white;
+        border-radius: 1px;
+    
+      }

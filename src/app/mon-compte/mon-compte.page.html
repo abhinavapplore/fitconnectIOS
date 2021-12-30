@@ -1,0 +1,198 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading uppercaes"
+      [translate]="'MONCOMPTE.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- <div class="overall-content" [routerLink]="['/parametres']"
+         routerLinkActive="router-link-active"> -->
+  <div class="overall-content">
+    <div class="top-black-block"></div>
+    <div class="top-header-content">
+      <div class="top-btn-toolbar">
+        <ion-row>
+          <ion-col class="ion-text-left"> </ion-col>
+          <ion-col style="justify-content: center; display: flex">
+            <div class="profile-center">
+              <img *ngIf="!Avatar" src="assets/images/profile-img.png" />
+              <ion-avatar style="height: 100px; width: 100px" *ngIf="Avatar">
+                <ion-img [src]="imgUrl"></ion-img>
+              </ion-avatar>
+
+              <div class="edit-pencilicon" (click)="presentActionSheet(1)">
+                <img src="assets/images/edit-pencil.png" />
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="ion-text-right"> </ion-col>
+        </ion-row>
+        <ion-row class="top-profile-center ion-align-items-center">
+          <div
+            class="ion-text-center"
+            style="
+              font-family: montserrat-medium;
+              font-weight: bold;
+              color: #d3c117;
+            "
+          >
+            {{name | titlecase}}
+          </div>
+          <div
+            class="small-txt ion-text-center"
+            style="font-family: montserrat"
+          >
+            {{gender}} - {{age}} <span [translate]="'MONCOMPTE.Text2'"></span>
+          </div>
+          <h5
+            class="top-heading"
+            style="font-family: montserrat-medium; font-weight: bold"
+            [translate]="'MONCOMPTE.Text3'"
+          ></h5>
+        </ion-row>
+      </div>
+    </div>
+    <div class="profile-inner-block">
+      <ion-list>
+        <div class="setborder">
+          <div
+            class="main-head"
+            style="font-family: montserrat-medium; font-size: 12px"
+            [translate]="'MONCOMPTE.Text4'"
+          >
+            <!-- <img (click)="editEmail()" class="edit-row-icon" src="assets/images/edit-pencil.png"/> -->
+          </div>
+          <div style="padding-top: 10px">
+            <ion-label style="font-family: montserrat" *ngIf="!emailEdit"
+              >{{emailId}}</ion-label
+            >
+            <ion-input
+              *ngIf="emailEdit"
+              type="email"
+              class="input-txt"
+              [(ngModel)]="newEmail"
+            ></ion-input>
+          </div>
+        </div>
+
+        <div class="setborder">
+          <div
+            class="main-head"
+            style="font-family: montserrat-medium; font-size: 12px"
+          >
+            <span [translate]="'MONCOMPTE.Text5'"></span>
+            <img
+              (click)="editPass()"
+              class="edit-row-icon"
+              src="assets/images/edit-pencil.png"
+            />
+          </div>
+          <div style="padding-top: 10px">
+            <ion-label style="font-family: montserrat" *ngIf="!passEdit"
+              >**********</ion-label
+            >
+            <ion-input
+              *ngIf="passEdit"
+              type="password"
+              class="input-txt"
+              [(ngModel)]="password"
+            ></ion-input>
+            <div
+              *ngIf="passEdit && displayPassError"
+              style="color: red; font-size: 10px"
+              [translate]="'MONCOMPTE.Text6'"
+            ></div>
+          </div>
+        </div>
+
+        <div class="setborder">
+          <div
+            class="main-head"
+            style="font-family: montserrat-medium; font-size: 12px"
+          >
+            <span [translate]="'MONCOMPTE.Text7'"></span>
+            <img
+              (click)="editPostal()"
+              class="edit-row-icon"
+              src="assets/images/edit-pencil.png"
+            />
+          </div>
+          <div style="padding-top: 10px">
+            <ion-label style="font-family: montserrat" *ngIf="!postalEdit"
+              >{{postalCode}}</ion-label
+            >
+            <ion-input
+              *ngIf="postalEdit"
+              type="tel"
+              class="input-txt"
+              [(ngModel)]="postalCode"
+            ></ion-input>
+            <div
+              *ngIf="postalEdit && displayPostalError"
+              style="color: red; font-size: 10px"
+              [translate]="'MONCOMPTE.Text8'"
+            ></div>
+          </div>
+        </div>
+      </ion-list>
+
+      <ion-row class="ion-margin-bottom ion-margin-top ion-padding-top">
+        <ion-col
+          class="ion-text-center"
+          (click)="presentAlertConfirm()"
+          style="display: flex; flex-direction: row; justify-content: center"
+        >
+          <ion-icon name="trash" item-left color="dark"></ion-icon>
+          <b
+            margin-left
+            style="font-family: montserrat-medium; font-size: 12px"
+            [translate]="'MONCOMPTE.Text9'"
+          >
+          </b>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

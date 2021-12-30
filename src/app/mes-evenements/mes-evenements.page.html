@@ -1,0 +1,251 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="response3"></ion-back-button>
+        </ion-buttons> -->
+    <ion-title
+      style="font-family: montserrat-medium; font-weight: bold"
+      class="top-fixed-heading uppercaes"
+      [translate]="'MESEVENTMENTS.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="top-tabs">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <div
+          class="tabs-block uppercaes selected-tabs"
+          [translate]="'MESEVENTMENTS.Text2'"
+        ></div>
+      </ion-col>
+      <ion-col class="ion-no-padding" (click)="crees()">
+        <div
+          class="tabs-block uppercaes"
+          [translate]="'MESEVENTMENTS.Text3'"
+        ></div>
+      </ion-col>
+      <ion-col class="ion-no-padding" (click)="participes()">
+        <div
+          class="tabs-block uppercaes"
+          [translate]="'MESEVENTMENTS.Text4'"
+        ></div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-row
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+      "
+    >
+      <ion-text style="font-family: montserrat-medium; font-weight: bold"
+        ><b>{{totalEvents}}</b> <span [translate]="'MESEVENTMENTS.Text5'"></span
+      ></ion-text>
+    </ion-row>
+
+    <div *ngIf="!empty">
+      <ion-card
+        class="card-evenement"
+        *ngFor="let event of activeEvents"
+        style="position: relative"
+      >
+        <ion-card-header class="ion-no-padding">
+          <ion-row class="det-head-withimg">
+            <img
+              style="border-radius: 20px"
+              class="det-head-img"
+              [src]="event.host_user_img"
+            />
+            <ion-col size="9" class="det-head-txt" style="padding-left: 5%">
+              <span *ngIf="event.event_type==1">
+                <!-- {{event.event_individuals_title | titlecase}} -->
+
+                {{event.spcat_name | titlecase}}
+              </span>
+              <span *ngIf="event.event_type==2">
+                <!-- {{event.event_coach_title | titlecase}} -->
+                {{event.spcat_name | titlecase}}
+              </span>
+              <b class="username" style="color: #d3c117">
+                {{event.nameFormatted}}
+              </b>
+            </ion-col>
+
+            <div
+              *ngIf="event.host_user_id==udk"
+              style="position: absolute; right: 0px; top: 0px"
+            >
+              <button
+                class="evenment-submit-button global-btn themecolor"
+                (click)="presentAlertConfirm(event)"
+              >
+                <ion-icon name="trash"></ion-icon>
+              </button>
+
+              <button
+                class="evenment-submit-button global-btn themecolor"
+                (click)="edit(event)"
+              >
+                <ion-icon name="create"></ion-icon>
+              </button>
+            </div>
+
+            <!-- <ion-col
+              size="3"
+              class="det-close"
+              *ngIf="udk===event.host_user_id"
+            >
+              <button
+                ion-button
+                class="evenment-submit-button global-btn"
+                (click)="presentAlertConfirm(event)"
+                [translate]="'MESEVENTMENTS.Text6'"
+              ></button>
+              <button
+                ion-button
+                class="evenment-submit-button global-btn"
+                (click)="edit(event)"
+              >
+                edit
+              </button>
+            </ion-col> -->
+
+            <!-- <ion-col size="6" class="det-close" *ngIf="udk!=event.host_user_id && event.book_status!='waiting for approval'">
+                            <button ion-button class="evenment-submit-button global-btn themecolor" 
+                                    (click)="withdraw(event)" [translate]="'MESEVENTMENTS.Text7'">
+                            </button>
+                        </ion-col> -->
+
+            <ion-col
+              style="
+                padding-right: 0px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+              "
+              size="3"
+              *ngIf="udk!=event.host_user_id && event.book_status=='waiting for approval'"
+            >
+              <div class="circle"></div>
+              <ion-text
+                style="font-size: 10px"
+                [translate]="'MESEVENTMENTS.Text8'"
+              ></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+        <ion-card-content class="evenement-card-content ion-no-padding">
+          <ion-list class="ion-no-padding">
+            <ion-row *ngIf="event.event_type==='1'">
+              <div class="iconswith-row">
+                <img
+                  src="../../assets/images/unselectedlocation.png"
+                  class="location-img"
+                />
+                <div class="details-box" style="font-family: montserrat-medium">
+                  {{event.event_individuals_address}}
+                </div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/time.png" class="time-img" />
+                <div class="details-box" style="font-family: montserrat-medium">
+                  {{event.event_individuals_date}} - {{event.event_time}}
+                </div>
+              </div>
+              <div class="iconswith-row" (click)="showParticipant(event)">
+                <img src="assets/images/people.png" />
+                <div class="details-box" style="font-family: montserrat-medium">
+                  {{event.event_individuals_participants_min}} /
+                  {{event.event_individuals_participants_max}}
+                </div>
+              </div>
+            </ion-row>
+            <ion-row *ngIf="event.event_type==='2'">
+              <div class="iconswith-row">
+                <img
+                  src="../../assets/images/unselectedlocation.png"
+                  class="location-img"
+                />
+                <div class="details-box" style="font-family: montserrat-medium">
+                  {{event.event_coach_address}}
+                </div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/time.png" class="time-img" />
+                <div class="details-box" style="font-family: montserrat-medium">
+                  {{event.event_coach_date}} - {{event.event_time}}
+                </div>
+              </div>
+              <div class="iconswith-row" (click)="showParticipant(event)">
+                <img src="assets/images/people.png" />
+                <div class="details-box" style="font-family: montserrat-medium">
+                  {{event.event_coach_participants_min}} /
+                  {{event.event_coach_participants_max}}
+                </div>
+              </div>
+            </ion-row>
+            <ion-row
+              style="
+                display: flex;
+                flex-direction: row-reverse;
+                padding-bottom: 13px;
+              "
+            >
+              <!-- *ngIf="udk!=event.host_user_id && event.book_status=='waiting for approval'" -->
+
+              <div class="det-close" *ngIf="udk!=event.host_user_id ">
+                <button
+                  ion-button
+                  class="evenment-submit-button global-btn themecolor"
+                  (click)="withdraw(event)"
+                  [translate]="'MESEVENTMENTS.Text7'"
+                ></button>
+              </div>
+            </ion-row>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <!-- <div *ngIf="empty" style="display: flex;flex-direction: row;justify-content: center;">
+           {{message}}
+        </div> -->
+  </ion-list>
+</ion-content>
+
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs">
+        <img src="assets/images/selectedcalendar.png" class="footer-img-date" />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          <!-- {{notificationArray}} -->
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

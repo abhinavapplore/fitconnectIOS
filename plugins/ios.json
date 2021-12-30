@@ -1,0 +1,68 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "com.darktalker.cordova.screenshot": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-document-viewer": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-file-opener2": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-filepath": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-geolocation": {
+      "GPS_REQUIRED": "true",
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+      "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    },
+    "cordova-plugin-fcm-with-dependecy-updated": {
+      "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.4.0",
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.sports.fitnconnect"
+    }
+  }
+}

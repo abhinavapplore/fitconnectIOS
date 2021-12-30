@@ -1,0 +1,112 @@
+ion-label,
+ion-input,
+ion-datetime {
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+ion-toolbar,
+ion-item {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+}
+
+ion-input,
+ion-datetime {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+.radio-btn {
+  color: white;
+}
+
+.profile-img-center {
+  width: 100%;
+  text-align: center;
+}
+.lg-rg-icon {
+  margin: 0px !important;
+}
+.profile-img-block {
+  text-align: center;
+  position: relative;
+  width: 80px;
+  border-radius: 100%;
+  height: 80px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.3);
+  margin-left: calc(50% - 50px);
+  box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.19), 0 2px 5px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.19),
+    io 0 2px 5px rgba(0, 0, 0, 0.23);
+}
+
+.pro-img-container {
+  position: relative;
+  width: 100%;
+  border-radius: 100%;
+  height: 100%;
+  overflow: hidden;
+  ion-img {
+    width: 100%;
+    height: 100%;
+    padding-top: 6px;
+  }
+}
+
+.pro-img-container img {
+}
+
+.file-up-btnbox {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: #000000;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 25px;
+  right: -7px;
+  top: 7%;
+}
+
+.upload-file {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+}
+
+.bg-image-full {
+  // if content does not occupy whole height then it shows white bg at bottom
+
+  // min-height: 100%;
+
+  background: url('../../assets/images/login-bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  // background: url('../../assets/images/login-bg.png') 0 0/100% 100% no-repeat;
+}
+
+// ion-content {
+//   --background: url('../../assets/login-bg.svg') no-repeat 52% center/cover;
+//   text-align: center;
+// }
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+}
+
+.invalid-feedback {
+  font-size: 13px;
+  color: red;
+  background: white;
+  border-radius: 1px;
+}

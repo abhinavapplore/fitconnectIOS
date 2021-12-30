@@ -1,0 +1,84 @@
+<ion-header no-border class="header-fixed-top">
+    <ion-toolbar class="top-global-toolbar">
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="response3"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="top-fixed-heading uppercaes themetxtcolor">
+            <img src="assets/images/profile-img.png" class="head-profileimg">
+         <b>   Jordan B.</b>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="massagechat-content" [routerLink]="['/messagerie']"
+             routerLinkActive="router-link-active">
+    <section class="chat-internal-block">
+        <div class="chat-massage-box">
+            <div class="chat-row sender">
+                <img src="assets/images/profile-img.png" />
+                <div class="chat-msgbox">
+                    <ion-text class="chatmsg">
+                        Ok ça marche ! Préférez-vous qu’on se retrouve là bas ?
+                    </ion-text>
+                    <small class="chat-time">15:07</small>
+                </div>
+            </div>
+            <div class="chat-row reciver">
+                <img src="assets/images/profile-img2.jpg" />
+                <div class="chat-msgbox">
+                    <ion-text class="chatmsg">
+                        Oui pas de problème.
+                    </ion-text>
+                    <small class="chat-time">15:10</small>
+                </div>
+            </div>
+            <div class="chat-row sender">
+                <img src="assets/images/profile-img.png" />
+                <div class="chat-msgbox">
+                    <ion-text class="chatmsg">
+                        Ok ça marche ! Préférez-vous qu’on se retrouve là bas ?
+                    </ion-text>
+                    <small class="chat-time">15:07</small>
+                </div>
+            </div>
+            <div class="chat-row reciver">
+                <img src="assets/images/profile-img2.jpg" />
+                <div class="chat-msgbox">
+                    <ion-text class="chatmsg">
+                        Oui pas de problème.
+                    </ion-text>
+                    <small class="chat-time">15:10</small>
+                </div>
+            </div>
+            <div class="chat-row sender">
+                <img src="assets/images/profile-img.png" />
+                <div class="chat-msgbox">
+                    <ion-text class="chatmsg">
+                        Ok ça marche ! Préférez-vous qu’on se retrouve là bas ?
+                    </ion-text>
+                    <small class="chat-time">15:07</small>
+                </div>
+            </div>
+        </div>
+        <div class="chat-txtbox">
+            <ion-input placeholder="Répondre"></ion-input>
+        </div>
+    </section>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+    <ion-toolbar>
+        <ion-buttons>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/selectedlocation.png" class="footer-img-location"/>
+            </div>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/unselectedcalendar.png" class="footer-img-date"/>
+            </div>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/unselectedmsg.png" class="footer-img-chat"/>
+            </div>
+            <div class="footer-btn-tabs">
+                <img src="assets/images/unselectednotification.png" class="footer-img-noti"/>
+            </div>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

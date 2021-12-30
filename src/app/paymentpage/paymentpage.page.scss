@@ -1,0 +1,29 @@
+.header-fixed-top {
+    text-align: center;
+    --box-shadow: none !important;
+    .top-global-toolbar {
+      --background: #414141;
+      --ion-color-base: #000000 !important;
+      color: #ffffff;
+      --box-shadow: none !important;
+    }
+  }
+
+    
+      
+    .invalid-feedback{
+        font-size: 13px;
+        color: red;
+        background: white;
+        border-radius: 1px;
+    
+      }
+
+    
+
+
+      ion-input,ion-datetime {
+  
+        border-bottom: 1px solid rgba(255,255,255, 0.5) !important;
+     
+    }

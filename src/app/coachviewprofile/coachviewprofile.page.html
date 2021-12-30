@@ -1,0 +1,457 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <ion-buttons slot="start">
+      <!-- <ion-back-button text="" defaultHref="response3"></ion-back-button> -->
+      <ion-back-button text="" defaultHref="ranking"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium; font-weight: bolder"
+      class="top-fixed-heading uppercaes"
+    >
+      {{name | titlecase}}
+      <br />
+      <ng-container *ngIf="userRank && coachType">
+        {{'WATCHREVIEW.Text19' | translate}} -
+        <ion-text
+          style="
+            font-size: 16px;
+            font-weight: bold;
+            font-family: montserrat-medium;
+            color: #d3c117;
+          "
+        >
+          {{userRank | number}}
+        </ion-text>
+      </ng-container>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="overall-content">
+    <!-- <div class="overall-content" [routerLink]="['/coacheditprofile']"
+         routerLinkActive="router-link-active"> -->
+    <ion-row *ngIf="coachType">
+      <ion-title
+        style="font-family: montserrat-medium; font-weight: bolder"
+        class="top-fixed-heading uppercaes"
+        [translate]="'WATCHREVIEW.Text19'"
+        >{{userRanking}}
+      </ion-title>
+    </ion-row>
+    <div class="top-black-block"></div>
+    <div class="top-header-content">
+      <div class="top-btn-toolbar">
+        <ion-row>
+          <ion-col class="ion-text-left">
+            <div>
+              <ion-button
+                *ngIf="!blockedHost"
+                size="small"
+                class="profile-btn"
+                (click)="block()"
+                [translate]="'COACHVIEW.Text1'"
+              ></ion-button>
+              <ion-button
+                style="background: #d3c117"
+                *ngIf="blockedHost"
+                size="small"
+                class="profile-btn"
+                (click)="unfollow('block')"
+                [translate]="'COACHVIEW.Text1'"
+              >
+              </ion-button>
+            </div>
+
+            <!-- <div *ngIf="user_Type==='2'" style="height: 30px;"></div> -->
+            <!-- <ion-button  *ngIf="user_Type==='2'" size="small" class="profile-btn" (click)="block()">Bloquer</ion-button> -->
+            <div class="social-counterbox">
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-count"
+              >
+                {{followers}}
+              </div>
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-counttxt"
+                [translate]="'COACHVIEW.Text2'"
+              ></div>
+            </div>
+          </ion-col>
+          <ion-col
+            style="display: flex; flex-direction: row; justify-content: center"
+          >
+            <div class="profile-center">
+              <img *ngIf="!Avatar" src="assets/images/profile-img.png" />
+              <ion-avatar style="height: 92px; width: 92px" *ngIf="Avatar">
+                <ion-img [src]="imgUrl"></ion-img>
+              </ion-avatar>
+            </div>
+          </ion-col>
+          <ion-col class="ion-text-right">
+            <div></div>
+            <div>
+              <ion-button
+                *ngIf="!followHost"
+                size="small"
+                class="profile-btnicon"
+                (click)="follow()"
+              >
+                <ion-icon name="add"></ion-icon>
+                <span [translate]="'COACHVIEW.Text3'"></span>
+              </ion-button>
+            </div>
+
+            <!-- <div *ngIf="user_Type==='2'" style="height: 30px;">
+                           
+                        </div> -->
+
+            <div>
+              <ion-button
+                style="background: #d3c117"
+                *ngIf="followHost"
+                size="small"
+                class="profile-btnicon"
+                (click)="unfollow()"
+                [translate]="'COACHVIEW.Text4'"
+              >
+              </ion-button>
+            </div>
+
+            <!-- <div *ngIf="user_Type==='2'" style="display: none;">
+                            <ion-button style="background: #D3C117;" *ngIf="followHost" size="small" class="profile-btnicon" (click)="unfollow()">
+                            
+                                ne plus suivre
+                            </ion-button>
+                        </div> -->
+
+            <div class="social-counterbox">
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-count"
+              >
+                {{following}}
+              </div>
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-counttxt"
+                [translate]="'COACHVIEW.Text5'"
+              ></div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            color: #d3c117;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+        >
+          <div
+            *ngIf="userType"
+            class="ion-text-center"
+            style="
+              font-family: montserrat-medium;
+              font-weight: bolder;
+              margin-top: 5%;
+              color: #d3c117;
+            "
+          >
+            <div style="display: flex; align-items: center" *ngIf="ban">
+              <img src="assets/images/ban.png" style="width: 1rem" alt="" />
+              &nbsp; {{name | titlecase}}
+            </div>
+          </div>
+          <div *ngIf="coachType" style="margin-top: 5%" class="ion-text-center">
+            <ion-row style="margin-top: 2%">
+              <ion-icon name="star"></ion-icon>
+              <ion-text style="font-family: montserrat-medium"
+                >{{name | titlecase}}</ion-text
+              >
+            </ion-row>
+            <ion-row>
+              <ion-text
+                class="gray-color"
+                style="font-family: montserrat-medium"
+                [translate]="'PROFILEACTIVITE.Text6'"
+              ></ion-text>
+            </ion-row>
+          </div>
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 2%;
+          "
+        >
+          <div
+            class="small-txt ion-text-center"
+            style="font-family: montserrat-medium"
+          >
+            {{gender}} - {{age}}
+            <span [translate]="'PROFILEACTIVITE.Text7'"></span>
+          </div>
+        </ion-row>
+
+        <ion-row style="justify-content: center">
+          <div
+            class="small-txt ion-text-center"
+            style="font-family: montserrat-medium"
+          >
+            <ion-icon color="primary" name="star"></ion-icon>
+            <span [translate]="'WATCHREVIEW.Text12'"></span>
+            {{userRating|number:"0.1-2"}}/5 - ({{total_review}}
+            <span [translate]="'WATCHREVIEW.Text16'"></span>
+          </div>
+        </ion-row>
+
+        <ion-row class="top-profile-center ion-align-items-center">
+          <div class="small-txt-location ion-no-margin ion-text-center">
+            <img
+              class="top-location-img"
+              src="assets/images/icon-location.png"
+            />
+            {{distance}} KM
+          </div>
+          <!-- <button class="top-profile-btn">
+            <img src="assets/images/chat-white.png" />
+            <span [translate]="'COACHVIEW.Text8'"></span>
+          </button> -->
+
+          <button class="top-profile-btn" (click)="chat()">
+            <img src="assets/images/chat-white.png" />
+            <span [translate]="'COACHVIEW.Text8'"></span>
+          </button>
+        </ion-row>
+        <div class="top-tabs">
+          <ion-row>
+            <ion-col class="ion-no-padding">
+              <div
+                class="tabs-block uppercaes selected-tabs"
+                style="font-weight: bold"
+                [translate]="'COACHVIEW.Text9'"
+              >
+                \
+              </div>
+            </ion-col>
+            <ion-col class="ion-no-padding" (click)="activity()">
+              <div
+                class="tabs-block uppercaes"
+                [translate]="'COACHVIEW.Text10'"
+              ></div>
+            </ion-col>
+            <ion-col class="ion-no-padding" (click)="reviewPage()">
+              <div
+                style="font-family: montserrat-medium"
+                class="tabs-block uppercaes"
+                [translate]="'COACHVIEW.Text18'"
+              ></div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+
+    <!-- USER PROFILE VIEW -->
+
+    <div class="profile-inner-block" *ngIf="userType">
+      <div class="gray-row">
+        <ion-row>
+          <b
+            class="main-head"
+            style="font-family: montserrat-medium"
+            [translate]="'COACHVIEW.Text11'"
+          ></b>
+        </ion-row>
+        <ion-row>
+          <div style="font-family: montserrat" class="head-right-txtwithicon">
+            {{practice}}
+          </div>
+        </ion-row>
+      </div>
+
+      <!-- <div class="gray-row">
+        <ion-row>
+          <b
+            style="font-family: montserrat-medium"
+            class="main-head"
+            [translate]="'COACHVIEW.Text17'"
+          >
+          </b>
+        </ion-row>
+        <ion-row>
+          <p class="basic-details" style="font-family: montserrat">
+            {{hostuser.spcat_name}}
+          </p>
+        </ion-row>
+      </div> -->
+
+      <div class="gray-row">
+        <ion-row>
+          <b
+            class="main-head"
+            style="font-family: montserrat-medium"
+            [translate]="'COACHVIEW.Text12'"
+          >
+          </b>
+        </ion-row>
+        <ion-row>
+          <p style="font-family: montserrat" class="basic-details">
+            {{sportsPlayed}}
+          </p>
+        </ion-row>
+      </div>
+      <div class="gray-row">
+        <ion-row>
+          <b
+            class="main-head"
+            style="font-family: montserrat-medium"
+            [translate]="'COACHVIEW.Text13'"
+          >
+          </b>
+        </ion-row>
+        <ion-row>
+          <p class="basic-details" style="font-family: montserrat">
+            «  {{userDescription}} »
+          </p>
+        </ion-row>
+      </div>
+      <!-- <ion-row class="gray-row">
+        <b style="font-family: montserrat-medium;" class="main-head">Disponibilités
+         </b>
+        <ion-row class="border-row" *ngFor="let item of disponsibility">
+          <div class="left-bold-head" style="font-family: montserrat;">{{item.name}}</div>
+          <ion-row  class="right-txt" *ngIf="item.Soir==true" style="padding-right: 10px;">
+            Soir
+          </ion-row >
+
+            <ion-row *ngIf="item.Midi==true" class="right-txt" style="padding-right: 10px;">
+              Midi
+            </ion-row>
+            <ion-row class="right-txt" *ngIf="item.Matin==true" style="padding-right: 10px;">
+              Matin
+            </ion-row>
+          
+        </ion-row>
+      
+      </ion-row> -->
+    </div>
+
+    <!-- COACH PROFILE VIEW -->
+    <div class="profile-inner-block" *ngIf="coachType">
+      <!-- <ion-row class="gray-row">
+                <b class="main-head" style="font-family: montserrat-medium;" [translate]="'COACHVIEW.Text14'"></b>
+                <ion-row class="border-row">
+                    <div class="left-bold-head" style="font-family: montserrat-medium;"
+                        [translate]="'COACHVIEW.Text15'"></div>
+                    <div class="right-txt" style="font-family: montserrat;">{{pricePerHour}}
+
+                        <ion-icon name="logo-euro"></ion-icon>
+
+                    </div>
+
+
+                </ion-row>
+                <ion-row class="border-row">
+                    <div class="left-bold-head" style="font-family: montserrat-medium;"
+                        [translate]="'COACHVIEW.Text16'"></div>
+                    <div class="right-txt" style="font-family: montserrat;">{{pricePerPerson}}
+                        <ion-icon name="logo-euro"></ion-icon>
+
+                    </div>
+
+
+                </ion-row>
+            </ion-row> -->
+      <div class="gray-row">
+        <!-- <div class="left-bold-head">
+                    Cours(s) Proposé(s)</div>
+                <p class="basic-details">{{sportsPlayed}}</p> -->
+        <ion-row>
+          <b
+            style="font-family: montserrat-medium"
+            class="main-head"
+            [translate]="'COACHVIEW.Text12'"
+          >
+          </b>
+        </ion-row>
+        <ion-row>
+          <p class="basic-details" style="font-family: montserrat">
+            {{hostuser.spcat_name}}
+          </p>
+        </ion-row>
+        <!-- <ion-row>
+          <b
+            style="font-family: montserrat-medium"
+            class="main-head"
+            [translate]="'COACHVIEW.Text17'"
+          >
+          </b>
+        </ion-row> 
+        <ion-row>
+          <p class="basic-details" style="font-family: montserrat">
+            {{hostuser.spcat_name}}
+          </p>
+        </ion-row>-->
+      </div>
+      <div class="gray-row">
+        <ion-row>
+          <b
+            class="main-head"
+            style="font-family: montserrat-medium"
+            [translate]="'COACHVIEW.Text13'"
+          >
+          </b>
+        </ion-row>
+        <ion-row>
+          <p class="basic-details" style="font-family: montserrat">
+            « {{userDescription}} »
+          </p>
+        </ion-row>
+        <!-- <div class="left-bold-head">Description</div>
+                <p class="basic-details">
+                    « {{userDescription}} »
+                </p> -->
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

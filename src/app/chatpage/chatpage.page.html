@@ -1,0 +1,259 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons> -->
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading uppercaes"
+      [translate]="'CHAT.Text1'"
+    >
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row style="display: flex; flex-direction: row; justify-content: center">
+    <ion-searchbar
+      style="margin-top: 4%; box-shadow: #000000 !important; width: 90%"
+      placeholder="{{topSearchPlaceHolder}}"
+      [(ngModel)]="searchTerm"
+      (ionInput)="getUser($event)"
+    >
+    </ion-searchbar>
+  </ion-row>
+
+  <!-- <div *ngIf="!emptydata" style="margin-top: 20px"> -->
+  <div style="margin-top: 20px">
+    <div *ngIf="showList">
+      <ion-list>
+        <ion-item *ngFor="let users of search" (click)="selectChat(users)">
+          <ion-text class="noti-head">
+            <b style="color: black"> {{users.recieverName}} </b>
+          </ion-text>
+        </ion-item>
+      </ion-list>
+    </div>
+    <!-- <div class="messagerie-section"> -->
+    <div *ngFor="let item of openchats">
+      <ion-row
+        class="noti-row-withimg noti-single-row"
+        style="padding-left: 10px; border-bottom: 2px solid lightgrey"
+        *ngIf="item.blocked!=true"
+        (click)="gotochat(item)"
+      >
+        <!-- <ion-avatar style="display: flex;
+            align-items: flex-start;"> -->
+        <!-- <div class="noti-imgbox"> -->
+        <!-- <ion-img class="img" style="height: 50px;
+              width: 50px;" [src]="item.recieverImage"></ion-img> -->
+        <ion-col
+          style="display: flex; flex-direction: column; justify-content: center"
+          size="2"
+        >
+          <ion-avatar
+            class="noti-imgbox"
+            style="display: flex; align-items: center"
+          >
+            <ion-img
+              style="width: 50px; height: 50px"
+              [src]="item.recieverImage"
+            ></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="10">
+          <ion-row style="margin-top: 5px">
+            <ion-col>
+              <div class="noti-head">
+                <b>{{item.recieverName | titlecase}}</b>
+              </div>
+            </ion-col>
+            <!-- <ion-col style="display: flex; flex-direction: row-reverse">
+              <div class="noti-time" *ngIf="item.showTime">
+                {{item.msgTime}}
+              </div>
+              <div class="noti-time" *ngIf="!item.showTime">
+                {{item.msgDate}}
+              </div>
+            </ion-col> -->
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div
+                *ngIf="!item.msgRead"
+                style="
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                  color: black;
+                "
+                class="details-user"
+              >
+                {{item.lastMsg}}
+              </div>
+              <div
+                *ngIf="item.msgRead"
+                style="font-family: montserrat-medium; color: grey"
+                class="details-user"
+              >
+                {{item.lastMsg}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <!-- </ion-avatar> -->
+        <!-- </div> -->
+
+        <!-- <div *ngIf="item.lastMsg==''||item.lastMsg==null"> -->
+
+        <!-- </div> -->
+      </ion-row>
+    </div>
+    <ion-row
+      class="noti-row-withimg noti-single-row"
+      style="padding-left: 10px; border-bottom: 2px solid lightgrey"
+      *ngFor="let group of eventGroups"
+      (click)="gotoGroupChat(group)"
+    >
+      <!-- <ion-avatar style="display: flex;
+            align-items: flex-start;"> -->
+      <!-- <div class="noti-imgbox"> -->
+      <!-- <ion-img class="img" style="height: 50px;
+              width: 50px;" [src]="item.recieverImage"></ion-img> -->
+      <ion-col
+        style="display: flex; flex-direction: column; justify-content: center"
+        size="2"
+      >
+        <ion-avatar
+          class="noti-imgbox"
+          style="display: flex; align-items: center"
+        >
+          <ion-img
+            style="width: 50px; height: 50px"
+            src="{{group.host_user_img}}"
+          ></ion-img>
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="10">
+        <ion-row style="margin-top: 5px">
+          <ion-col>
+            <div class="noti-head">
+              <b
+                >{{group.spcat_name||'Event ' | titlecase}} :
+                {{group.event_date|date}}</b
+              >
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <!-- *ngIf="!item.msgRead" -->
+            <!-- <div
+              style="
+                font-family: montserrat-medium;
+                font-weight: bold;
+                color: black;
+              "
+              class="details-user"
+            >
+              {{group.lastMsg}}
+            </div> -->
+            <!-- *ngIf="item.msgRead" -->
+            <div
+              *ngIf="group.lastMsg"
+              style="font-family: montserrat-medium; color: grey"
+              class="details-user"
+            >
+              {{group.lastMsg.slice(0,15)}} {{group.lastMsg.length>15?'...':''}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <!-- </ion-avatar> -->
+      <!-- </div> -->
+
+      <!-- <div *ngIf="item.lastMsg==''||item.lastMsg==null"> -->
+
+      <!-- </div> -->
+    </ion-row>
+
+    <!-- </div> -->
+  </div>
+
+  <div *ngIf="emptydata && !this.eventGroups.length">
+    <div
+      *ngIf="emptydata"
+      style="
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-family: montserrat-medium;
+      "
+      [translate]="'CHAT.Text2'"
+    >
+      pas de discussions
+    </div>
+    <div *ngIf="emptyCoach" style="padding: 10px">
+      <ion-row
+        style="
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          font-family: montserrat-medium;
+          text-align: center;
+        "
+        [translate]="'CHAT.Text3'"
+      >
+      </ion-row>
+      <ion-row
+        style="display: flex; flex-direction: row; justify-content: center"
+      >
+        <ion-button
+          style="--border-radius: 52px; --background: #ffaa00"
+          (click)="gotosubscription()"
+          [translate]="'CHAT.Text4'"
+        >
+        </ion-button>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="footer-fixed-tab" *ngIf="footerAction">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs">
+        <img src="assets/images/selectedmsg.png" class="footer-img-chat" />
+        <!-- <div class="round" *ngIf="this.api.showMessageDot"></div> -->
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot"></div>
+        <!-- <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div> -->
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

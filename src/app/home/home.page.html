@@ -1,0 +1,14 @@
+
+
+<ion-content>
+
+
+<div *ngIf="testroute.length > 0" class="bottom">
+  <ion-card *ngFor="let get of testroute;let n = index;" >
+    <ion-card-header [ngStyle]="{background: get.color}">
+      <ion-card-subtitle (click)="sendroute(get,n)"> {{get.route}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+</ion-content>

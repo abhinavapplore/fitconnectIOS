@@ -1,0 +1,69 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons> -->
+    <ion-title class="top-fixed-heading uppercaes">messagerie</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="messagerie-content" >
+  <section class="messagerie-inner-sec">
+    <div class="messagerie-searchbox">
+      <ion-searchbar></ion-searchbar>
+    </div>
+    <div class="messagerie-list-container">
+      <div class="messagerie-section">
+        <div class="noti-row-withimg noti-single-row">
+          <div class="noti-imgbox">
+            <img src="assets/images/profile-img2.jpg"/>
+          </div>
+          <div class="noti-head">
+            <b>Marc A.</b>
+          </div>
+          <div class="noti-time">15:07</div>
+          <div class="details-user">
+            Ok ça marche ! Préférez-vous qu’on se…
+          </div>
+        </div>
+        <div class="noti-row-withimg noti-single-row">
+          <div class="noti-imgbox">
+            <img src="assets/images/profile-img2.jpg"/>
+          </div>
+          <div class="noti-head">
+            <b>Marc A. </b>
+          </div>
+          <div class="noti-time">Hier</div>
+          <div class="details-user">Ok ça marche ! Préférez-vous qu’on se…</div>
+        </div>
+        <div class="noti-row-withimg noti-single-row">
+          <div class="noti-imgbox">
+            <img src="assets/images/profile-img.png"/>
+          </div>
+          <div class="noti-head">
+            <b>Marc P. </b>
+            <div class="details-user">Ok ça marche ! Préférez-vous qu’on se…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img src="assets/images/selectedlocation.png" class="footer-img-location"/>
+      </div>
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img src="assets/images/unselectedcalendar.png" class="footer-img-date"/>
+      </div>
+      <div class="footer-btn-tabs">
+        <img src="assets/images/selectedmsg.png" class="footer-img-chat"/>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img src="assets/images/unselectednotification.png" class="footer-img-noti"/>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

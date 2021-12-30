@@ -1,0 +1,341 @@
+<ion-content fullscreen>
+  <ion-header no-border slot="fixed">
+    <ion-toolbar class="terms-headersection">
+      <ion-buttons slot="start">
+        <ion-back-button text="" defaultHref="inscription"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div
+    class="bg-image-full"
+    [ngStyle]="{'height': height+'px'}"
+    style="overflow: scroll"
+  >
+    <br />
+    <br />
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <ion-item
+        lines="none"
+        (click)="presentActionSheet(1)"
+        style="padding-top: 1rem"
+      >
+        <div class="profile-img-center">
+          <div class="profile-img-block">
+            <!-- <div style="display: flex;
+          justify-content: center;" class="pro-img-container"> -->
+
+            <ion-avatar class="avtarClass">
+              <img *ngIf="!uploaded1" src="assets/images/default-pic.png" />
+              <ion-img *ngIf="uploaded1" [src]="lastImage"></ion-img>
+            </ion-avatar>
+
+            <!-- </div> -->
+            <div class="file-up-btnbox">
+              <ion-icon
+                class="lg-rg-icon"
+                id="input_container"
+                name="add"
+                item-right
+              >
+              </ion-icon>
+
+              <!-- <ion-input type="file" accept="image/*" class="upload-file"></ion-input> -->
+            </div>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text1'"
+        ></ion-label>
+        <ion-input type="text" formControlName="lname" name="lname"></ion-input>
+        <div
+          style="font-size: 12px; color: #ffffff; font-weight: bold"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text2'"
+        ></div>
+        <div *ngIf="submitted && f.lname.errors" class="invalid-feedback left">
+          <div
+            *ngIf="f.lname.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text3'"
+          ></div>
+        </div>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text4'"
+        ></ion-label>
+        <ion-input type="text" formControlName="fname" name="fname"></ion-input>
+        <div *ngIf="submitted && f.fname.errors" class="invalid-feedback left">
+          <div
+            *ngIf="f.fname.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text5'"
+          ></div>
+        </div>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text6'"
+        ></ion-label>
+        <ion-input
+          type="email"
+          formControlName="email"
+          name="email"
+        ></ion-input>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback left">
+          <div
+            *ngIf="f.email.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text7'"
+          ></div>
+          <div
+            *ngIf="f.email.errors.email"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text8'"
+          ></div>
+        </div>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text9'"
+        ></ion-label>
+        <!-- [(ngModel)]="searchNameTerm" -->
+        <ion-input
+          (ionInput)="searchContFunc($event)"
+          type="text"
+          formControlName="country"
+          name="country"
+        ></ion-input>
+        <div
+          *ngIf="submitted && f.country.errors"
+          class="invalid-feedback left"
+        >
+          <div
+            *ngIf="f.country.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text10'"
+          ></div>
+        </div>
+      </ion-item>
+
+      <div *ngIf="showContList">
+        <ion-item
+          lines="none"
+          *ngFor="let city of searchName"
+          (click)="selectContItem(city)"
+        >
+          <ion-text style="color: white">{{city.con_name}}</ion-text>
+        </ion-item>
+      </div>
+
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text11'"
+        ></ion-label>
+        <ion-input
+          (ionInput)="getSuggestion()"
+          type="text"
+          [(ngModel)]="cityName"
+          formControlName="city"
+          name="city"
+        >
+        </ion-input>
+        <div *ngIf="submitted && f.city.errors" class="invalid-feedback left">
+          <div
+            *ngIf="f.city.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text12'"
+          ></div>
+        </div>
+      </ion-item>
+      <div *ngIf="showCitySuggestion">
+        <ion-item
+          lines="none"
+          *ngFor="let city of cityArray"
+          (click)="selectCity(city.city_name)"
+        >
+          <ion-text style="color: white">{{city.city_name}}</ion-text>
+        </ion-item>
+      </div>
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text13'"
+        ></ion-label>
+        <ion-input
+          type="text"
+          formControlName="postalcode"
+          name="postalcode"
+        ></ion-input>
+        <div
+          *ngIf="submitted && f.postalcode.errors"
+          class="invalid-feedback left"
+        >
+          <div
+            *ngIf="f.postalcode.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text14'"
+          ></div>
+        </div>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text15'"
+        ></ion-label>
+        <ion-input
+          type="password"
+          formControlName="password"
+          name="password"
+        ></ion-input>
+        <div
+          *ngIf="submitted && f.password.errors"
+          class="invalid-feedback left"
+        >
+          <div
+            *ngIf="f.password.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text16'"
+          ></div>
+          <div
+            *ngIf="f.password.errors.minlength"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text17'"
+          ></div>
+        </div>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label
+          position="floating"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text18'"
+        ></ion-label>
+        <ion-datetime
+          *ngIf="English"
+          displayFormat="DD-MMM-YY"
+          pickerFormat="DD-MMM-YY"
+          formControlName="dob"
+          name="dob"
+          monthShortNames="jan,feb,mar,apr,may,june,july,aug,sept,oct,nov,dec"
+          cancelText="Cancel"
+          doneText="Done"
+        >
+        </ion-datetime>
+        <ion-datetime
+          *ngIf="!English"
+          displayFormat="DD-MMM-YY"
+          pickerFormat="DD-MMM-YY"
+          formControlName="dob"
+          name="dob"
+          monthShortNames="jan,fév,mar,avr,mai,juin,juil,août,sept,oct,nov,déc"
+          cancelText="annuler"
+          doneText="Valider"
+        >
+        </ion-datetime>
+        <div *ngIf="submitted && f.dob.errors" class="invalid-feedback left">
+          <div
+            *ngIf="f.dob.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text19'"
+          ></div>
+        </div>
+      </ion-item>
+      <ion-row>
+        <ion-col size="3">
+          <ion-item lines="none">
+            <ion-label
+              style="font-size: 14px"
+              [translate]="'INSCRIPTIONPROFESSIONNEL.Text20'"
+            >
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="9" style="text-align: center; margin-top: 3%">
+          <ion-radio-group
+            formControlName="gender"
+            name="gender"
+            style="display: flex"
+          >
+            <ion-col size="6">
+              <ion-radio value="1" class="ion-radio"></ion-radio>
+              <ion-label
+                style="font-size: 16px; margin-left: 10%"
+                [translate]="'INSCRIPTIONPARTICULAR.Text21'"
+              ></ion-label>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-radio value="2"></ion-radio>
+              <ion-label
+                style="font-size: 16px; margin-left: 10%"
+                [translate]="'INSCRIPTIONPARTICULAR.Text22'"
+              ></ion-label>
+            </ion-col>
+          </ion-radio-group>
+        </ion-col>
+        <div
+          *ngIf="submitted && f.gender.errors"
+          class="invalid-feedback left"
+          style="width: 100%; text-align: center"
+        >
+          <div
+            *ngIf="f.gender.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text23'"
+          ></div>
+        </div>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="display: flex; justify-content: flex-end">
+          <ion-radio
+            class="radio-btn"
+            value="any"
+            formControlName="conditions"
+            name="conditions"
+            (ngModelChange)="setconditions($event)"
+          ></ion-radio>
+        </ion-col>
+
+        <ion-col size="10">
+          <ion-label
+            style="font-size: 14px; margin-top: 19px"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text24'"
+          >
+          </ion-label>
+          <b
+            (click)="conditionsPage()"
+            class="ion-no-padding"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text25'"
+            style="
+              text-decoration: underline;
+              font-family: montserrat-medium;
+              font-weight: bold;
+              color: #ffffff !important;
+            "
+          >
+          </b>
+        </ion-col>
+
+        <div
+          *ngIf="submitted && f.conditions.errors"
+          class="invalid-feedback left"
+          style="width: 100%; text-align: center"
+        >
+          <div
+            *ngIf="f.conditions.errors.required"
+            [translate]="'INSCRIPTIONPROFESSIONNEL.Text26'"
+          ></div>
+        </div>
+      </ion-row>
+      <ion-item lines="none">
+        <button
+          style="font-family: montserrat-medium"
+          [translate]="'INSCRIPTIONPROFESSIONNEL.Text27'"
+          [disabled]="registerForm.invalid"
+          ion-button
+          class="global-submit-button global-btn"
+          style="background-color: #d3c117; color: white"
+        ></button>
+      </ion-item>
+      <br />
+      <br />
+    </form>
+  </div>
+</ion-content>

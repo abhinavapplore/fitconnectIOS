@@ -1,0 +1,128 @@
+<ion-content class="map-content" >
+  <div class="map-block">
+    <ion-grid class="map-search-box">
+      <ion-row class="map-search-withrow">
+          <ion-col size="10">
+              <div class="search-box">
+                  <ion-searchbar class="ion-no-padding"></ion-searchbar>
+              </div>
+          </ion-col>
+          <ion-col size="2" style="padding-top: 0;">
+              <div class="search-profile-box">
+                  <img src="assets/images/profile-img2.jpg" />
+              </div>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+    <div class="map-det-popup">
+      <ion-card class="det-card" style="margin-top: 20px;">
+        <ion-card-header>
+          <div class="det-head-withimg">
+            <img class="det-head-img" src="assets/images/profile-img.png"/>
+            <div class="det-head-txt">
+              <b class="themetxtcolor" style="font-weight: bold;">Jorden B.</b>
+              <span>Tennis de table</span>
+            </div>
+            <div class="det-close">
+              <ion-icon name="close"></ion-icon>
+            </div>
+          </div>
+        </ion-card-header>
+        <ion-card-content class="det-card-content">
+          <ion-row>
+            <div class="iconswith-row">
+              <img class="location-img" src="assets/images/selectedlocation.png">
+              <div class="details-box">12 Quai Branly, 75015 Paris</div>
+            </div>
+            <div class="iconswith-row">
+              <img class="time-img" src="assets/images/time.png">
+              <div class="details-box">05/10/2019 - 16:00</div>
+            </div>
+            <div class="iconswith-row">
+              <img src="assets/images/people.png"/>
+              <div class="details-box">Participants: 6 / 15</div>
+            </div>
+            <div class="iconswith-row">
+              <img src="assets/images/money-bag.png"/>
+              <div class="details-box">Tarif/Pers : 20
+                <ion-icon name="logo-euro"></ion-icon>
+                <small class="det-small">(Minimum : 6)</small>
+              </div>
+            </div>
+            <button ion-button class="det-submit-button global-btn themecolor"
+                    [routerLink]="['/coachviewprofile']"
+                    routerLinkActive="router-link-active"><img class="btn-img"
+                                                               src="assets/images/money-euro.png">Partager
+            </button>
+            <button ion-button class="det-submit-button global-btn themecolor"
+                    [routerLink]="['/coachviewprofile']"
+                    routerLinkActive="router-link-active">Supprimer
+            </button>
+          </ion-row>
+        </ion-card-content>
+        <ion-footer class="det-card-footer">
+          <ion-row class="det-footer-row">
+            <b>Description</b>
+            <p>Venez découvrir les bases du kung-fu. Initiation exceptionnelle ! Contactez-moi sur mon
+              profil pour plus d’infos…</p>
+          </ion-row>
+        </ion-footer>
+      </ion-card>
+    </div>
+    <div class="google-map" id="map"></div>
+    <div class="plus-icon-box themecolor">
+      <ion-icon name="add"></ion-icon>
+    </div>
+    <div class="bottom-tab">
+      <div class="two-tabs">
+        <ion-row>
+          <ion-col class="ion-no-padding">
+            <div class="tabs-block uppercaes selected-tabs">événements</div>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <div class="tabs-block uppercaes">sportifs</div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+  <div class="bg-trans">
+    <div class="center-content2">
+      <ion-title size="small">
+        Es-tu sûr(e) de vouloir
+        rejoindre <b>Jordan B</b>. sur
+        cet événement ?
+      </ion-title>
+      <ion-row>
+        <button ion-button class="global-submit-button global-btn themecolor"
+                [routerLink]="['/click-nantes-particuliers']"
+                routerLinkActive="router-link-active">OUI
+        </button>
+      </ion-row>
+      <ion-row>
+        <button ion-button class="global-submit-button global-btn themecolor"
+                [routerLink]="['/click-nantes-particuliers']"
+                routerLinkActive="router-link-active">NON
+        </button>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs">
+        <img src="assets/images/selectedlocation.png" class="footer-img-location"/>
+      </div>
+      <div class="footer-btn-tabs">
+        <img src="assets/images/unselectedcalendar.png" class="footer-img-date"/>
+      </div>
+      <div class="footer-btn-tabs">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat"/>
+      </div>
+      <div class="footer-btn-tabs">
+        <img src="assets/images/unselectednotification.png" class="footer-img-noti"/>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

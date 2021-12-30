@@ -1,0 +1,17 @@
+
+
+
+<ion-content>
+  <div style="font-family: montserrat-medium;" class="title top">
+   {{langpTitlePlaceHolder}}
+  </div>
+  <ion-searchbar class="top" color="light" [(ngModel)]="query" placeholder="{{langSearchPlaceHolder}}"></ion-searchbar>
+  <ion-item-divider style="background: #ffffff;border-bottom: 1px soild #999;">
+  </ion-item-divider>
+  <ion-list class="fade">
+    <ion-item *ngFor="let get of countryListAllIsoData | filter:query;" (click)="dismiss(get)">
+      <ion-label >{{get.con_name}}</ion-label>
+    </ion-item>
+   
+  </ion-list>
+  </ion-content>

@@ -1,0 +1,158 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons> -->
+    <ion-title
+      style="font-family: montserrat-medium; font-weight: bold"
+      class="top-fixed-heading uppercaes"
+      [translate]="'CREESCOACH.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="top-tabs">
+    <ion-row>
+      <ion-col class="ion-no-padding" (click)="coming()">
+        <div
+          class="tabs-block uppercaes"
+          [translate]="'CREESCOACH.Text2'"
+        ></div>
+      </ion-col>
+      <ion-col class="ion-no-padding">
+        <div
+          class="tabs-block uppercaes selected-tabs"
+          [translate]="'CREESCOACH.Text3'"
+        ></div>
+      </ion-col>
+      <ion-col class="ion-no-padding" (click)="participated()"
+        ><div
+          class="tabs-block uppercaes"
+          [translate]="'CREESCOACH.participated'"
+        ></div
+      ></ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="!empty">
+  <ion-list class="mes-content">
+    <ion-row
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+      "
+    >
+      <ion-text style="font-family: montserrat-medium; font-weight: bold"
+        ><b>{{totalEvents}}</b> <b [translate]="'CREESCOACH.Text4'"></b
+      ></ion-text>
+    </ion-row>
+
+    <ion-card
+      class="card-evenement ion-no-margin"
+      *ngFor="let event of activeEvents"
+    >
+      <ion-card-title class="evenement-subtitle">
+        <!-- <div class="card-title">{{event.event_coach_title | titlecase}}</div> -->
+        <div class="card-title">{{event.spcat_name | titlecase}}</div>
+        <div class="card-title">{{event.event_sport_cate | titlecase}}</div>
+        <!-- <button ion-button class="evenment-submit-button global-btn themecolor" (click)="presentAlertConfirm(event)">Supprimer</button> -->
+      </ion-card-title>
+      <ion-card-content class="evenement-card-content ion-no-padding">
+        <ion-list class="ion-no-padding">
+          <ion-row>
+            <div class="iconswith-row">
+              <img
+                src="../../assets/images/unselectedlocation.png"
+                class="location-img"
+              />
+              <div class="details-box" style="font-family: montserrat-medium">
+                {{event.event_coach_address}}
+              </div>
+            </div>
+            <div class="iconswith-row">
+              <img src="assets/images/time.png" class="time-img" />
+              <div class="details-box" style="font-family: montserrat-medium">
+                {{event.event_coach_date}} - {{event.event_time}}
+              </div>
+            </div>
+            <div class="iconswith-row">
+              <img src="assets/images/people.png" />
+              <div class="details-box" style="font-family: montserrat-medium">
+                {{event.event_coach_participants_min}} /
+                {{event.event_coach_participants_max}}
+              </div>
+            </div>
+          </ion-row>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="prevEvent">
+      <section class="gray-box" *ngFor="let old of oldEvents">
+        <ion-row class="title-with-date">
+          <!-- <b class="title-txt">{{old.event_coach_title | titlecase}}</b> -->
+          <!-- <b class="title-txt">{{old.event_sport_cate | titlecase}}</b> -->
+          <b class="title-txt">{{old.spcat_name | titlecase}}</b>
+          <div class="date-txt">{{old.event_coach_date}}</div>
+        </ion-row>
+        <div class="iconswith-row">
+          <img
+            class="location-img"
+            src="assets/images/unselectedlocation.png"
+          />
+          <div class="details-box">{{old.event_coach_address}}</div>
+        </div>
+      </section>
+    </div>
+  </ion-list>
+</ion-content>
+<ion-content *ngIf="empty">
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      font-family: montserrat-medium;
+    "
+  >
+    {{message}}
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div *ngIf="individual" class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img src="assets/images/selectedcalendar.png" class="footer-img-date" />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

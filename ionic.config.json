@@ -1,0 +1,7 @@
+{
+  "name": "firconnect",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

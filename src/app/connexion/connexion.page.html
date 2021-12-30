@@ -1,0 +1,158 @@
+<ion-content class="main-content" forceOverscroll="false">
+  <!-- <div class="overlay"></div> -->
+  <div
+    class="bg-image-full"
+    style="display: flex; align-items: center; justify-self: center"
+  >
+    <section>
+      <div>
+        <!-- <section style="padding-top: 40%"> -->
+        <ion-row>
+          <ion-col class="login-logocenter ion-text-center">
+            <img style="padding: 0% 10% 0% 10%" src="assets/images/logo.png" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-text-center ion-margin-top">
+          <ion-col
+            class="ion-no-padding"
+            (click)="tabswitch(true)"
+            [ngClass]="{'showhighlite':connexion == true,'showlowlite':connexion == false}"
+          >
+            <ion-label
+              style="font-family: montserrat-medium"
+              [ngStyle]="{'color':connexion == true ? '#D3C117' : '#ffffff' }"
+              [translate]="'CONNEXION.Text1'"
+            ></ion-label>
+          </ion-col>
+          <ion-col
+            class="ion-no-padding"
+            (click)="tabswitch(false)"
+            [ngClass]="{'showhighlite':connexion == false,'showlowlite':connexion == true}"
+          >
+            <ion-label
+              style="font-family: montserrat-medium"
+              [ngStyle]="{'color':connexion == false ? '#D3C117' : '#ffffff' }"
+              [translate]="'CONNEXION.Text2'"
+            ></ion-label>
+          </ion-col>
+        </ion-row>
+
+        <div class="started-row fade" *ngIf="connexion" style="margin-top: 10%">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <ion-row class="textwith-label">
+              <ion-label color="gray" class="started_txt">
+                <img src="assets/images/message.png" />
+              </ion-label>
+              <ion-input
+                type="email"
+                placeholder="{{langpEmailPlaceHolder}}"
+                formControlName="email"
+                name="email"
+                style="font-weight: bold; color: white"
+              ></ion-input>
+            </ion-row>
+            <div
+              *ngIf="submitted && f.email.errors"
+              class="invalid-feedback left"
+            >
+              <div
+                *ngIf="f.email.errors.required"
+                [translate]="'CONNEXION.Text4'"
+              ></div>
+              <div
+                *ngIf="f.email.errors.email"
+                [translate]="'CONNEXION.Text5'"
+              ></div>
+            </div>
+            <ion-row class="textwith-label">
+              <ion-label color="gray" class="started_txt">
+                <img src="assets/images/lock.png" />
+              </ion-label>
+              <ion-input
+                type="password"
+                placeholder="{{langpPasswordPlaceHolder}}"
+                formControlName="password"
+                style="font-weight: bold; color: white"
+              ></ion-input>
+            </ion-row>
+            <div
+              *ngIf="submitted && f.password.errors"
+              class="invalid-feedback left"
+            >
+              <div
+                *ngIf="f.password.errors.required"
+                [translate]="'CONNEXION.Text7'"
+              ></div>
+              <div
+                *ngIf="f.password.errors.minlength"
+                [translate]="'CONNEXION.Text8'"
+              ></div>
+            </div>
+            <ion-row
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+              "
+            >
+              <button
+                style="font-family: montserrat-medium"
+                class="global-btn login-button"
+                style="color: white; background: #d3c117"
+                [translate]="'CONNEXION.Text9'"
+              ></button>
+            </ion-row>
+          </form>
+          <ion-row style="justify-content: center">
+            <small
+              style="
+                font-family: montserrat-medium;
+                color: #ffffff;
+                margin-top: 10%;
+              "
+              [routerLink]="['/forget']"
+              routerLinkActive="router-link-active"
+              [translate]="'CONNEXION.Text10'"
+            >
+            </small>
+            <br />
+            <br />
+            <br />
+            <br />
+          </ion-row>
+        </div>
+        <div class="started-row fade" *ngIf="!connexion">
+          <ion-row>
+            <h5
+              style="font-weight: bold"
+              class="center-head"
+              [translate]="'CONNEXION.Text11'"
+            ></h5>
+          </ion-row>
+          <ion-row>
+            <button
+              style="font-family: montserrat-medium"
+              ion-button
+              class="global-btn inscription-login-button"
+              style="background-color: #708aaa; color: white"
+              [routerLink]="['/inscription-particulier']"
+              routerLinkActive="router-link-active"
+              [translate]="'CONNEXION.Text12'"
+            ></button>
+          </ion-row>
+          <ion-row>
+            <button
+              style="font-family: montserrat-medium"
+              ion-button
+              class="global-btn inscription-login-button"
+              style="background-color: #d3c117; color: white"
+              [routerLink]="['/inscription-professionnel']"
+              routerLinkActive="router-link-active"
+              [translate]="'CONNEXION.Text13'"
+            ></button>
+          </ion-row>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

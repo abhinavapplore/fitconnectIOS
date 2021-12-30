@@ -1,0 +1,687 @@
+<!-- Book status = 
+0-reject,1-accept,2=cancel,3=pending,4=removed
+
+noti_type = 
+1=book request,
+2=accpet request,
+3=reject request,
+4=cancel event,
+5=follow,
+6= new event,
+7 = unfollow, 
+8 = chat_message, 
+9= review reminder, 
+10 = event details changed, 
+11 => remove participent 
+//pending development
+12 => event delete
+ -->
+
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <!-- <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="response3"></ion-back-button>
+        </ion-buttons> -->
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading uppercaes"
+      [translate]="'NOTIFICATIONS.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="notifiaction-content" *ngIf="!emptyData">
+  <div *ngFor="let detail of allNotificationList">
+    <div *ngIf="detail.noti_type=='3'">
+      <div *ngIf="detail.book_status==='0' ">
+        <ion-row style="border-bottom: solid thin #cccccc">
+          <ion-col [size]="2">
+            <ion-avatar
+              style="display: flex; align-items: center"
+              (click)="viewProfile(detail)"
+            >
+              <ion-img
+                *ngIf="detail.host_user_id!=userId"
+                (click)="viewProfile(detail)"
+                style="height: 40px; width: 40px"
+                [src]="detail.host_user_img"
+              ></ion-img>
+              <ion-img
+                *ngIf="detail.host_user_id==userId"
+                (click)="viewOtherProfile(detail)"
+                style="height: 40px; width: 40px"
+                [src]="detail.book_user_img"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col [size]="8" style="display: flex; align-items: center">
+            <div
+              style="font-size: 14px; width: 100%; padding-bottom: 10px"
+              *ngIf="detail.host_user_id!=userId"
+              (click)="viewProfile(detail)"
+            >
+              <b>{{detail.hostName | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.Text7'"></span>
+            </div>
+            <div
+              style="font-size: 14px; width: 100%; padding-bottom: 10px"
+              *ngIf="detail.host_user_id==userId"
+              (click)="viewOtherProfile(detail)"
+            >
+              {{'NOTIFICATIONS.rejectedByHost' |translate}}
+              <b>{{detail.nameFormatted | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.Text6'"></span>
+            </div>
+          </ion-col>
+          <ion-col [size]="2" style="display: flex; align-items: center">
+            <div style="font-size: 11px; color: #444444">
+              {{detail.noti_create_date}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+
+    <div *ngIf="detail.noti_type=='12'">
+      <ion-row style="border-bottom: solid thin #cccccc">
+        <ion-col [size]="2">
+          <ion-avatar style="display: flex; align-items: center">
+            <ion-img
+              *ngIf="detail.host_user_id==userId"
+              (click)="viewOtherProfile(detail)"
+              style="height: 40px; width: 40px"
+              [src]="detail.book_user_img"
+            ></ion-img>
+            <ion-img
+              (click)="viewProfile(detail)"
+              *ngIf="detail.host_user_id!=userId"
+              style="height: 40px; width: 40px"
+              [src]="detail.host_user_img"
+            ></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col [size]="8" style="display: flex; align-items: center">
+          <div
+            style="
+              font-size: 14px;
+              width: 100%;
+
+              padding-bottom: 10px;
+            "
+            (click)="viewProfile(detail)"
+          >
+            <b
+              >{{detail.host_user_f_name | titlecase}}
+              {{detail.book_user_l_name.slice(0,1)|titlecase}}.
+            </b>
+            <span [translate]="'NOTIFICATIONS.DELETED_EVENT'"></span> :
+            <b> {{detail.event_sport_cate_name}} </b>
+          </div>
+        </ion-col>
+        <ion-col [size]="2" style="display: flex; align-items: center">
+          <div style="font-size: 11px; color: #444444">
+            {{detail.noti_create_date}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="detail.noti_type=='2'">
+      <div *ngIf="detail.book_status==='1'">
+        <ion-row style="border-bottom: solid thin #cccccc">
+          <ion-col [size]="2">
+            <ion-avatar style="display: flex; align-items: center">
+              <ion-img
+                *ngIf="detail.host_user_id==userId"
+                (click)="viewOtherProfile(detail)"
+                style="height: 40px; width: 40px"
+                [src]="detail.book_user_img"
+              ></ion-img>
+              <ion-img
+                (click)="viewProfile(detail)"
+                *ngIf="detail.host_user_id!=userId"
+                style="height: 40px; width: 40px"
+                [src]="detail.host_user_img"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col [size]="8" style="display: flex; align-items: center">
+            <div
+              style="
+                font-size: 14px;
+                width: 100%;
+
+                padding-bottom: 10px;
+              "
+              *ngIf="detail.host_user_id!=userId"
+              (click)="viewProfile(detail)"
+            >
+              <b>{{detail.hostName | titlecase}} </b>
+              <span [translate]="'NOTIFICATIONS.Text5'"></span>
+            </div>
+            <div
+              style="
+                font-size: 14px;
+                width: 100%;
+
+                padding-bottom: 10px;
+              "
+              *ngIf="detail.host_user_id==userId"
+              (click)="viewOtherProfile(detail)"
+            >
+              <span [translate]="'NOTIFICATIONS.Text61'"></span>
+              <b>{{detail.nameFormatted | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.Text6'"></span>
+            </div>
+          </ion-col>
+          <ion-col [size]="2" style="display: flex; align-items: center">
+            <div style="font-size: 11px; color: #444444">
+              {{detail.noti_create_date}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+
+    <div *ngIf="detail.noti_type=='11'">
+      <div *ngIf="detail.book_status==='4' ">
+        <ion-row style="border-bottom: solid thin #cccccc">
+          <ion-col [size]="2">
+            <ion-avatar
+              class="noti-imgbox"
+              style="display: flex; align-items: center"
+              (click)="viewProfile(detail)"
+            >
+              <ion-img
+                style="height: 40px; width: 40px"
+                [src]="detail.host_user_img"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col [size]="8" style="display: flex; align-items: center">
+            <div
+              style="font-size: 14px; width: 100%; padding-bottom: 10px"
+              (click)="viewProfile(detail)"
+            >
+              <b>{{detail.hostName | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.removedFromEvent'"></span>
+            </div>
+          </ion-col>
+          <ion-col [size]="2" style="display: flex; align-items: center">
+            <div style="font-size: 11px; color: #444444">
+              {{detail.noti_create_date}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div *ngIf="detail.noti_type=='4'">
+      <div *ngIf="detail.book_status==='2' ">
+        <ion-row style="border-bottom: solid thin #cccccc">
+          <ion-col [size]="2">
+            <ion-avatar
+              class="noti-imgbox"
+              style="display: flex; align-items: center"
+              (click)="viewProfile(detail)"
+            >
+              <ion-img
+                style="height: 40px; width: 40px"
+                [src]="detail.book_user_img"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col [size]="8" style="display: flex; align-items: center">
+            <div
+              style="font-size: 14px; width: 100%; padding-bottom: 10px"
+              (click)="viewProfile(detail)"
+            >
+              <!-- <b>{{detail.hostName | titlecase}}</b> -->
+              <b>{{detail.book_user_f_name | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.WITHDRAWN'"></span>
+            </div>
+          </ion-col>
+          <ion-col [size]="2" style="display: flex; align-items: center">
+            <div style="font-size: 11px; color: #444444">
+              {{detail.noti_create_date}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <!-- Following Started -->
+    <div *ngIf="detail.noti_type==='5'">
+      <ion-row style="border-bottom: solid thin #cccccc">
+        <ion-col [size]="2">
+          <ion-avatar
+            class="noti-imgbox"
+            style="display: flex; align-items: center"
+            (click)="viewOtherProfile(detail)"
+          >
+            <ion-img
+              style="height: 40px; width: 40px"
+              [src]="detail.book_user_img"
+            ></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col [size]="8" style="display: flex; align-items: center">
+          <div
+            style="font-size: 14px; width: 100%"
+            (click)="viewOtherProfile(detail)"
+          >
+            <b>{{detail.nameFormatted | titlecase}}</b>
+            <span [translate]="'NOTIFICATIONS.Text8'"></span>
+          </div>
+        </ion-col>
+        <ion-col [size]="2" style="display: flex; align-items: center">
+          <div style="font-size: 11px; color: #444444">
+            {{detail.noti_create_date}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- New Event From Friend -->
+
+    <div *ngIf="detail.noti_type==='1'">
+      <div *ngIf="detail.book_status==='0'  && detail.noti_type!='10'">
+        <ion-row style="border-bottom: solid thin #cccccc">
+          <ion-col [size]="2">
+            <ion-avatar
+              style="display: flex; align-items: center"
+              (click)="viewProfile(detail)"
+            >
+              <ion-img
+                *ngIf="detail.host_user_id!=userId"
+                (click)="viewProfile(detail)"
+                style="height: 40px; width: 40px"
+                [src]="detail.host_user_img"
+              ></ion-img>
+              <ion-img
+                *ngIf="detail.host_user_id==userId"
+                (click)="viewOtherProfile(detail)"
+                style="height: 40px; width: 40px"
+                [src]="detail.book_user_img"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col [size]="8" style="display: flex; align-items: center">
+            <div
+              style="font-size: 14px; width: 100%; padding-bottom: 10px"
+              *ngIf="detail.host_user_id!=userId"
+              (click)="viewProfile(detail)"
+            >
+              <b>{{detail.hostName | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.Text7'"></span>
+            </div>
+            <div
+              style="font-size: 14px; width: 100%; padding-bottom: 10px"
+              *ngIf="detail.host_user_id==userId"
+              (click)="viewOtherProfile(detail)"
+            >
+              {{'NOTIFICATIONS.rejectedByHost' |translate}}
+              <b>{{detail.nameFormatted | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.Text6'"></span>
+            </div>
+          </ion-col>
+          <ion-col [size]="2" style="display: flex; align-items: center">
+            <div style="font-size: 11px; color: #444444">
+              {{detail.noti_create_date}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div *ngIf="detail.book_status==='1'">
+        <ion-row style="border-bottom: solid thin #cccccc">
+          <ion-col [size]="2">
+            <ion-avatar style="display: flex; align-items: center">
+              <ion-img
+                *ngIf="detail.host_user_id==userId"
+                (click)="viewOtherProfile(detail)"
+                style="height: 40px; width: 40px"
+                [src]="detail.book_user_img"
+              ></ion-img>
+              <ion-img
+                (click)="viewProfile(detail)"
+                *ngIf="detail.host_user_id!=userId"
+                style="height: 40px; width: 40px"
+                [src]="detail.host_user_img"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col [size]="8" style="display: flex; align-items: center">
+            <div
+              style="
+                font-size: 14px;
+                width: 100%;
+
+                padding-bottom: 10px;
+              "
+              *ngIf="detail.host_user_id!=userId"
+              (click)="viewProfile(detail)"
+            >
+              <b>{{detail.hostName | titlecase}} </b>
+              <span [translate]="'NOTIFICATIONS.Text5'"></span>
+            </div>
+            <div
+              style="
+                font-size: 14px;
+                width: 100%;
+
+                padding-bottom: 10px;
+              "
+              *ngIf="detail.host_user_id==userId"
+              (click)="viewOtherProfile(detail)"
+            >
+              <span [translate]="'NOTIFICATIONS.Text61'"></span>
+              <b>{{detail.nameFormatted | titlecase}}</b>
+              <span [translate]="'NOTIFICATIONS.Text6'"></span>
+            </div>
+          </ion-col>
+          <ion-col [size]="2" style="display: flex; align-items: center">
+            <div style="font-size: 11px; color: #444444">
+              {{detail.noti_create_date}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div *ngIf="detail.book_status=='3'">
+        <div class="noti-row-withimg">
+          <ion-avatar
+            class="noti-imgbox"
+            style="display: flex; align-items: center"
+            (click)="viewOtherProfile(detail)"
+          >
+            <ion-img
+              style="height: 50px; width: 50px"
+              [src]="detail.book_user_img"
+            ></ion-img>
+          </ion-avatar>
+          <div class="noti-head" (click)="viewOtherProfile(detail)">
+            <b>{{detail.nameFormatted | titlecase}} </b>
+            <span [translate]="'NOTIFICATIONS.Text2'"></span>
+          </div>
+          <div class="noti-other-details" *ngIf="detail.event_type==='1'">
+            <b> {{detail.event_individuals_title | titlecase}}</b>
+            <div class="iconswith-row">
+              <img
+                class="location-img"
+                src="assets/images/unselectedlocation.png"
+              />
+              <div class="details-box">
+                {{detail.event_individuals_address}}
+              </div>
+            </div>
+            <div class="iconswith-row">
+              <img class="time-img" src="assets/images/time.png" />
+              <div class="details-box">
+                {{detail.event_individuals_date}} - {{detail.event_time}}
+              </div>
+            </div>
+            <div class="iconswith-row">
+              <img src="assets/images/people.png" />
+              <div class="details-box">
+                Participants: {{detail.event_individuals_participants_min}} /
+                {{detail.event_individuals_participants_max}}
+              </div>
+            </div>
+            <button
+              ion-button
+              class="det-submit-button global-btn themecolor"
+              (click)="accept(detail)"
+              [translate]="'NOTIFICATIONS.Text3'"
+            ></button>
+            <button
+              ion-button
+              class="det-submit-button global-btn themecolor"
+              (click)="reject(detail)"
+              [translate]="'NOTIFICATIONS.Text4'"
+            ></button>
+          </div>
+          <div class="noti-other-details" *ngIf="detail.event_type==='2'">
+            <b> {{detail.event_coach_title}}</b>
+            <div class="iconswith-row">
+              <img
+                class="location-img"
+                src="assets/images/unselectedlocation.png"
+              />
+              <div class="details-box">{{detail.event_coach_address}}</div>
+            </div>
+            <div class="iconswith-row">
+              <img class="time-img" src="assets/images/time.png" />
+              <div class="details-box">
+                {{detail.event_coach_date}} - {{detail.event_time}}
+              </div>
+            </div>
+            <div class="iconswith-row">
+              <img src="assets/images/people.png" />
+              <div class="details-box">
+                Participants: {{detail.event_coach_participants_min}} /
+                {{detail.event_coach_participants_max}}
+              </div>
+            </div>
+            <ion-button
+              [disabled]="detail.isFull || actionBtn"
+              class="det-submit-button global-btn themecolor"
+              (click)="accept(detail)"
+              [translate]="'NOTIFICATIONS.Text3'"
+            >
+            </ion-button>
+            <ion-button
+              [disabled]="actionBtn"
+              class="det-submit-button global-btn themecolor"
+              (click)="reject(detail)"
+              [translate]="'NOTIFICATIONS.Text4'"
+            >
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="detail.noti_type==='6'">
+      <ion-row style="border-bottom: solid thin #cccccc">
+        <ion-col [size]="2">
+          <ion-avatar
+            class="noti-imgbox"
+            style="display: flex; align-items: center"
+            (click)="viewOtherProfile(detail)"
+          >
+            <ion-img
+              style="height: 40px; width: 40px"
+              [src]="detail.book_user_img"
+            ></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col [size]="8" style="display: flex; align-items: center">
+          <div
+            style="font-size: 14px; width: 100%"
+            *ngIf="detail.event_type=='1'"
+            (click)="viewOtherProfile(detail)"
+          >
+            <b>{{detail.nameFormatted | titlecase}}</b>
+            <span [translate]="'NOTIFICATIONS.Text10'"></span>
+            <b>{{detail.event_individuals_title | titlecase}}</b>
+          </div>
+          <div
+            style="font-size: 14px; width: 100%"
+            *ngIf="detail.event_type=='2'"
+            (click)="viewOtherProfile(detail)"
+          >
+            <b>{{detail.nameFormatted | titlecase}}</b>
+            <span [translate]="'NOTIFICATIONS.Text10'"></span>
+            <b>{{detail.event_coach_title | titlecase}}</b>
+          </div>
+        </ion-col>
+        <ion-col [size]="2" style="display: flex; align-items: center">
+          <div style="font-size: 11px; color: #444444">
+            {{detail.noti_create_date}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- UnFollowed User -->
+    <div *ngIf="detail.noti_type==='7'">
+      <ion-row style="border-bottom: solid thin #cccccc">
+        <ion-col [size]="2">
+          <ion-avatar
+            class="noti-imgbox"
+            style="display: flex; align-items: center"
+            (click)="viewOtherProfile(detail)"
+          >
+            <ion-img
+              style="height: 40px; width: 40px"
+              [src]="detail.book_user_img"
+            ></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col [size]="8" style="display: flex; align-items: center">
+          <div
+            style="font-size: 14px; width: 100%"
+            (click)="viewOtherProfile(detail)"
+          >
+            <b>{{detail.nameFormatted | titlecase}}</b>
+            <span [translate]="'NOTIFICATIONS.Text9'"></span>
+          </div>
+        </ion-col>
+        <ion-col [size]="2" style="display: flex; align-items: center">
+          <div style="font-size: 11px; color: #444444">
+            {{detail.noti_create_date}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div
+      *ngIf="detail.noti_type==='9'"
+      style="border-bottom: solid thin #cccccc"
+    >
+      <ion-row>
+        <ion-col [size]="2">
+          <ion-avatar
+            class="noti-imgbox"
+            style="display: flex; align-items: center"
+            (click)="viewOtherProfile(detail)"
+          >
+            <ion-img
+              style="height: 40px; width: 40px"
+              [src]="detail.book_user_img"
+            ></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col [size]="8" style="display: flex; align-items: center">
+          <div
+            style="font-size: 14px; width: 100%"
+            (click)="viewOtherProfile(detail)"
+          >
+            <!-- <b>{{detail.nameFormatted | titlecase}}</b> -->
+            <span>{{detail.noti_title}}</span>
+            <b> {{detail.event_sport_cate_name|titlecase}} </b>
+            <span> {{"NOTIFICATIONS.BY"|translate}}</span>
+            <span>
+              {{detail.host_user_f_name|titlecase}}
+              {{detail.host_user_l_name|titlecase}}
+            </span>
+          </div>
+        </ion-col>
+        <ion-col [size]="2" style="display: flex; align-items: center">
+          <div style="font-size: 11px; color: #444444">
+            {{detail.noti_create_date}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row style="display: flex; flex-direction: row-reverse">
+        <ion-button style="padding-right: 10px" (click)="review(detail)">
+          {{"Review"|translate}}
+        </ion-button>
+      </ion-row>
+    </div>
+
+    <div *ngIf="detail.noti_type==='10'">
+      <ion-row style="border-bottom: solid thin #cccccc">
+        <ion-col [size]="2">
+          <ion-avatar
+            class="noti-imgbox"
+            style="display: flex; align-items: center"
+            (click)="viewOtherProfile(detail)"
+          >
+            <ion-img
+              style="height: 40px; width: 40px"
+              [src]="detail.book_user_img"
+            ></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col [size]="8" style="display: flex; align-items: center">
+          <div
+            style="font-size: 14px; width: 100%"
+            *ngIf="detail.event_type=='1'"
+            (click)="viewOtherProfile(detail)"
+          >
+            <b>{{detail.nameFormatted | titlecase}}</b>
+            <span [translate]="'NOTIFICATIONS.EventUpdated'"></span>
+            <b>{{detail.event_individuals_title | titlecase}}</b>
+          </div>
+          <div
+            style="font-size: 14px; width: 100%"
+            *ngIf="detail.event_type=='2'"
+            (click)="viewOtherProfile(detail)"
+          >
+            <b>{{detail.nameFormatted | titlecase}}</b>
+            <span [translate]="'NOTIFICATIONS.EventUpdated'"></span>
+            <b>{{detail.event_coach_title | titlecase}}</b>
+          </div>
+        </ion-col>
+        <ion-col [size]="2" style="display: flex; align-items: center">
+          <div style="font-size: 11px; color: #444444">
+            {{detail.noti_create_date}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- </div> -->
+  </div>
+</ion-content>
+<ion-content *ngIf="emptyData">
+  <div
+    style="
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      font-family: montserrat-medium;
+      align-items: center;
+    "
+    [translate]="'NOTIFICATIONS.Text12'"
+  ></div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs">
+        <img
+          src="assets/images/selectednotification.png"
+          class="footer-img-noti"
+        />
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

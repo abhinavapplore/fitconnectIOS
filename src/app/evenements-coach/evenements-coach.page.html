@@ -1,0 +1,171 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium; font-weight: bold"
+      class="top-fixed-heading uppercaes"
+      [translate]="'CREESCOACH.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="top-tabs">
+    <ion-row>
+      <ion-col class="ion-no-padding"
+        ><div
+          class="tabs-block uppercaes selected-tabs"
+          [translate]="'CREESCOACH.Text2'"
+        ></div
+      ></ion-col>
+      <ion-col class="ion-no-padding" (click)="created()"
+        ><div
+          class="tabs-block uppercaes"
+          [translate]="'CREESCOACH.Text3'"
+        ></div
+      ></ion-col>
+      <ion-col class="ion-no-padding" (click)="participated()"
+        ><div
+          class="tabs-block uppercaes"
+          [translate]="'CREESCOACH.participated'"
+        ></div
+      ></ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="!empty">
+  <ion-list class="right">
+    <ion-row
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+      "
+    >
+      <ion-text style="font-family: montserrat-medium; font-weight: bold"
+        ><b>{{totalEvents}}</b> <b [translate]="'CREESCOACH.Text4'"></b
+      ></ion-text>
+    </ion-row>
+
+    <ion-card class="card-evenement" *ngFor="let get of activeEvents">
+      <ion-card-title class="evenement-subtitle" style="position: relative">
+        <!-- <div class="card-title">{{get.event_coach_title | titlecase}}</div> -->
+        <div class="card-title">{{get.spcat_name | titlecase}}</div>
+        <div style="position: absolute; right: 0px; top: 0px">
+          <button
+            style="margin-left: 0.5rem"
+            *ngIf="get.user_id==this.udk"
+            class="evenment-submit-button global-btn themecolor"
+            (click)="edit(get)"
+          >
+            <ion-icon name="create"></ion-icon>
+          </button>
+
+          <button
+            *ngIf="get.user_id==this.udk"
+            class="evenment-submit-button global-btn themecolor"
+            (click)="presentAlertConfirm(get)"
+          >
+            <ion-icon name="trash"></ion-icon>
+          </button>
+
+          <button
+            *ngIf="udk!=get.host_user_id && get.book_status=='waiting for approval'"
+            class="evenment-submit-button global-btn themecolor"
+            style="background-color: #d3c117"
+          >
+            {{'MESEVENTMENTS.Text8'|translate}}
+          </button>
+          <button
+            *ngIf="get.host_user_id!=this.udk && get.book_status!='waiting for approval'"
+            class="evenment-submit-button global-btn themecolor"
+            (click)="exitEvent(get)"
+            style="background-color: #d3c117"
+          >
+            <!-- <ion-icon name="close"></ion-icon> -->
+            {{'MESEVENTMENTS.Text7'|translate}}
+          </button>
+        </div>
+      </ion-card-title>
+      <ion-card-content class="evenement-card-content ion-no-padding">
+        <ion-list class="ion-no-padding">
+          <ion-row>
+            <div class="iconswith-row">
+              <img
+                src="../../assets/images/unselectedlocation.png"
+                class="location-img"
+              />
+              <div class="details-box" style="font-family: montserrat-medium">
+                {{get.event_coach_address||get.event_individuals_address}}
+              </div>
+            </div>
+            <div class="iconswith-row">
+              <img src="assets/images/time.png" class="time-img" />
+              <div class="details-box" style="font-family: montserrat-medium">
+                {{get.event_coach_date | date:"dd-MM-yyyy"}} -
+                {{get.event_time}}
+              </div>
+            </div>
+            <div class="iconswith-row" (click)="showParticipant(get)">
+              <img src="assets/images/people.png" />
+              <div class="details-box" style="font-family: montserrat-medium">
+                <span *ngIf="get.event_type=='1'">
+                  {{get.event_individuals_participants_min}} /
+                  {{get.event_individuals_participants_max}}
+                </span>
+                <span *ngIf="get.event_type=='2'">
+                  {{get.event_coach_participants_min}} /
+                  {{get.event_coach_participants_max}}
+                </span>
+              </div>
+            </div>
+          </ion-row>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
+<ion-content *ngIf="empty">
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      font-family: montserrat-medium;
+    "
+    [translate]="'CREESCOACH.Text6'"
+  ></div>
+</ion-content>
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="home()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs">
+        <img src="assets/images/selectedcalendar.png" class="footer-img-date" />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          <!-- <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}</div>-->
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

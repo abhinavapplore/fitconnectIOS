@@ -1,0 +1,835 @@
+<ion-content class="map-content">
+  <div class="map-block">
+    <ion-grid class="map-search-box">
+      <ion-row
+        class="map-search-withrow"
+        style="display: flex; flex-direction: row; align-items: center"
+      >
+        <ion-col size="10">
+          <div class="search-box">
+            <ion-searchbar
+              class="ion-no-padding"
+              showCancelButton="always"
+              (ionCancel)="cancelSearch($event)"
+              (ionClear)="cancelSearch($event)"
+              (ionFocus)="searchFocus($event)"
+              (ionInput)="searchEvent($event)"
+              placeholder="{{topSearchPlaceHolder}}"
+              [(ngModel)]="searchTerm"
+              (ionChange)="searchChange($event)"
+            ></ion-searchbar>
+          </div>
+        </ion-col>
+        <ion-col size="2" style="padding-top: 0">
+          <!-- <div class="search-profile-box" style="margin-right: 15%;" (click)="subMenu()"> -->
+
+          <ion-avatar
+            (click)="subMenu()"
+            style="display: flex; align-items: center"
+          >
+            <ion-img style="width: 50px; height: 50px" [src]="imgUrl"></ion-img>
+          </ion-avatar>
+
+          <!-- </div> -->
+        </ion-col>
+      </ion-row>
+      <div *ngIf="showList">
+        <ion-list>
+          <ion-item *ngFor="let item of search" (click)="selectItem(item)">
+            <ion-text>
+              <!-- {{item.event_coach_title}} -->
+
+              <ng-container>{{item.spcat_name}}</ng-container>
+            </ion-text>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <!-- Side menu Options -->
+
+      <ion-row
+        *ngIf="subMenuList"
+        style="display: flex; flex-direction: row-reverse"
+      >
+        <ion-list>
+          <ion-item (click)="profile()">
+            <ion-label [translate]="'CREEREVENT.Text1'"></ion-label>
+          </ion-item>
+          <ion-item (click)="myAcc()">
+            <ion-label [translate]="'CREEREVENT.Text2'"></ion-label>
+          </ion-item>
+          <ion-item (click)="settings()">
+            <ion-label [translate]="'CREEREVENT.Text3'"></ion-label>
+          </ion-item>
+          <ion-item lines="none" (click)="logout()">
+            <ion-label [translate]="'CREEREVENT.Text4'"></ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+    </ion-grid>
+
+    <!-- Create Event Box For user -->
+    <div class="map-det-popup left" *ngIf="showbox">
+      <ion-card class="det-card">
+        <ion-card-header style="padding-bottom: 5px">
+          <div class="det-head-withimg">
+            <div class="det-head-txt">
+              <b
+                class="popup"
+                style="color: #d3c117"
+                [translate]="'CREEREVENT.Text5'"
+              ></b>
+            </div>
+            <div class="det-close" (click)="closeboxmethod()">
+              <ion-icon name="close"></ion-icon>
+            </div>
+          </div>
+        </ion-card-header>
+        <ion-card-content class="det-card-content">
+          <form [formGroup]="CreateEvent" (ngSubmit)="onSubmit()">
+            <ion-list>
+              <ion-row class="create-input-row">
+                <img
+                  src="../../assets/images/running.png"
+                  class="left-createicon"
+                />
+
+                <!-- // ADD AUTO SUGGESTION -->
+                <!-- http://fitconnected.prometteur.in/index.php/Api/fields/sport_categories -->
+                <!-- formControlName="event" -->
+                <ion-input
+                  (ionInput)="searchSportCategoryFunc($event)"
+                  formControlName="event_sport_name"
+                  placeholder="{{langSportNamePlaceHolder}}"
+                  required
+                  class="ion-no-padding"
+                ></ion-input>
+              </ion-row>
+
+              <div *ngIf="showContList">
+                <ion-item
+                  lines="none"
+                  *ngFor="let filteredSport of searchName"
+                  (click)="selectSportCategory(filteredSport)"
+                >
+                  <!-- <ion-text style="color: white;">{{city.con_name}}</ion-text> -->
+                  <ion-text style="color: black; font-weight: bold"
+                    >{{filteredSport.spcat_name}}</ion-text
+                  >
+                </ion-item>
+              </div>
+
+              <div
+                *ngIf="submitted && f.event.errors"
+                class="invalid-feedback left"
+              >
+                <div
+                  *ngIf="f.event.errors.required"
+                  [translate]="'CREEREVENT.Text6'"
+                ></div>
+              </div>
+              <ion-row class="create-input-row" id="addressfield">
+                <img
+                  src="assets/images/unselectedlocation.png"
+                  width="20px"
+                  class="left-createicon"
+                />
+                <input
+                  style="
+                    width: 100%;
+                    margin-bottom: 15px;
+                    color: #b8b8b8;
+                    border: none;
+                    border-bottom: 1px solid #ccccccb5;
+                  "
+                  class="ion-no-padding"
+                  oninput="addressInput()"
+                  formControlName="address"
+                  name="address"
+                  type="text"
+                  class="form-control addressInput"
+                  (keydown.enter)="$event.preventDefault()"
+                  placeholder="{{langAddressPlaceHolder}}"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="off"
+                  #search
+                />
+
+                <!-- <ion-input formControlName="address"  placeholder="Address" type="text" name="address" class="ion-no-padding"></ion-input> -->
+              </ion-row>
+              <div
+                *ngIf="submitted && f.address.errors"
+                class="invalid-feedback left"
+              >
+                <div
+                  *ngIf="f.address.errors.required"
+                  [translate]="'CREEREVENT.Text6'"
+                ></div>
+              </div>
+              <ion-row class="create-input-row" style="margin-bottom: 7%">
+                <img
+                  src="../../assets/images/calendar.png"
+                  class="left-createicon"
+                />
+                <!-- <ion-input formControlName="event_date" (ionChange)="dateSelected()"  placeholder="Date / Heure" type="date" name="event_date" class="ion-no-padding"></ion-input> -->
+                <ion-datetime
+                  *ngIf="English"
+                  displayFormat="DD MMM YYYY H:mm"
+                  pickerFormat="DD MMM YY H:mm"
+                  placeholder="{{langDatePlaceHolder}}"
+                  min="2020"
+                  max="2030"
+                  formControlName="event_date"
+                  (ionChange)="dateSelected()"
+                  class="ion-no-padding"
+                  style="
+                    border-bottom: 1px solid #ccccccb5;
+                    width: 100%;
+                    font-weight: bold;
+                    color: #b8b8b8;
+                    --placeholder-font-weight: bold;
+                    --placeholder-color: #b8b8b8;
+                  "
+                  monthShortNames="jan,feb,mar,apr,may,june,july,aug,sept,oct,nov,dec"
+                  cancelText="Cancel"
+                  doneText="Done"
+                >
+                  <!-- <ion-text>{{time}}</ion-text>  -->
+                </ion-datetime>
+                <ion-datetime
+                  *ngIf="!English"
+                  displayFormat="DD MMM YYYY H:mm"
+                  pickerFormat="DD MMM YY H:mm"
+                  placeholder="{{langDatePlaceHolder}}"
+                  min="2020"
+                  max="2030"
+                  formControlName="event_date"
+                  (ionChange)="dateSelected()"
+                  class="ion-no-padding"
+                  style="
+                    border-bottom: 1px solid #ccccccb5;
+                    width: 100%;
+                    font-weight: bold;
+                    color: #b8b8b8;
+                    --placeholder-font-weight: bold;
+                    --placeholder-color: #b8b8b8;
+                  "
+                  monthShortNames="jan,fév,mar,avr,mai,juin,juil,août,sept,oct,nov,déc"
+                  cancelText="annuler"
+                  doneText="Valider"
+                >
+                  <!-- <ion-text>{{time}}</ion-text>  -->
+                </ion-datetime>
+                <!-- <ion-datetime #dateTime style="display:none" displayFormat="H:mm" pickerFormat="H:mm" formControlName="eventTime"
+                (ionChange)="timeSelected()"></ion-datetime> -->
+              </ion-row>
+
+              <div
+                *ngIf="submitted && f.event_date.errors"
+                class="invalid-feedback left"
+              >
+                <div
+                  *ngIf="f.event_date.errors.required"
+                  [translate]="'CREEREVENT.Text6'"
+                ></div>
+              </div>
+              <ion-row class="create-input-row">
+                <img
+                  src="../../assets/images/user.png"
+                  class="left-createicon"
+                />
+                <ion-input
+                  formControlName="event_participants_max"
+                  type="number"
+                  placeholder="{{langParticipantsPlaceHolder}}"
+                  name="event_participants_max"
+                  class="ion-no-padding"
+                >
+                </ion-input>
+              </ion-row>
+              <div
+                *ngIf="submitted && f.event_participants_max.errors"
+                class="invalid-feedback left"
+              >
+                <div
+                  *ngIf="f.event_participants_max.errors.required"
+                  [translate]="'CREEREVENT.Text6'"
+                ></div>
+              </div>
+
+              <ion-row class="create-input-row">
+                <img
+                  style="width: 6%"
+                  src="../../assets/price.png"
+                  class="left-createicon"
+                />
+                <ion-input
+                  formControlName="event_price"
+                  type="number"
+                  placeholder="{{langPricePlaceHolder}}"
+                  name="event_participants_max"
+                  class="ion-no-padding"
+                ></ion-input>
+              </ion-row>
+              <div
+                *ngIf="submitted && f.event_price.errors"
+                class="invalid-feedback left"
+              >
+                <div
+                  *ngIf="f.event_price.errors.required"
+                  [translate]="'CREEREVENT.Text6'"
+                ></div>
+              </div>
+              <!-- <ion-row class="create-input-row">
+                <img src="../../assets/images/filter.svg" class="left-createicon" />
+                <ion-select placeholder="{{'EVENTMENTCOACH.Text8' | translate}}" style="width: 100%;"
+                  formControlName="event_sport_name">
+                  <ion-select-option *ngFor="let userSport of userSportCategory" value="{{userSport}}">{{userSport}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-row> -->
+              <div
+                *ngIf="submitted && f.event_sport_name.errors"
+                class="invalid-feedback left"
+              >
+                <div *ngIf="f.event_sport_name.errors.required">
+                  {{'EVENTMENTCOACH.Text8' | translate}}
+                  {{'EVENTMENTCOACH.Text9' | translate}}
+                </div>
+              </div>
+              <ion-row>
+                <ion-textarea
+                  (ionChange)="textChange()"
+                  formControlName="event_discription"
+                  name="event_discription"
+                  class="global-txtarea"
+                  cols="3"
+                  rows="2"
+                  placeholder="{{langDescPlaceHolder}}"
+                ></ion-textarea>
+              </ion-row>
+            </ion-list>
+            <div class="buttonbox-cardouter">
+              <button
+                type="submit"
+                ion-button
+                class="global-submit-button global-btn"
+                style="background-color: #d3c117; color: white"
+                [translate]="'CREEREVENT.Text8'"
+              ></button>
+            </div>
+          </form>
+        </ion-card-content>
+        <ion-footer class="det-card-footer"> </ion-footer>
+      </ion-card>
+    </div>
+
+    <!-- User Event Card -->
+
+    <div class="map-det-popup left" *ngIf="userEventCardBoolean">
+      <ion-card class="det-card" style="border-radius: 12px">
+        <ion-row
+          style="
+            border-bottom-style: solid;
+            border-bottom-color: #929292;
+            border-bottom-width: 0.5px;
+            margin-top: 5%;
+          "
+        >
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+            (click)="viewProfile()"
+          >
+            <img
+              *ngIf="!imgAvailable"
+              style="border-radius: 53%"
+              src="assets/images/profile-img2.jpg"
+            />
+            <ion-avatar
+              style="display: flex; align-items: center"
+              *ngIf="imgAvailable"
+            >
+              <ion-img
+                style="width: 50px; height: 50px"
+                [src]="userImg"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col
+            [size]="8"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <ion-row
+              style="
+                color: #d3c117;
+                font-size: 18px;
+                font-family: Open Sans-bold;
+              "
+              (click)="viewProfile()"
+            >
+              {{EUserfName | titlecase}} {{userLname | titlecase}}.
+            </ion-row>
+            {{this.selectedEvent.spcat_name}}
+            <!-- <ion-row> {{userTitle | titlecase}} </ion-row> -->
+            <ion-row *ngIf="userVerified && evn_type!='1'">
+              <img
+                src="assets/images/tickicon.svg"
+                style="width: 18px !important; margin-right: 2%"
+              />
+              {{'CREEREVENT.Text21' | translate}}
+              <!-- {{evn_type}} -->
+            </ion-row>
+          </ion-col>
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div class="det-close" (click)="closeDetailsBox()">
+              <ion-icon name="close" size="large"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-card-content class="evenement-card-content ion-no-padding">
+          <ion-list class="ion-no-padding">
+            <ion-row>
+              <!-- <div class="iconswith-row" *ngIf="this.selectedEvent">
+                <img
+                  src="../../assets/images/create-coach-img1.png"
+                  class="location-img"
+                />
+                <b style="color: black" class="details-box"
+                  >{{this.selectedEvent.spcat_name}}</b
+                >
+              </div> -->
+              <div class="iconswith-row">
+                <img src="../../assets/images/pin.png" class="location-img" />
+                <div class="details-box">{{userLocation}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/time.png" class="time-img" />
+                <div class="details-box">{{userDate}} - {{userTime}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/people.png" class="time-img" />
+                <div class="details-box" [translate]="'CREEREVENT.Text9'">
+                  {{participants_min}}/{{participants_max}}
+                </div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/money-bag.png" class="time-img" />
+                <div class="details-box" [translate]="'CREEREVENT.Text9'">
+                  {{pricePerPerson}}
+                </div>
+              </div>
+            </ion-row>
+          </ion-list>
+        </ion-card-content>
+        <ion-row
+          *ngIf="uid!==host_id"
+          style="display: flex; flex-direction: row"
+        >
+          <ion-col size="6">
+            <ion-button
+              [disabled]="!isAvailable || isBooked || isFull"
+              style="--border-radius: 52px; --background: #d3c117; width: 90%"
+              (click)="presentAlertBooking()"
+              [translate]="'CREEREVENT.Text10'"
+            >
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              style="--border-radius: 52px; --background: #708aaa; width: 90%"
+              (click)="takeScreenshot()"
+            >
+              <img
+                style="width: 18%"
+                src="assets/images/share.png"
+                class="time-img"
+              />
+              <ion-text
+                style="margin-left: 5%"
+                [translate]="'CREEREVENT.Text11'"
+              >
+              </ion-text>
+            </ion-button>
+          </ion-col>
+
+          <!-- <ion-icon name="arrow-redo-outline"></ion-icon> -->
+        </ion-row>
+        <ion-row
+          *ngIf="uid===host_id"
+          style="display: flex; flex-direction: row"
+        >
+          <ion-col size="6">
+            <ion-button
+              style="
+                --border-radius: 52px;
+                --background: #d3c117;
+                color: white;
+                width: 90%;
+                font-weight: bold;
+              "
+              (click)="presentAlertConfirm()"
+              [translate]="'CREEREVENT.Text12'"
+            >
+              <!-- <ion-icon name="arrow-redo-outline"></ion-icon> -->
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              style="
+                --border-radius: 52px;
+                --background: #708aaa;
+                color: white;
+                width: 90%;
+              "
+              (click)="takeScreenshot()"
+            >
+              <img
+                style="width: 18%"
+                src="assets/images/share.png"
+                class="time-img"
+              />
+              <ion-text
+                style="margin-left: 5%; font-weight: bold"
+                [translate]="'CREEREVENT.Text11'"
+              >
+              </ion-text>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            margin-top: 5%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+          [translate]="'CREEREVENT.Text13'"
+        >
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: flex-start;
+            padding-bottom: 4%;
+            width: 80%;
+          "
+        >
+          {{userdiscription}}
+        </ion-row>
+        <ion-row
+          *ngIf="!userVerified"
+          style="
+            margin-top: 5%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 4%;
+            color: red;
+          "
+        >
+          {{'CREEREVENT.Text22' | translate}}
+        </ion-row>
+      </ion-card>
+    </div>
+
+    <!-- coach event card -->
+    <div class="map-det-popup left" *ngIf="coachEventCardBoolean">
+      <ion-card class="det-card" style="border-radius: 12px">
+        <ion-row
+          style="
+            border-bottom-style: solid;
+            border-bottom-color: #929292;
+            border-bottom-width: 0.5px;
+            margin-top: 5%;
+          "
+        >
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+            (click)="viewProfile()"
+          >
+            <img
+              *ngIf="!imgAvailable"
+              style="border-radius: 53%"
+              src="assets/images/profile-img2.jpg"
+            />
+            <ion-avatar
+              style="display: flex; align-items: center"
+              *ngIf="imgAvailable"
+            >
+              <ion-img
+                style="width: 50px; height: 50px"
+                [src]="userImg"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col
+            [size]="8"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <ion-row
+              style="
+                color: #d3c117;
+                font-size: 18px;
+                font-family: Open Sans-bold;
+              "
+              (click)="viewProfile()"
+            >
+              <img
+                src="assets/images/Star.svg"
+                style="width: 7%"
+                class="time-img"
+              />
+              {{EUserfName | titlecase}} {{userLname | titlecase}}. (Coach) </ion-row
+            >{{this.selectedEvent.spcat_name}}
+            <!-- <ion-row> {{userTitle | titlecase}} </ion-row> -->
+          </ion-col>
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div class="det-close" (click)="closeDetailsBox()">
+              <ion-icon name="close" size="large"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-card-content class="evenement-card-content ion-no-padding">
+          <ion-list class="ion-no-padding">
+            <ion-row>
+              <!-- <div class="iconswith-row">
+                <img
+                  src="../../assets/images/create-coach-img1.png"
+                  class="location-img"
+                />
+                <b style="color: black" class="details-box"
+                  >{{this.selectedEvent.spcat_name}}</b
+                >
+              </div> -->
+              <div class="iconswith-row">
+                <img src="../../assets/images/pin.png" class="location-img" />
+                <div class="details-box">{{userLocation}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/time.png" class="time-img" />
+                <div class="details-box">{{userDate}} - {{userTime}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/people.png" class="time-img" />
+                <div class="details-box" [translate]="'CREEREVENT.Text9'">
+                  {{participants_min}}/{{participants_max}}
+                </div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/money-bag.png" class="time-img" />
+                <div class="details-box" [translate]="'CREEREVENT.Text15'">
+                  <p *ngIf="HourPrice" [translate]="'CREEREVENT.Text16'">
+                    &nbsp;
+                  </p>
+                  <p *ngIf="!HourPrice" [translate]="'CREEREVENT.Text17'">
+                    &nbsp;
+                  </p>
+                  {{coachPrice | currency:'EUR':true}} (Minimum: {{userMin}})
+                </div>
+              </div>
+            </ion-row>
+          </ion-list>
+        </ion-card-content>
+        <ion-row
+          *ngIf="uid!==host_id"
+          style="display: flex; flex-direction: row"
+        >
+          <ion-col size="6">
+            <ion-button
+              style="--border-radius: 52px; --background: #d3c117; width: 90%"
+              (click)="takeScreenshot()"
+            >
+              <img
+                style="width: 18%"
+                src="assets/images/share.png"
+                class="time-img"
+              />
+              <ion-text
+                style="margin-left: 5%"
+                [translate]="'CREEREVENT.Text11'"
+              >
+              </ion-text>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              [disabled]="!isAvailable || isBooked || isFull"
+              style="--border-radius: 52px; --background: #708aaa; width: 90%"
+              (click)="presentAlertBooking()"
+              [translate]="'CREEREVENT.Text10'"
+            >
+              <!-- <ion-icon name="arrow-redo-outline"></ion-icon> -->
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          *ngIf="uid===host_id"
+          style="display: flex; flex-direction: row"
+        >
+          <ion-col size="6">
+            <ion-button
+              style="--border-radius: 52px; --background: #d3c117; width: 90%"
+              (click)="takeScreenshot()"
+            >
+              <img
+                style="width: 18%"
+                src="assets/images/share.png"
+                class="time-img"
+              />
+              <ion-text
+                style="margin-left: 5%"
+                [translate]="'CREEREVENT.Text11'"
+              >
+              </ion-text>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              style="
+                --border-radius: 52px;
+                background-color: #708aaa;
+                width: 90%;
+              "
+              (click)="presentAlertConfirm()"
+              [translate]="'CREEREVENT.Text12'"
+            >
+              <!-- <ion-icon name="arrow-redo-outline"></ion-icon> -->
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            margin-top: 5%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+          [translate]="'CREEREVENT.Text13'"
+        >
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: flex-start;
+            padding-bottom: 4%;
+            width: 80%;
+          "
+        >
+          {{userdiscription}}
+        </ion-row>
+      </ion-card>
+    </div>
+
+    <div class="google-map" id="map"></div>
+    <div class="plus-icon-box" (click)="showboxmethod()">
+      <ion-icon name="add" style="color: white"></ion-icon>
+    </div>
+    <div class="bottom-tab" *ngIf="footerAction">
+      <div class="two-tabs">
+        <ion-row>
+          <ion-col class="ion-no-padding">
+            <div
+              style="
+                text-transform: uppercase;
+                font-family: montserrat-medium;
+                font-weight: bold;
+              "
+              class="tabs-block uppercaes selected-tabs"
+              [translate]="'CREEREVENT.Text18'"
+            ></div>
+          </ion-col>
+          <ion-col class="ion-no-padding" (click)="sportsTab()">
+            <div
+              style="
+                text-transform: uppercase;
+                font-family: montserrat-medium;
+                font-weight: bold;
+              "
+              class="tabs-block uppercaes"
+              [translate]="'CREEREVENT.Text19'"
+            ></div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Bottom Tabs -->
+
+<ion-footer class="footer-fixed-tab" *ngIf="footerAction">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs">
+        <img
+          src="assets/images/selectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="eventdetails()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          <!-- {{notificationArray}} -->
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

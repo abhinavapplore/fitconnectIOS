@@ -1,0 +1,528 @@
+<ion-content class="map-content">
+  <div class="map-block">
+    <ion-grid class="map-search-box">
+      <ion-row
+        class="map-search-withrow"
+        style="display: flex; flex-direction: row; align-items: center"
+      >
+        <ion-col size="10">
+          <div class="search-box">
+            <ion-searchbar
+              class="ion-no-padding"
+              (ionInput)="searchEvent($event)"
+              placeholder="{{topSearchPlaceHolder}}"
+              [(ngModel)]="searchTerm"
+              showCancelButton="focus"
+              (ionClear)="cancelSearch($event)"
+              (ionFocus)="searchFocus($event)"
+              (ionChange)="searchChange($event)"
+            >
+            </ion-searchbar>
+          </div>
+        </ion-col>
+        <ion-col size="2" style="padding-top: 0">
+          <!-- <div class="search-profile-box" style="margin-right: 15%;height: 58px;" (click)="subMenu()"> -->
+
+          <ion-avatar
+            (click)="subMenu()"
+            style="display: flex; align-items: center"
+          >
+            <ion-img style="width: 50px; height: 50px" [src]="imgUrl"></ion-img>
+          </ion-avatar>
+
+          <!-- </div> -->
+        </ion-col>
+      </ion-row>
+      <div *ngIf="showList">
+        <ion-list>
+          <ion-item *ngFor="let item of search" (click)="selectItem(item)">
+            <ion-text>
+              <!-- {{item.event_coach_title}} -->
+
+              <ng-container>{{item.spcat_name}}</ng-container>
+            </ion-text>
+            <!-- <ion-text *ngIf="item.event_type==='2'"
+              >{{item.event_coach_title}}<ng-container
+                *ngIf="item.event_sport_cate"
+                >-({{item.event_sport_cate}})</ng-container
+              ></ion-text
+            >
+            <ion-text *ngIf="item.event_type==='1'"
+              >{{item.event_individuals_title}}<ng-container
+                *ngIf="item.event_sport_cate"
+                >-({{item.event_sport_cate}})</ng-container
+              ></ion-text
+            > -->
+          </ion-item>
+        </ion-list>
+      </div>
+      <ion-row
+        *ngIf="subMenuList"
+        style="display: flex; flex-direction: row-reverse"
+      >
+        <ion-list>
+          <ion-item (click)="profile()">
+            <ion-label [translate]="'EVENTMENTCOACHVUE.Text1'"></ion-label>
+          </ion-item>
+          <ion-item (click)="myAcc()">
+            <ion-label [translate]="'EVENTMENTCOACHVUE.Text2'"></ion-label>
+          </ion-item>
+          <ion-item (click)="abbonement()">
+            <ion-label [translate]="'EVENTMENTCOACHVUE.Text3'"></ion-label>
+          </ion-item>
+          <ion-item (click)="settings()">
+            <ion-label [translate]="'EVENTMENTCOACHVUE.Text4'"></ion-label>
+          </ion-item>
+          <ion-item lines="none" (click)="logout()">
+            <ion-label [translate]="'EVENTMENTCOACHVUE.Text5'"></ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+    </ion-grid>
+
+    <!-- User Event Card -->
+    <div class="map-det-popup left" *ngIf="userEventCardBoolean">
+      <ion-card class="det-card" style="border-radius: 12px">
+        <ion-row
+          style="
+            border-bottom-style: solid;
+            border-bottom-color: #929292;
+            border-bottom-width: 0.5px;
+            margin-top: 5%;
+          "
+        >
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+            (click)="viewProfile()"
+          >
+            <ion-avatar
+              style="display: flex; align-items: center"
+              *ngIf="imgAvailable"
+            >
+              <ion-img
+                style="width: 50px; height: 50px"
+                [src]="userImg"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col
+            [size]="8"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <ion-row
+              style="
+                color: #d3c117;
+                font-size: 18px;
+                font-family: Open Sans-bold;
+              "
+              (click)="viewProfile()"
+            >
+              {{EUserfName | titlecase}} {{userLname | titlecase}}.
+            </ion-row>
+            {{spcat_name}}
+            <!-- <ion-row> {{userTitle | titlecase}} </ion-row> -->
+          </ion-col>
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div class="det-close" (click)="closeDetailsBox()">
+              <ion-icon name="close" size="large"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-card-content class="evenement-card-content ion-no-padding">
+          <ion-list class="ion-no-padding">
+            <ion-row>
+              <!-- <div class="iconswith-row">
+                <img
+                  src="../../assets/images/create-coach-img1.png"
+                  class="location-img"
+                />
+                <b style="color: black" class="details-box">{{spcat_name}}</b>
+              </div> -->
+              <div class="iconswith-row">
+                <img src="../../assets/images/pin.png" class="location-img" />
+                <div class="details-box">{{userLocation}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/time.png" class="time-img" />
+                <div class="details-box">{{userDate}} - {{userTime}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/people.png" class="time-img" />
+                <div class="details-box">
+                  Participants: {{participants_min}}/{{participants_max}}
+                </div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/money-bag.png" class="time-img" />
+                <div class="details-box" [translate]="'CREEREVENT.Text9'">
+                  {{pricePerPerson}}
+                </div>
+              </div>
+            </ion-row>
+          </ion-list>
+        </ion-card-content>
+        <ion-row
+          *ngIf="uid!==host_id"
+          style="display: flex; flex-direction: row; justify-content: center"
+        >
+          <ion-button
+            [disabled]="!selectedEvent.isAvailable || selectedEvent.isBooked || selectedEvent.isFull"
+            style="--border-radius: 52px; --background: #d3c117"
+            (click)="bookEvent()"
+            [translate]="'EVENTMENTCOACHVUE.Text14'"
+          >
+          </ion-button>
+          <ion-button
+            style="--border-radius: 52px; --background: #708aaa; width: 40%"
+            (click)="takeScreenshot()"
+          >
+            <img
+              style="width: 18%"
+              src="assets/images/share.png"
+              class="time-img"
+            />
+            <ion-text
+              style="margin-left: 5%; font-weight: bold"
+              [translate]="'EVENTMENTCOACHVUE.Text6'"
+            >
+            </ion-text>
+          </ion-button>
+        </ion-row>
+        <ion-row
+          *ngIf="uid===host_id"
+          style="display: flex; flex-direction: row"
+        >
+          <ion-col size="6">
+            <ion-button
+              style="--border-radius: 52px; --background: #d3c117; width: 90%"
+              (click)="presentAlertConfirm()"
+              [translate]="'EVENTMENTCOACHVUE.Text7'"
+            >
+              <!-- <ion-icon name="arrow-redo-outline"></ion-icon> -->
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              style="--border-radius: 52px; --background: #708aaa; width: 90%"
+              (click)="takeScreenshot()"
+            >
+              <img
+                style="width: 18%"
+                src="assets/images/share.png"
+                class="time-img"
+              />
+              <ion-text
+                style="margin-left: 5%; font-weight: bold"
+                [translate]="'EVENTMENTCOACHVUE.Text6'"
+              >
+              </ion-text>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+          [translate]="'EVENTMENTCOACHVUE.Text8'"
+        >
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            margin-left: 5%;
+            padding-bottom: 4%;
+            width: 80%;
+          "
+        >
+          {{userdiscription}}
+        </ion-row>
+      </ion-card>
+    </div>
+
+    <!-- Coach Event Card -->
+    <div class="map-det-popup left" *ngIf="coachEventCardBoolean">
+      <ion-card class="det-card" style="border-radius: 12px">
+        <ion-row
+          style="
+            border-bottom-style: solid;
+            border-bottom-color: #929292;
+            border-bottom-width: 0.5px;
+            margin-top: 5%;
+          "
+        >
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+            (click)="viewProfile()"
+          >
+            <!-- <img *ngIf="!imgAvailable" style="border-radius: 53%;" src="assets/images/profile-img2.jpg" /> -->
+            <ion-avatar
+              style="display: flex; align-items: center"
+              *ngIf="imgAvailable"
+            >
+              <ion-img
+                style="width: 50px; height: 50px"
+                [src]="userImg"
+              ></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col
+            [size]="8"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <ion-row
+              style="
+                color: #d3c117;
+                font-size: 18px;
+                font-family: Open Sans-bold;
+              "
+              (click)="viewProfile()"
+            >
+              <img
+                src="assets/images/Star.svg"
+                style="width: 7%"
+                class="time-img"
+              />
+              {{EUserfName | titlecase}} {{userLname | titlecase}}. (Coach)
+            </ion-row>
+            <ion-row> {{spcat_name}} </ion-row>
+          </ion-col>
+          <ion-col
+            [size]="2"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div class="det-close" (click)="closeDetailsBox()">
+              <ion-icon name="close" size="large"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-card-content class="evenement-card-content ion-no-padding">
+          <ion-list class="ion-no-padding">
+            <ion-row>
+              <!-- <div class="iconswith-row">
+                <img
+                  src="../../assets/images/create-coach-img1.png"
+                  class="location-img"
+                />
+                <b style="color: black" class="details-box">{{spcat_name}}</b>
+              </div> -->
+              <div class="iconswith-row">
+                <img src="../../assets/images/pin.png" class="location-img" />
+                <div class="details-box">{{userLocation}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/time.png" class="time-img" />
+                <div class="details-box">{{userDate}} - {{userTime}}</div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/people.png" class="time-img" />
+                <div class="details-box">
+                  Participants: {{participants_min}}/{{participants_max}}
+                </div>
+              </div>
+              <div class="iconswith-row">
+                <img src="assets/images/money-bag.png" class="time-img" />
+                <div
+                  class="details-box"
+                  [translate]="'EVENTMENTCOACHVUE.Text11'"
+                >
+                  <p *ngIf="HourPrice" [translate]="'EVENTMENTCOACHVUE.Text12'">
+                    &nbsp;
+                  </p>
+                  <p
+                    *ngIf="!HourPrice"
+                    [translate]="'EVENTMENTCOACHVUE.Text13'"
+                  >
+                    &nbsp;
+                  </p>
+                  {{coachPrice | currency:'EUR':true}} (Minimum: {{userMin}})
+                </div>
+              </div>
+            </ion-row>
+          </ion-list>
+        </ion-card-content>
+        <ion-row
+          *ngIf="uid!==host_id"
+          style="display: flex; flex-direction: row; justify-content: center"
+        >
+          <ion-button
+            [disabled]="!selectedEvent.isAvailable || selectedEvent.isBooked || selectedEvent.isFull"
+            style="--border-radius: 52px; --background: #d3c117"
+            (click)="presentAlertBooking()"
+            [translate]="'EVENTMENTCOACHVUE.Text14'"
+          >
+          </ion-button>
+
+          <ion-button
+            style="--border-radius: 52px; --background: #708aaa; width: 40%"
+            (click)="takeScreenshot()"
+          >
+            <img
+              style="width: 18%"
+              src="assets/images/share.png"
+              class="time-img"
+            />
+            <ion-text
+              style="margin-left: 5%"
+              [translate]="'EVENTMENTCOACHVUE.Text6'"
+            >
+            </ion-text>
+          </ion-button>
+        </ion-row>
+        <ion-row
+          *ngIf="uid===host_id"
+          style="display: flex; flex-direction: row"
+        >
+          <ion-col size="6">
+            <ion-button
+              style="--border-radius: 52px; --background: #d3c117; width: 90%"
+              (click)="takeScreenshot()"
+            >
+              <img
+                style="width: 18%"
+                src="assets/images/share.png"
+                class="time-img"
+              />
+              <ion-text
+                style="margin-left: 5%"
+                [translate]="'EVENTMENTCOACHVUE.Text6'"
+              >
+              </ion-text>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-button
+              style="--border-radius: 52px; --background: #d3c117; width: 90%"
+              (click)="presentAlertConfirm()"
+              [translate]="'EVENTMENTCOACHVUE.Text7'"
+            >
+              <!-- <ion-icon name="arrow-redo-outline"></ion-icon> -->
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+          [translate]="'EVENTMENTCOACHVUE.Text8'"
+        >
+        </ion-row>
+        <ion-row
+          style="
+            margin-top: 5%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: flex-start;
+            padding-bottom: 4%;
+            width: 80%;
+          "
+        >
+          {{userdiscription}}
+        </ion-row>
+      </ion-card>
+    </div>
+    <div class="google-map" id="map3"></div>
+    <div class="plus-icon-box">
+      <ion-icon name="add" style="color: white" (click)="addevent()"></ion-icon>
+    </div>
+    <div class="bottom-tab" *ngIf="footerAction">
+      <div class="two-tabs">
+        <ion-row>
+          <ion-col class="ion-no-padding">
+            <div
+              style="
+                text-transform: uppercase;
+                font-family: montserrat-medium;
+                font-weight: bold;
+              "
+              class="tabs-block uppercaes selected-tabs"
+              [translate]="'EVENTMENTCOACHVUE.Text9'"
+            ></div>
+          </ion-col>
+          <ion-col class="ion-no-padding" (click)="sportsTab()">
+            <div
+              style="
+                text-transform: uppercase;
+                font-family: montserrat-medium;
+                font-weight: bold;
+              "
+              class="tabs-block uppercaes"
+              [translate]="'EVENTMENTCOACHVUE.Text10'"
+            ></div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab" *ngIf="footerAction">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs">
+        <img
+          src="assets/images/selectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="eventdetails()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

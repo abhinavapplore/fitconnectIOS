@@ -1,0 +1,87 @@
+<ion-header no-border>
+  <ion-toolbar class="terms-headersection">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="connexion"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <section>
+    <div class="center-content">
+      <div class="professional-block">
+        <ion-row class="first-margin">
+          <ion-col
+            style="font-family: montserrat-medium"
+            class="ion-no-padding"
+            class="question-box-main"
+            [translate]="'INSCRIPTIONDOCS.Text1'"
+          >
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <div class="forword-icons-withans" (click)="presentActionSheet(1)">
+            <ion-title
+              size="small"
+              class="ion-no-padding"
+              [translate]="'INSCRIPTIONDOCS.Text5'"
+            ></ion-title>
+            <div *ngIf="!uploaded1" class="redo-box">
+              <img src="assets/images/money-euro.png" />
+            </div>
+            <img
+              class="redo-box img"
+              *ngIf="uploaded1"
+              src="../../assets/images/coloredupload.png"
+            />
+          </div>
+        </ion-row>
+        <ion-row>
+          <div class="forword-icons-withans" (click)="presentActionSheet(2)">
+            <ion-title
+              size="small"
+              class="ion-no-padding"
+              [translate]="'INSCRIPTIONDOCS.Text2'"
+            ></ion-title>
+            <div class="redo-box" *ngIf="!uploaded2">
+              <img src="assets/images/money-euro.png" />
+            </div>
+            <img
+              class="redo-box img"
+              *ngIf="uploaded2"
+              src="../../assets/images/coloredupload.png"
+            />
+          </div>
+        </ion-row>
+        <ion-row>
+          <div class="forword-icons-withans" (click)="presentActionSheet(3)">
+            <ion-title
+              size="small"
+              class="ion-no-padding"
+              [translate]="'INSCRIPTIONDOCS.Text3'"
+            ></ion-title>
+            <div class="redo-box" *ngIf="!uploaded3">
+              <img src="assets/images/money-euro.png" />
+            </div>
+            <img
+              class="redo-box img"
+              *ngIf="uploaded3"
+              src="../../assets/images/coloredupload.png"
+            />
+          </div>
+        </ion-row>
+        <ion-row class="btn-profession-box">
+          <button
+            ion-button
+            class="global-submit-button global-btn"
+            style="background-color: #d3c117; color: white"
+            (click)="submit()"
+            [translate]="'INSCRIPTIONDOCS.Text4'"
+          ></button>
+        </ion-row>
+        <div (click)="submit()" style="margin-top: 1rem; color: white">
+          Skip
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>

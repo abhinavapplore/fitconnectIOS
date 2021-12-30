@@ -1,0 +1,29 @@
+<ion-header no-border>
+    <ion-toolbar class="terms-headersection">
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="connexion"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen >
+    <section >
+  
+        <div class="center-content">
+            <ion-row>
+                <ion-col style="font-family: montserrat-medium; font-weight: bold; color: #D3C117;" class="question-count" [translate]="'QUESTION.Text1'"></ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12 class="question-box-main" [translate]="'QUESTION.Text2'"></ion-col>
+            </ion-row>
+            <ion-row class="options-box" >
+           
+                    <h3 style="font-family: montserrat;font-weight: bold;" *ngFor="let get of type;let x = index;" [ngClass]="{selectedans: get.select == true}" (click)="selected(x)">{{get.name}}</h3>
+               
+            </ion-row>
+            <ion-row>
+                <button ion-button class="login-button global-btn" style="background-color: #D3C117; color: white;" (click)="submit()" [translate]="'QUESTION.Text3'">SUIVANT
+                </button>
+            </ion-row>
+        </div>
+    </section>
+</ion-content>

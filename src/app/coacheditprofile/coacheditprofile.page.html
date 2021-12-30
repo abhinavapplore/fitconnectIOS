@@ -1,0 +1,351 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium; font-weight: bolder"
+      class="top-fixed-heading uppercaes"
+    >
+      {{name | titlecase}}
+      <br />
+      <ng-container *ngIf="userRank">
+        {{'WATCHREVIEW.Text19' | translate}} -
+        <ion-text
+          style="
+            font-size: 16px;
+            font-weight: bold;
+            font-family: montserrat-medium;
+            color: #d3c117;
+          "
+        >
+          {{userRank | number}}
+        </ion-text>
+      </ng-container>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="overall-content">
+    <div class="top-black-block"></div>
+    <div class="top-header-content">
+      <div class="top-btn-toolbar">
+        <ion-row>
+          <ion-col class="ion-text-left" (click)="openListFollowers()">
+            <div class="social-counterbox">
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                *ngIf="!followerList"
+                class="soc-count"
+              >
+                {{followers}}
+              </div>
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                *ngIf="!followerList"
+                class="soc-counttxt"
+                [translate]="'COACHEDIT.Text1'"
+              ></div>
+              <div
+                *ngIf="followerList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-count"
+              >
+                {{followers}}
+              </div>
+              <div
+                *ngIf="followerList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-counttxt"
+                [translate]="'COACHEDIT.Text1'"
+              ></div>
+            </div>
+            <div *ngIf="followerList" class="arrow-up"></div>
+          </ion-col>
+          <ion-col
+            style="display: flex; flex-direction: row; justify-content: center"
+          >
+            <div class="profile-center">
+              <img *ngIf="!Avatar" src="assets/images/profile-img.png" />
+              <ion-avatar style="width: 100px; height: 100px" *ngIf="Avatar">
+                <ion-img [src]="imgUrl"></ion-img>
+              </ion-avatar>
+              <div class="edit-pencilicon" (click)="presentActionSheet(1)">
+                <img src="assets/images/edit-pencil.png" />
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="ion-text-right" (click)="openListFollowing()">
+            <div class="social-counterbox">
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                *ngIf="!followingList"
+                class="soc-count"
+              >
+                {{following}}
+              </div>
+              <div
+                style="font-family: montserrat-medium; font-weight: bold"
+                *ngIf="!followingList"
+                class="soc-counttxt"
+                [translate]="'COACHEDIT.Text2'"
+              ></div>
+              <div
+                *ngIf="followingList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-count"
+              >
+                {{following}}
+              </div>
+              <div
+                *ngIf="followingList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-counttxt"
+                [translate]="'COACHEDIT.Text2'"
+              ></div>
+            </div>
+            <div *ngIf="followingList" class="arrow-up"></div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row
+          style="
+            text-align: center;
+            color: #d3c117;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+        >
+          <ion-title
+            style="
+              font-family: montserrat-medium;
+              font-weight: bold;
+              margin-top: 5%;
+            "
+            >{{name | titlecase}}</ion-title
+          >
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 2%;
+          "
+        >
+          <small style="font-family: montserrat"
+            >{{gender}} - {{age}} <span [translate]="'COACHEDIT.Text3'"></span
+          ></small>
+        </ion-row>
+
+        <div class="top-tabs">
+          <ion-row>
+            <ion-col class="ion-no-padding">
+              <div
+                style="font-family: montserrat-medium; font-weight: bolder"
+                class="tabs-block uppercaes selected-tabs"
+                [translate]="'COACHEDIT.Text4'"
+              ></div>
+            </ion-col>
+            <ion-col class="ion-no-padding" (click)="activity()">
+              <div
+                style="font-family: montserrat-medium; font-weight: bolder"
+                class="tabs-block uppercaes"
+                [translate]="'COACHEDIT.Text5'"
+              ></div>
+            </ion-col>
+            <ion-col class="ion-no-padding" (click)="reviewPage()">
+              <div
+                style="font-family: montserrat-medium"
+                class="tabs-block uppercaes"
+                [translate]="'COACHEDIT.Text14'"
+              ></div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-inner-block">
+      <!-- <ion-row class="gray-row">
+                <b class="main-head" style="font-family: montserrat-medium;" [translate]="'COACHEDIT.Text6'"></b>
+                <ion-row class="border-row">
+                    <div class="left-bold-head" style="font-family: montserrat-medium;font-weight: bold;" [translate]="'COACHEDIT.Text7'"></div>
+                    <div *ngIf="!editHour" class="right-txt" style="display: flex;">
+                        <ion-text style="font-family: montserrat;">{{hourly}}</ion-text>
+                       
+                        <ion-icon name="logo-euro"></ion-icon>
+                        <img class="edit-row-icon" (click)="perHour()" src="assets/images/edit-pencil.png"/>
+                    </div>
+                    <div class="right-txt" *ngIf="editHour">
+                        <img class="edit-row-icon" (click)="perHour()" src="assets/images/edit-pencil.png"/>
+                        <ion-input type="number" [(ngModel)]="hourRate" #input></ion-input>
+                        <div *ngIf="editHour && displayHourError" style="color: red;font-size: 10px;" [translate]="'COACHEDIT.Text8'"></div>
+                        <ion-icon name="logo-euro"></ion-icon> 
+                        
+                    </div>
+                    
+                </ion-row>
+                <ion-row class="border-row">
+                    <div class="left-bold-head" style="font-family: montserrat-medium;font-weight: bold;" [translate]="'COACHEDIT.Text9'"></div>
+                    <div *ngIf="!editPerson" class="right-txt" style="display: flex;">
+                        <ion-text style="font-family: montserrat;">{{person}}</ion-text>
+                        <ion-icon name="logo-euro"></ion-icon>
+                        <img class="edit-row-icon" (click)="perPerson()" src="assets/images/edit-pencil.png"/>
+                    </div>
+                    <div class="right-txt" *ngIf="editPerson">
+                        <img class="edit-row-icon" (click)="perPerson()" src="assets/images/edit-pencil.png"/>
+                        <ion-input  type="number" [(ngModel)]="personRate" #input1></ion-input>
+                        <div *ngIf="editPerson && displayPersonError" style="color: red;font-size: 10px;" [translate]="'COACHEDIT.Text10'"></div>
+                         <ion-icon name="logo-euro"></ion-icon>
+                       
+                    </div>
+                   
+                </ion-row>
+            </ion-row> -->
+      <ion-row class="gray-row">
+        <b
+          class="main-head"
+          style="font-family: montserrat-medium"
+          [translate]="'COACHEDIT.Text11'"
+          >Cours(s) Proposé(s)
+          <img
+            class="edit-row-icon"
+            (click)="course()"
+            src="assets/images/edit-pencil.png"
+          />
+        </b>
+        <p
+          *ngIf="!editCourse"
+          class="basic-details"
+          style="font-family: montserrat"
+        >
+          {{user.spcat_name}}
+        </p>
+        <ion-input
+          *ngIf="editCourse"
+          type="text"
+          class="input-txt"
+          [(ngModel)]="userDesc2"
+          #courseInput
+        >
+        </ion-input>
+        <div
+          *ngIf="editCourse && displayEmptyError"
+          style="color: red; font-size: 10px"
+          [translate]="'COACHEDIT.Text12'"
+        ></div>
+      </ion-row>
+      <ion-row class="gray-row">
+        <b class="main-head" style="font-family: montserrat-medium"
+          >Description
+          <img
+            class="edit-row-icon"
+            (click)="description()"
+            src="assets/images/edit-pencil.png"
+        /></b>
+        <p
+          *ngIf="!editDescription"
+          class="basic-details"
+          style="font-family: montserrat"
+        >
+          «  {{userDescription}} »
+        </p>
+        <ion-input
+          *ngIf="editDescription"
+          type="text"
+          class="input-txt"
+          [(ngModel)]="userDesc"
+          #descInput
+        >
+        </ion-input>
+        <div
+          *ngIf="editDescription && displayEmptyError"
+          style="color: red; font-size: 10px"
+          [translate]="'COACHEDIT.Text13'"
+        ></div>
+      </ion-row>
+
+      <ion-row
+        *ngIf="user.user_diploma_card=='undefined' || user.user_id_card=='undefined' ||true"
+        style="display: flex; justify-content: center"
+      >
+        <ion-button
+          expand="block"
+          (click)="updateDocs()"
+          style="font-weight: bold"
+        >
+          <ion-icon slot="start" name="warning"></ion-icon>
+          {{'COACHEDIT.Text15'|translate}}
+        </ion-button>
+
+        <!-- <ion-text
+          style="
+            border: solid;
+            border-radius: 5px;
+            padding: 1rem;
+            border-color: rgb(255, 68, 68);
+            width: 100%;
+            text-align: center;
+            color: rgb(240, 0, 0);
+            border-width: 2px;
+          "
+        ></ion-text> -->
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="footer-fixed-tab" *ngIf="footerAction">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

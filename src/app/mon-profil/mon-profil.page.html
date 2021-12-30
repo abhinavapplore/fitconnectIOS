@@ -1,0 +1,307 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar class="top-global-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="creer-evenements"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading uppercaes"
+      [translate]="'MONPROFILE.Text1'"
+    ></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="overall-content">
+    <!-- <div class="overall-content" [routerLink]="['/mon-profil-activite']"
+       routerLinkActive="router-link-active"> -->
+    <div class="top-black-block"></div>
+    <div class="top-header-content">
+      <div class="top-btn-toolbar">
+        <ion-row>
+          <ion-col class="ion-text-left" (click)="openListFollowers()">
+            <div class="social-counterbox">
+              <div
+                *ngIf="!followerList"
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-count"
+              >
+                {{followers}}
+              </div>
+              <div
+                *ngIf="!followerList"
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-counttxt"
+                [translate]="'MONPROFILE.Text2'"
+              ></div>
+              <div
+                *ngIf="followerList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-count"
+              >
+                {{followers}}
+              </div>
+              <div
+                *ngIf="followerList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-counttxt"
+                [translate]="'MONPROFILE.Text2'"
+              ></div>
+            </div>
+            <div *ngIf="followerList" class="arrow-up"></div>
+          </ion-col>
+          <ion-col
+            style="display: flex; flex-direction: row; justify-content: center"
+          >
+            <div class="profile-center">
+              <img *ngIf="!Avatar" src="assets/images/profile-img.png" />
+              <ion-avatar style="height: 100px; width: 100px" *ngIf="Avatar">
+                <ion-img [src]="imgUrl"></ion-img>
+              </ion-avatar>
+              <div class="edit-pencilicon" (click)="presentActionSheet(1)">
+                <img src="assets/images/edit-pencil.png" />
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="ion-text-right" (click)="openListFollowing()">
+            <div class="social-counterbox">
+              <div
+                *ngIf="!followingList"
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-count"
+              >
+                {{following}}
+              </div>
+              <div
+                *ngIf="!followingList"
+                style="font-family: montserrat-medium; font-weight: bold"
+                class="soc-counttxt"
+                [translate]="'MONPROFILE.Text3'"
+              ></div>
+              <div
+                *ngIf="followingList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-count"
+              >
+                {{following}}
+              </div>
+              <div
+                *ngIf="followingList"
+                style="
+                  color: #d3c117;
+                  font-family: montserrat-medium;
+                  font-weight: bold;
+                "
+                class="soc-counttxt"
+                [translate]="'MONPROFILE.Text3'"
+              ></div>
+            </div>
+            <div *ngIf="followingList" class="arrow-up"></div>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            color: #d3c117;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+        >
+          <ion-title
+            style="
+              font-family: montserrat-medium;
+              font-weight: bold;
+              margin-top: 5%;
+            "
+            >{{name | titlecase}}</ion-title
+          >
+        </ion-row>
+        <ion-row
+          style="
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 2%;
+          "
+        >
+          <small style="font-family: montserrat"
+            >{{gender}} - {{age}} <span [translate]="'MONPROFILE.Text4'"></span
+          ></small>
+        </ion-row>
+
+        <div class="top-tabs">
+          <ion-row>
+            <ion-col class="ion-no-padding">
+              <div
+                style="font-family: montserrat-medium"
+                class="tabs-block uppercaes selected-tabs"
+                [translate]="'MONPROFILE.Text5'"
+              ></div>
+            </ion-col>
+            <ion-col class="ion-no-padding" (click)="activity()">
+              <div
+                style="font-family: montserrat-medium"
+                class="tabs-block uppercaes"
+                [translate]="'MONPROFILE.Text6'"
+              ></div>
+            </ion-col>
+            <!-- <ion-col class="ion-no-padding" (click)="reviewPage()">
+              <div
+                style="font-family: montserrat-medium"
+                class="tabs-block uppercaes"
+                [translate]="'MONPROFILE.Text11'"
+              ></div>
+            </ion-col> -->
+          </ion-row>
+        </div>
+      </div>
+    </div>
+    <div class="profile-inner-block">
+      <ion-row class="gray-row">
+        <b class="main-head" style="font-family: montserrat-medium">
+          <span [translate]="'MONPROFILE.Text7'"></span>
+          <div *ngIf="!editPractice" class="head-right-txtwithicon">
+            {{practice}}
+            <img
+              class="edit-row-icon"
+              (click)="sportsPractice()"
+              src="assets/images/edit-pencil.png"
+            />
+          </div>
+          <!-- <div *ngIf="editPractice" class="head-right-txtwithicon">
+            <img class="edit-row-icon" (click)="sportsPractice()" src="assets/images/edit-pencil.png"/>
+            <ion-input  type="text" class="input-txt" [(ngModel)]="editPract"></ion-input>
+            </div> -->
+        </b>
+      </ion-row>
+      <ion-row class="gray-row">
+        <b class="main-head" style="font-family: montserrat-medium">
+          <span [translate]="'MONPROFILE.Text8'"></span>
+          <img
+            class="edit-row-icon"
+            (click)="sportsPlayedFunc()"
+            src="assets/images/edit-pencil.png"
+          />
+        </b>
+        <p *ngIf="!editPlayed" class="basic-details">{{sportsPlayed}}</p>
+        <ion-input
+          *ngIf="editPlayed"
+          type="text"
+          class="input-txt"
+          [(ngModel)]="editPlay"
+        ></ion-input>
+        <div
+          *ngIf="editPlayed && displayEmptyPlayError"
+          style="color: red; font-size: 10px"
+          [translate]="'MONPROFILE.Text9'"
+        ></div>
+      </ion-row>
+      <!-- <ion-row class="gray-row">
+        <b class="main-head" style="font-family: montserrat-medium"
+          >Sports Interest
+        </b>
+        <p>{{sportsInterest}}</p>
+
+        <div
+          *ngIf="editDescription && displayEmptyDescError"
+          style="color: red; font-size: 10px"
+          [translate]="'MONPROFILE.Text10'"
+        ></div>
+      </ion-row> -->
+      <ion-row class="gray-row">
+        <b class="main-head" style="font-family: montserrat-medium"
+          >Description
+          <img
+            class="edit-row-icon"
+            (click)="description()"
+            src="assets/images/edit-pencil.png"
+        /></b>
+        <p *ngIf="!editDescription" class="basic-details">
+          «  {{userDescription}} »
+        </p>
+        <ion-input
+          *ngIf="editDescription"
+          type="text"
+          class="input-txt"
+          [(ngModel)]="userDesc"
+        ></ion-input>
+        <div
+          *ngIf="editDescription && displayEmptyDescError"
+          style="color: red; font-size: 10px"
+          [translate]="'MONPROFILE.Text10'"
+        ></div>
+      </ion-row>
+      <!-- <ion-row class="gray-row">
+        <b class="main-head" style="font-family: montserrat-medium;">Disponibilités
+          <img (click)="editSchedule()" class="edit-row-icon" src="assets/images/edit-pencil.png"/></b>
+        <ion-row class="border-row" *ngFor="let item of disponsibility">
+          <div class="left-bold-head" style="font-family: montserrat;">{{item.name}}</div>
+          <ion-row  class="right-txt" *ngIf="item.Soir==true" style="padding-right: 10px;">
+            Soir
+          </ion-row >
+
+            <ion-row *ngIf="item.Midi==true" class="right-txt" style="padding-right: 10px;">
+              Midi
+            </ion-row>
+            <ion-row class="right-txt" *ngIf="item.Matin==true" style="padding-right: 10px;">
+              Matin
+            </ion-row>
+          
+        </ion-row>
+      
+      </ion-row> -->
+    </div>
+  </div>
+  <!-- </div> -->
+</ion-content>
+
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="rankingDetails()">
+        <img src="assets/rankiconunselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+        <!-- *ngIf="msgValue" -->
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          {{notificationArray}}
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

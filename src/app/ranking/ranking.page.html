@@ -1,0 +1,278 @@
+<ion-header no-border class="header-fixed-top">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="response3"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      style="font-family: montserrat-medium"
+      class="top-fixed-heading"
+      [translate]="'RANKING.Text1'"
+    >
+    </ion-title>
+    <ion-buttons style="display: flex; flex-direction: row-reverse">
+      <img (click)="filterFunc()" src="../../assets/rankfilter.svg" />
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="dataLoaded">
+  <div
+    *ngIf="!allusers.length"
+    style="padding: 4px; font-size: 1.5rem; text-align: center"
+  >
+    No Users Found
+  </div>
+  <ion-row *ngIf="allusers.length>2">
+    <ion-col size="4" (click)="viewProfile(allusers[1])">
+      <ion-row style="display: flex; justify-content: center">
+        <div class="circleleft">
+          <ion-avatar style="height: 90%; width: 90%">
+            <ion-img [src]="allusers[1].user_img"></ion-img>
+          </ion-avatar>
+        </div>
+      </ion-row>
+      <div>
+        <ion-row style="display: flex; justify-content: center">
+          <ion-text style="font-size: 16px">
+            {{allusers[1].user_f_name}}</ion-text
+          >
+        </ion-row>
+        <ion-row style="display: flex; justify-content: center">
+          <div
+            style="
+              height: 28%;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <div style="font-size: 1.2rem">
+              <span *ngFor="let i of [1,2,3,4,5];let i=index">
+                <ion-icon
+                  [ngStyle]="{'color': i>allusers[1].avg_rating?'#acacac':'orange'}"
+                  name="star"
+                ></ion-icon>
+              </span>
+            </div>
+            <!-- d3c117 -->
+            <!-- <rating
+              [rate]="rate"
+              readonly="true"
+              [(ngModel)]="allusers[1].avg_rating"
+              size="small"
+            >
+            
+            </rating> -->
+          </div>
+        </ion-row>
+        <ion-row style="display: flex; justify-content: center">
+          <ion-text
+            style="font-size: 10px; text-align: center"
+            [translate]="'RANKING.Text1'"
+          ></ion-text>
+          <b style="font-size: 10px"> - 2</b>
+        </ion-row>
+      </div>
+    </ion-col>
+    <ion-col size="4" (click)="viewProfile(allusers[0])">
+      <ion-row style="display: flex; justify-content: center">
+        <div class="circle">
+          <ion-avatar style="width: 90%; height: 90%">
+            <ion-img [src]="allusers[0].user_img"></ion-img>
+          </ion-avatar>
+        </div>
+      </ion-row>
+
+      <div>
+        <ion-row style="display: flex; justify-content: center">
+          <ion-text style="font-size: 16px"
+            >{{allusers[0].user_f_name}}</ion-text
+          >
+        </ion-row>
+        <ion-row style="display: flex; justify-content: center">
+          <div
+            style="
+              height: 28%;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <div style="font-size: 1.2rem">
+              <span *ngFor="let i of [1,2,3,4,5];let i=index">
+                <ion-icon
+                  [ngStyle]="{'color': i>allusers[0].avg_rating?'#acacac':'orange'}"
+                  name="star"
+                ></ion-icon>
+              </span>
+            </div>
+
+            <!-- <rating
+              readonly="true"
+              [(ngModel)]="allusers[0].avg_rating"
+              size="small"
+            >
+            </rating> -->
+          </div>
+        </ion-row>
+        <ion-row style="display: flex; justify-content: center">
+          <ion-text
+            style="font-size: 10px; text-align: center"
+            [translate]="'RANKING.Text1'"
+          ></ion-text>
+          <b style="font-size: 10px"> - 1</b>
+        </ion-row>
+      </div>
+    </ion-col>
+    <ion-col size="4" (click)="viewProfile(allusers[2])">
+      <ion-row style="display: flex; justify-content: center">
+        <div class="circleright">
+          <ion-avatar style="height: 90%; width: 90%">
+            <ion-img [src]="allusers[2].user_img"></ion-img>
+          </ion-avatar>
+        </div>
+      </ion-row>
+      <div>
+        <ion-row style="display: flex; justify-content: center">
+          <ion-text style="font-size: 16px">
+            {{allusers[2].user_f_name}}</ion-text
+          >
+        </ion-row>
+        <ion-row style="display: flex; justify-content: center">
+          <div
+            style="
+              height: 28%;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <div style="font-size: 1.2rem">
+              <span *ngFor="let i of [1,2,3,4,5];let i=index">
+                <ion-icon
+                  [ngStyle]="{'color': i>allusers[2].avg_rating?'#acacac':'orange'}"
+                  name="star"
+                ></ion-icon>
+              </span>
+            </div>
+            <!-- <rating
+              [rate]="rate"
+              readonly="true"
+              [(ngModel)]="allusers[2].avg_rating"
+              size="small"
+            >
+            </rating> -->
+          </div>
+        </ion-row>
+        <ion-row style="display: flex; justify-content: center">
+          <ion-text
+            style="font-size: 10px; text-align: center"
+            [translate]="'RANKING.Text1'"
+          ></ion-text>
+          <b style="font-size: 10px"> - 3</b>
+        </ion-row>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-card
+    *ngFor="let user of allusers;let z = index"
+    (click)="viewProfile(user)"
+  >
+    <ion-row *ngIf="z!=0 || z!=1 || z!=2">
+      <ion-col size="4">
+        <ion-avatar style="height: 80px; width: 80px">
+          <!-- <ion-img [src]="user.user_img"></ion-img> -->
+          <img [src]="user.user_img" />
+        </ion-avatar>
+      </ion-col>
+      <ion-col
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        "
+        size="6"
+      >
+        <ion-row>
+          <ion-text style="font-size: 16px">{{user.user_f_name}}</ion-text>
+        </ion-row>
+        <ion-row
+          style="display: flex; justify-content: center"
+          style="margin-top: 20%"
+        >
+          <div style="font-size: 1.2rem">
+            <span *ngFor="let i of [1,2,3,4,5];let i=index">
+              <ion-icon
+                [ngStyle]="{'color': i>user.avg_rating?'#acacac':'orange'}"
+                name="star"
+              ></ion-icon>
+            </span>
+          </div>
+          <!-- <rating
+            size="small"
+            [rate]="rate"
+            readonly="true"
+            [(ngModel)]="user.avg_rating"
+            fontSize="15px"
+          >
+          </rating> -->
+        </ion-row>
+      </ion-col>
+      <ion-col size="2">
+        <ion-row style="display: flex; flex-direction: row-reverse">
+          <ion-text
+            style="display: flex; flex-direction: row-reverse"
+            style="font-size: 10px"
+            [translate]="'RANKING.Text1'"
+          ></ion-text>
+        </ion-row>
+        <ion-row style="display: flex; flex-direction: row-reverse">
+          <ion-text style="font-size: 1.5rem; color: black">
+            <b>{{z+1}}</b></ion-text
+          >
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
+
+<ion-footer class="footer-fixed-tab">
+  <ion-toolbar>
+    <ion-buttons>
+      <div class="footer-btn-tabs" (click)="events()">
+        <img
+          src="assets/images/unselectedlocation.png"
+          class="footer-img-location"
+        />
+      </div>
+
+      <div class="footer-btn-tabs">
+        <img src="assets/rankiconselected.svg" class="footer-img-location" />
+      </div>
+
+      <div class="footer-btn-tabs" (click)="manage()">
+        <img
+          src="assets/images/unselectedcalendar.png"
+          class="footer-img-date"
+        />
+      </div>
+      <div class="footer-btn-tabs" (click)="messages()">
+        <img src="assets/images/unselectedmsg.png" class="footer-img-chat" />
+        <div class="round" *ngIf="this.api.showMessageDot"></div>
+      </div>
+      <div class="footer-btn-tabs" (click)="notifications()">
+        <img
+          src="assets/images/unselectednotification.png"
+          class="footer-img-noti"
+        />
+        <div class="round" *ngIf="this.api.showNotificationDot">
+          <!-- {{notificationArray}} -->
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

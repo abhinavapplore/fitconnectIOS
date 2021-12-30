@@ -1,0 +1,55 @@
+
+  .terms-headersection {
+    color: #ffffff;
+    background: transparent;
+  }
+  .top{position:relative;animation:animatetop 0.4s}@keyframes animatetop{from{top:-50px;opacity:0} to{top:0;opacity:1}}
+  .question-count {
+    color: #D3C117;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px !important;
+  }
+  .question-box-main {
+
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  .options-box {
+    margin: 10px 0px;
+    h3 {
+      margin: 10px 0px;
+      font-size: 20px !important;
+      width: 100%;
+      color: #cccccc;
+      display: inline-block;
+      font-weight: inherit;
+    }
+  }
+  .ans-radiobox
+  {
+    ion-radio
+    {
+      margin-right: 15px;
+    }
+  }
+   
+  ion-content {
+    --background: url('../../assets/login-bg.svg') no-repeat 52% center/cover;
+    text-align: center;
+  }
+
+  ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    }
+
+    ion-row{
+      justify-content: center;
+    }
+
+    .inside{
+      justify-content: space-around !important;
+    }
+   
